@@ -1,7 +1,46 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ABRT</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+<div class="w3-container w3-blue">
+ <h2>ABRT</h2>
+</div>
+
+<form class="w3-container w3-light-grey w3-text-blue" id="form">
+  <h3>Input Form</h3>
+  <div class="w3-row-padding w3-section">
+    <div class="w3-col s3">
+      <input class="w3-input w3-border" name="username" type="text" placeholder="First Name">
+    </div>
+    <div class="w3-col s3">
+      <input class="w3-input w3-border" name="password" type="text" placeholder="Last Name">
+    </div>
+    <div class="w3-col s3">
+      <input class="w3-input w3-border" name="email" type="text" placeholder="Email">
+    </div>
+    <div class="w3-col s3">
+      <input class="w3-input w3-border" name="phone" type="text" placeholder="Phone">
+    </div>
+  </div>
+
+  <div class="w3-row w3-section w3-center">
+    <button type="button" class="w3-btn w3-blue" onclick="start()">Start</button>
+    <button type="button" class="w3-btn w3-blue" onclick="stop()">Stop</button>
+    <button type="button" class="w3-btn w3-blue" onclick="empty()">Clear</button>
+  </div>
+</form>
+
+<div>
+  <textarea id="output" rows="30" style="width:100%"></textarea>
+</div>
+
+</body>
 
 <script type="text/javascript">
     var timer;
@@ -35,7 +74,7 @@
               // "Content-Type": "multipart/form-data",
           //},
       })
-      .then(function(response) { 
+      .then(function(response) {
           return response.text();
       })
       .then(function(text) {
@@ -85,28 +124,4 @@
     function print(text) { document.getElementById("output").value += text; }
     function println(text) { document.getElementById("output").value += text + '\n'; }
 </script>
-</head>
-
-<body>
-
-<form id="form">
-<div>
-  <label>Username:</label>
-  <input type="text" name="username" value="USER" size="30">
-</div>
-
-<div>
-  <label>Password:</label>
-  <input type="text" name="password" value="PASS" size="30">
-</div>
-
-<div>
-  <button type="button" onclick="start()">Start</button>
-  <button type="button" onclick="stop()">Stop</button>
-  <button type="button" onclick="empty()">Clear</button>
-</div>
-</form>
-
-<textarea id="output" rows="40" style="width:100%"></textarea>
-</body>
 </html>
