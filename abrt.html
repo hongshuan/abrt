@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta charset=utf-8>
+<title>ABRT</title>
+
+<script type="text/javascript">
+    var timer;
+
+    function autoSubmit(){
+      if (document.getElementById("autosubmit").checked) {
+        setTimeout(function(){ submitForm(); }, 300);
+      }
+    }
+
+    function submitForm(){
+      var tracking = document.getElementById('tracking').value.trim();
+      if (tracking.length > 9) {
+        document.forms["form1"].submit();
+      }
+    }
+
+    function query() {
+      var url = "http://192.168.0.116/dataExchange/core/ttt.php";
+
+      //const data = new URLSearchParams();
+      //for (const pair of new FormData(document.getElementById("form"))) {
+      //    data.append(pair[0], pair[1]);
+      //}
+
+      fetch(url, {
+          method: "POST",
+          body: new FormData(document.getElementById("form")),
+          //headers: {
+              //"Content-Type": "application/x-www-form-urlencoded",
+              // "Content-Type": "multipart/form-data",
+          //},
+      })
+      .then(function(response) { 
+          return response.text();
+      })
+      .then(function(text) {
+          //println(text)
+
+          //  https://stackoverflow.com/questions/9598791/create-a-dom-document-from-string-without-jquery
+          var doctype = document.implementation.createDocumentType(
+              'html',
+              '-//W3C//DTD XHTML 1.0 Strict//EN',
+              'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'
+          );
+
+          var dom = document.implementation.createDocument(
+              'http://www.w3.org/1999/xhtml',
+              'html',
+              doctype
+          );
+
+          dom.documentElement.innerHTML = text;
+
+          var uk = dom.querySelector("#username .key").innerHTML;
+          var uv = dom.querySelector("#username .val").innerHTML;
+
+          var pk = dom.querySelector("#password .key").innerHTML;
+          var pv = dom.querySelector("#password .val").innerHTML;
+
+          println(uk + '=' + uv);
+          println(pk + '=' + pv);
+      })
+    }
+
+    function start() {
+        if (timer) {
+            clearInterval(timer);
+        }
+        timer = setInterval(query, 1000);
+        println('Start');
+    }
+
+    function stop() {
+        clearInterval(timer);
+        timer = null;
+        println('Stop');
+    }
+
+    function empty() { document.getElementById("output").value = ''; }
+    function print(text) { document.getElementById("output").value += text; }
+    function println(text) { document.getElementById("output").value += text + '\n'; }
+</script>
+</head>
+
+<body>
+
+<form id="form">
+<div>
+  <label>Username:</label>
+  <input type="text" name="username" value="USER" size="30">
+</div>
+
+<div>
+  <label>Password:</label>
+  <input type="text" name="password" value="PASS" size="30">
+</div>
+
+<div>
+  <button type="button" onclick="start()">Start</button>
+  <button type="button" onclick="stop()">Stop</button>
+  <button type="button" onclick="empty()">Clear</button>
+</div>
+</form>
+
+<textarea id="output" rows="40" style="width:100%"></textarea>
+</body>
+</html>
