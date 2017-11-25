@@ -1,0 +1,91 @@
+POST https://drivetest.ca/booking/v1/status
+dmid	d42e83fc-3dbc-481e-96b1-739ab27c1678
+JSESSIONID	249B5764931A5721F4E3FABA86E7A5B5
+auditLogToken	8xkb7UZDJOqeiepIST9QfoH5CQpsU95GTzpWWjVDA2s+tQ38mVdnKuDqeWJPz2w5vuNv/ggKqrimkmLFlo3A0YHKueLA57eN61T4sdH8tlTFbSrAmL3nNhBMnXpn3RmoOzmf/cQ8JCyP413M/M19mnNeYRPsJJVrXUbkpVq3uLBmm/NJhHwR7G2NQy+/Nd95OM8rgqz6m+poyMpomWroLlb+MKZClEOyzOfng75Qz9rHbhgarKW6sgnEy4SICLcM
+token	r1V3rs5n0eqo4lTC1jq1nv53Q2/FsrokXnq29pM2C+7SinOWTbX4x7xrCoFmFYJRA73AnV44rMCBj941IZrb3U3tQUq9YIXULj95MmLvg+X4KKUEB170Z4lZE5jMMi6xqsqL9VQnN7dTc2BI+ugIBE7GH7BXybPMI2i7Iw1Gk+6Q6tNMlSdH6s+VCQbgR00vuEM0pX5Trx18TRNzBcoGThWQ7RVWdILtCeG7hQ58rOglFL9eBCTElZuUCrYWwekS
+
+licenceNumber	A9650-01507-25731
+
+{"statusToken":"78a4abea-164b-489c-90e5-cec1f7f726c9"}
+
+POST https://drivetest.ca/booking/v1/status
+dmid	d42e83fc-3dbc-481e-96b1-739ab27c1678
+JSESSIONID	249B5764931A5721F4E3FABA86E7A5B5
+auditLogToken	8xkb7UZDJOqeiepIST9QfoH5CQpsU95GTzpWWjVDA2s+tQ38mVdnKuDqeWJPz2w5vuNv/ggKqrimkmLFlo3A0YHKueLA57eN61T4sdH8tlTFbSrAmL3nNhBMnXpn3RmoOzmf/cQ8JCyP413M/M19mnNeYRPsJJVrXUbkpVq3uLBmm/NJhHwR7G2NQy+/Nd95OM8rgqz6m+poyMpomWroLlb+MKZClEOyzOfng75Qz9rHbhgarKW6sgnEy4SICLcM
+token	r1V3rs5n0eqo4lTC1jq1nv53Q2/FsrokXnq29pM2C+7SinOWTbX4x7xrCoFmFYJRA73AnV44rMCBj941IZrb3U3tQUq9YIXULj95MmLvg+X4KKUEB170Z4lZE5jMMi6xqsqL9VQnN7dTc2BI+ugIBE7GH7BXybPMI2i7Iw1Gk+6Q6tNMlSdH6s+VCQbgR00vuEM0pX5Trx18TRNzBcoGThWQ7RVWdILtCeG7hQ58rOglFL9eBCTElZuUCrYWwekS
+
+licenceNumber	A9650-01507-25731
+
+{"statusToken":"d71fb0f9-ef4b-4378-8088-9683ac52c659"}
+
+GET https://drivetest.ca/booking/v1/booking/12694?month=11&year=2017
+
+{"availableBookingDates":[
+{"day":1,"density":4,"description":"UNAVAILABLE"},
+{"day":2,"density":4,"description":"UNAVAILABLE"},
+{"day":3,"density":4,"description":"UNAVAILABLE"},
+{"day":4,"density":4,"description":"UNAVAILABLE"},
+{"day":5,"density":4,"description":"UNAVAILABLE"},
+{"day":6,"density":4,"description":"UNAVAILABLE"},
+{"day":7,"density":4,"description":"UNAVAILABLE"},
+{"day":8,"density":4,"description":"UNAVAILABLE"},
+{"day":9,"density":4,"description":"UNAVAILABLE"},
+{"day":10,"density":4,"description":"UNAVAILABLE"},
+{"day":11,"density":4,"description":"UNAVAILABLE"},
+{"day":12,"density":4,"description":"UNAVAILABLE"},
+{"day":13,"density":4,"description":"UNAVAILABLE"},
+{"day":14,"density":4,"description":"UNAVAILABLE"},
+{"day":15,"density":4,"description":"UNAVAILABLE"},
+{"day":16,"density":4,"description":"UNAVAILABLE"},
+{"day":17,"density":4,"description":"UNAVAILABLE"},
+{"day":18,"density":4,"description":"UNAVAILABLE"},
+{"day":19,"density":4,"description":"UNAVAILABLE"},
+{"day":20,"density":4,"description":"UNAVAILABLE"},
+{"day":21,"density":4,"description":"UNAVAILABLE"},
+{"day":22,"density":4,"description":"UNAVAILABLE"},
+{"day":23,"density":4,"description":"UNAVAILABLE"},
+{"day":24,"density":4,"description":"UNAVAILABLE"},
+{"day":25,"density":4,"description":"UNAVAILABLE"},
+{"day":26,"density":4,"description":"UNAVAILABLE"},
+{"day":27,"density":3,"description":"FULL"},
+{"day":28,"density":3,"description":"FULL"},
+{"day":29,"density":3,"description":"FULL"},
+{"day":30,"density":3,"description":"FULL"}
+]}
+
+GET https://drivetest.ca/booking/v1/booking/12694?month=12&year=2017
+
+{"availableBookingDates":[
+{"day":1,"density":3,"description":"FULL"},
+{"day":2,"density":4,"description":"UNAVAILABLE"},
+{"day":3,"density":4,"description":"UNAVAILABLE"},
+{"day":4,"density":3,"description":"FULL"},
+{"day":5,"density":3,"description":"FULL"},
+{"day":6,"density":3,"description":"FULL"},
+{"day":7,"density":3,"description":"FULL"},
+{"day":8,"density":3,"description":"FULL"},
+{"day":9,"density":4,"description":"UNAVAILABLE"},
+{"day":10,"density":4,"description":"UNAVAILABLE"},
+{"day":11,"density":3,"description":"FULL"},
+{"day":12,"density":3,"description":"FULL"},
+{"day":13,"density":3,"description":"FULL"},
+{"day":14,"density":3,"description":"FULL"},
+{"day":15,"density":3,"description":"FULL"},
+{"day":16,"density":4,"description":"UNAVAILABLE"},
+{"day":17,"density":4,"description":"UNAVAILABLE"},
+{"day":18,"density":3,"description":"FULL"},
+{"day":19,"density":3,"description":"FULL"},
+{"day":20,"density":3,"description":"FULL"},
+{"day":21,"density":3,"description":"FULL"},
+{"day":22,"density":3,"description":"FULL"},
+{"day":23,"density":4,"description":"UNAVAILABLE"},
+{"day":24,"density":4,"description":"UNAVAILABLE"},
+{"day":25,"density":4,"description":"UNAVAILABLE"},
+{"day":26,"density":4,"description":"UNAVAILABLE"},
+{"day":27,"density":3,"description":"FULL"},
+{"day":28,"density":3,"description":"FULL"},
+{"day":29,"density":3,"description":"FULL"},
+{"day":30,"density":4,"description":"UNAVAILABLE"},
+{"day":31,"density":4,"description":"UNAVAILABLE"}
+]}
+
