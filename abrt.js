@@ -79,3 +79,13 @@ function stop() {
 function empty() { document.getElementById("output").innerHTML = ''; }
 function print(text) { document.getElementById("output").innerHTML += text; }
 function println(text) { print(text + '<br>'); }
+function beep() {
+    playSound('beep.wav');
+}
+function sound() {
+    playSound('NokiaEpic.mp3');
+}
+function playSound(file) {
+    var audio = new Audio('webres/' + file);
+    audio.play();
+}
