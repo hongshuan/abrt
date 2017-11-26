@@ -7,8 +7,6 @@
 <title>ABRT</title>
 <link rel="stylesheet" href="webres/w3.css">
 <link rel="stylesheet" href="webres/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="webres/pickadate/themes/classic.css">
-<link rel="stylesheet" href="webres/pickadate/themes/classic.date.css">
 <style>
   body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 </style>
@@ -42,27 +40,24 @@
 <!-- page content -->
 <div class="w3-main w3-white" style="margin-left:260px">
   <div class="w3-container">
-    <h3 class="w3-text-blue">Logger</h3>
+    <div class="w3-bar">
+      <div class="w3-bar-item"><h4 class="w3-text-blue">Logger</h4></div>
+      <div class="w3-bar-item w3-right"><button type="button" class="w3-blue" id="clear">Clear</button></div>
+    </div>
     <div id="output" class="w3-border" style="width:100%; height:20em;"></div>
   </div>
 
   <div class="w3-container">
-    <h3 class="w3-text-blue">Messages</h3>
+    <div class="w3-bar">
+      <div class="w3-bar-item"><h4 class="w3-text-blue">Messages</h4></div>
+      <div class="w3-bar-item w3-right"><button type="button" class="w3-blue" id="clear">Clear</button></div>
+    </div>
     <div id="logger" class="w3-border" style="width:100%; height:20em;"></div>
   </div>
 </div>
 <!-- End page content -->
 
 <script src="abrt.js"></script>
-<script src="webres/jquery-2.1.0.min.js"></script>
-<script src="webres/pickadate/picker.js"></script>
-<script src="webres/pickadate/picker.date.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.datepicker').pickadate({format: 'yyyy-mm-dd'});
-    });
-</script>
 
 </body>
 </html>
