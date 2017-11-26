@@ -1,17 +1,8 @@
 var timer;
 
-function autoSubmit(){
-  if (document.getElementById("autosubmit").checked) {
-    setTimeout(function(){ submitForm(); }, 300);
-  }
-}
-
-function submitForm(){
-  var tracking = document.getElementById('tracking').value.trim();
-  if (tracking.length > 9) {
-    document.forms["form1"].submit();
-  }
-}
+document.getElementById("start").addEventListener("click", start);
+document.getElementById("stop").addEventListener("click", stop);
+document.getElementById("clear").addEventListener("click", empty);
 
 function query() {
   var url = "http://www.play.dev/ttt.php";
