@@ -71,6 +71,7 @@ function start() {
 }
 
 function stop() {
+    beep();
     clearInterval(timer);
     timer = null;
     println('Stop');
