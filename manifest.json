@@ -6,7 +6,8 @@
 
     "applications": {
         "gecko": {
-            "strict_min_version": "57.0a1"
+            "strict_min_version": "57.0a1",
+            "id": "abrt.lihsca@gmail.com"
         }
     },
 
