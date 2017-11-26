@@ -1,0 +1,34 @@
+{
+    "name": "Auto Book Road Test",
+    "description": "Auto Book A Road Test",
+    "manifest_version": 2,
+    "version": "1.0",
+
+    "applications": {
+        "gecko": {
+            "strict_min_version": "57.0a1"
+        }
+    },
+
+    "browser_action": {
+        "default_title": "ABRT",
+        "default_icon": "icon.svg"
+    },
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["content-script.js"]
+    }],
+
+    "icons": {
+        "48": "icon.svg"
+    },
+
+    "permissions": [
+        "tabs"
+    ]
+}
