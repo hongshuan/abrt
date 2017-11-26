@@ -12,7 +12,7 @@
 
     "browser_action": {
         "default_title": "ABRT",
-        "default_icon": "icon.svg"
+        "default_icon": "webres/icon.svg"
     },
 
     "background": {
@@ -25,7 +25,7 @@
     }],
 
     "icons": {
-        "48": "icon.svg"
+        "48": "webres/icon.svg"
     },
 
     "permissions": [
