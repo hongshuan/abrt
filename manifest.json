@@ -26,7 +26,8 @@
     }],
 
     "icons": {
-        "48": "webres/icon.svg"
+        "48": "webres/icon-48.png",
+        "96": "webres/icon-96.png"
     },
 
     "permissions": [
