@@ -10,6 +10,11 @@ const LINDSAY = 12577;
 
 function getAvailBookingDates(date, testCenter) {
 
+    var dateParts = date.split('-');
+    var year = dateParts[0];
+    var month = dateParts[1];
+    var day = dateParts[2];
+
     var url = "https://drivetest.ca/booking/v1/booking/" + testCenter + "?month=" + month + "&year=" + year;
 
     fetch(url, { method: "GET" })
@@ -49,12 +54,12 @@ function getStatusToken(licenseNum) {
         method: "POST",
         body: JSON.stringify({ licenseNumber: licenseNum })
     })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(json) {
-            println(json.statusToken);
-        })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        println(json.statusToken);
+    })
 }
 
 function hold(testCenter, time, level) {
@@ -69,34 +74,35 @@ function hold(testCenter, time, level) {
             frenchTest: false
         })
     })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(json) {
-            println(json.success);
-        })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        println(json.success);
+    })
 }
 
 function query() {
-    /*
     var licenseNum = document.getElementById("licensenum").value;
     var testCenter = document.getElementById("testcenter").value;
     var testDate   = document.getElementById("testdate").value;
     var testLevel  = document.querySelector('input[name="testlevel"]:checked').value;
-
+    /*
     println("License=" + licenseNum);
     println("TestCenter=" + testCenter);
     println("TestDate=" + testDate);
     println("TestLevel=" + testLevel);
     */
+    getAvailBookingDates(testDate, testCenter);
 }
 
 function start() {
-    if (timer) {
-        clearInterval(timer);
-    }
-    timer = setInterval(query, 1000);
+    //if (timer) {
+    //    clearInterval(timer);
+    //}
+    //timer = setInterval(query, 1000);
     println('Start');
+    query();
 }
 
 function stop() {
