@@ -116,9 +116,9 @@ function print(text) { document.getElementById("output").innerHTML += text; }
 function println(text) { print(text + '<br>'); }
 
 function empty() { document.getElementById("messages").innerHTML = ''; }
-function show(text) { document.getElementById("messages").innerHTML += text; }
-function showln(text) { show(text + '<br>'); }
+function write(text) { document.getElementById("messages").innerHTML += text; }
+function writeln(text) { show(text + '<br>'); }
 
 function beep() { playSound('beep.wav'); }
 function sound() { playSound('NokiaEpic.mp3'); }
-function playSound(file) { var audio = new Audio('webres/' + file); audio.play(); }
+function playSound(file) { var audio = new Audio('/webres/' + file); audio.play(); }
