@@ -13,7 +13,7 @@
 
     "browser_action": {
         "default_title": "ABRT",
-        "default_icon": "webres/icon.svg"
+        "default_icon": "webres/icon-48.png"
     },
 
     "background": {
