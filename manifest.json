@@ -17,12 +17,12 @@
     },
 
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["background/background.js"]
     },
 
     "content_scripts": [{
-        "matches": ["<all_urls>"],
-        "js": ["content-script.js"]
+        "matches": ["*//drivetest.ca/*"],
+        "js": ["content/content-script.js"]
     }],
 
     "icons": {
