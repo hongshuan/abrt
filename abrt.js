@@ -8,75 +8,77 @@ document.getElementById("empty").addEventListener("click", empty);
 const OSHWA   = 12694;
 const LINDSAY = 12577;
 
-function getAvailBookingDates() {
-  var url = "https://drivetest.ca/booking/v1/booking/" + testCenter + "?month=" + month + "&year=" + year;
+function getAvailBookingDates(date, testCenter) {
 
-  fetch(url, { method: "GET" })
-  .then(function(response) {
-      return response.json();
-  })
-  .then(function(json) {
-      for (var i = 0; i < json.availableBookingDates.length; i++) {
-          var abd = obj.availableBookingDates[i];
-          if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
-              //continue;
-          }
-          println(abd.day + ' ' + abd.description);
-      }
-  })
+    var url = "https://drivetest.ca/booking/v1/booking/" + testCenter + "?month=" + month + "&year=" + year;
+
+    fetch(url, { method: "GET" })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(json) {
+            for (var i = 0; i < json.availableBookingDates.length; i++) {
+                var abd = obj.availableBookingDates[i];
+                if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
+                    //continue;
+                }
+                println(abd.day + ' ' + abd.description);
+            }
+        })
 }
 
 function getAvailBookingTimes(date, testCenter) {
-  var url = "https://drivetest.ca/booking/v1/booking?date=" + date + "&is=" + testCenter;
+    var url = "https://drivetest.ca/booking/v1/booking?date=" + date + "&is=" + testCenter;
 
-  fetch(url, { method: "GET" })
-  .then(function(response) {
-      return response.json();
-  })
-  .then(function(json) {
-      for (var i = 0; i < json.availableBookingTimes.length; i++) {
-          var abt = obj.availableBookingTimes[i];
-          println(date + ' ' + abt.timeslot);
-      }
-  })
+    fetch(url, { method: "GET" })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(json) {
+            for (var i = 0; i < json.availableBookingTimes.length; i++) {
+                var abt = obj.availableBookingTimes[i];
+                println(date + ' ' + abt.timeslot);
+            }
+        })
 }
 
 function getStatusToken(licenseNum) {
-  var url = "https://drivetest.ca/booking/v1/status";
+    var url = "https://drivetest.ca/booking/v1/status";
 
-  fetch(url, {
-      method: "POST",
-      body: JSON.stringify({ licenseNumber: licenseNum })
-  })
-  .then(function(response) {
-      return response.json();
-  })
-  .then(function(json) {
-      println(json.statusToken);
-  })
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ licenseNumber: licenseNum })
+    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(json) {
+            println(json.statusToken);
+        })
 }
 
 function hold(testCenter, time, level) {
-  var url = "https://drivetest.ca/booking/v1/booking/hold";
+    var url = "https://drivetest.ca/booking/v1/booking/hold";
 
-  fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-          serviceId: textCenter,
-          time: time,
-          licenceClass: level,
-          frenchTest: false
-      })
-  })
-  .then(function(response) {
-      return response.json();
-  })
-  .then(function(json) {
-      println(json.success);
-  })
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+            serviceId: textCenter,
+            time: time,
+            licenceClass: level,
+            frenchTest: false
+        })
+    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(json) {
+            println(json.success);
+        })
 }
 
 function query() {
+    /*
     var licenseNum = document.getElementById("licensenum").value;
     var testCenter = document.getElementById("testcenter").value;
     var testDate   = document.getElementById("testdate").value;
@@ -86,6 +88,7 @@ function query() {
     println("TestCenter=" + testCenter);
     println("TestDate=" + testDate);
     println("TestLevel=" + testLevel);
+    */
 }
 
 function start() {
