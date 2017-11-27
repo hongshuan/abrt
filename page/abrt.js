@@ -86,12 +86,12 @@ function query() {
     var licenseNum = document.getElementById("licensenum").value;
     var testCenter = document.getElementById("testcenter").value;
     var testDate   = document.getElementById("testdate").value;
-    var testLevel  = document.querySelector('input[name="testlevel"]:checked').value;
+    var testClass  = document.querySelector('input[name="testclass"]:checked').value;
     /*
     println("License=" + licenseNum);
     println("TestCenter=" + testCenter);
     println("TestDate=" + testDate);
-    println("TestLevel=" + testLevel);
+    println("TestClass=" + testClass);
     */
     getAvailBookingDates(testDate, testCenter);
 }
