@@ -5,7 +5,7 @@ document.getElementById("stop").addEventListener("click", stop);
 document.getElementById("clear").addEventListener("click", clear);
 document.getElementById("empty").addEventListener("click", empty);
 
-const OSHWA   = 12694;
+const OSHAWA  = 12694;
 const LINDSAY = 12577;
 
 function getAvailBookingDates(date, testCenter) {
