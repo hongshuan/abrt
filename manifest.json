@@ -21,7 +21,7 @@
     },
 
     "content_scripts": [{
-        "matches": ["*//drivetest.ca/book-a-road-test/booking.html"],
+        "matches": ["*://drivetest.ca/book-a-road-test/booking.html"],
         "js": ["content/script.js"]
     }],
 
