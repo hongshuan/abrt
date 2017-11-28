@@ -64,7 +64,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
     })
     .then(function(json) {
         for (var i = 0; i < json.availableBookingDates.length; i++) {
-            var abd = obj.availableBookingDates[i];
+            var abd = json.availableBookingDates[i];
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
                 //continue;
             }
@@ -91,7 +91,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
     })
     .then(function(json) {
         for (var i = 0; i < json.availableBookingTimes.length; i++) {
-            var abt = obj.availableBookingTimes[i];
+            var abt = json.availableBookingTimes[i];
             console.log(date + ' ' + abt.timeslot);
         }
     })
