@@ -22,3 +22,6 @@ function notifyExtension(e) {
  */
 window.addEventListener("click", notifyExtension);
 
+console.log('--injected--');
+console.log(getServiceId('Oshawa', 'G'));
+getAvailBookingDates('2017-11-29', 'Oshawa', 'G');

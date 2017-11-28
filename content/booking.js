@@ -25,10 +25,10 @@ function getAvailBookingDates(date, testCenter, testClass) {
     var month = dateParts[1];
     var day = dateParts[2];
 
-    var serviceId = getServiceId(testCenter, testClass);
+    var svcid = getServiceId(testCenter, testClass);
 
-    var url = "https://drivetest.ca/booking/v1/booking/" + serviceId + "?month=" + month + "&year=" + year;
-
+    var url = "https://drivetest.ca/booking/v1/booking/" + svcid + "?month=" + month + "&year=" + year;
+console.log(url);
     fetch(url, { method: "GET" })
         .then(function(response) {
             return response.json();
@@ -46,9 +46,9 @@ function getAvailBookingDates(date, testCenter, testClass) {
 
 function getAvailBookingTimes(date, testCenter, testClass) {
 
-    var serviceId = getServiceId(testCenter, testClass);
+    var svcid = getServiceId(testCenter, testClass);
 
-    var url = "https://drivetest.ca/booking/v1/booking?date=" + date + "&is=" + serviceId;
+    var url = "https://drivetest.ca/booking/v1/booking?date=" + date + "&is=" + svcid;
 
     fetch(url, { method: "GET" })
         .then(function(response) {
@@ -80,12 +80,12 @@ function getStatusToken(licenseNum) {
 function holdBooking(testCenter, testClass, time) {
     var url = "https://drivetest.ca/booking/v1/booking/hold";
 
-    var serviceId = getServiceId(testCenter, testClass);
+    var svcid = getServiceId(testCenter, testClass);
 
     fetch(url, {
         method: "POST",
         body: JSON.stringify({
-            serviceId: serviceId,
+            serviceId: svcid,
             time: time,
             licenceClass: testClass,
             frenchTest: false
