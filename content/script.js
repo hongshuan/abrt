@@ -54,23 +54,26 @@ function getAvailBookingDates(date, testCenter, testClass) {
 
     var url = "https://drivetest.ca/booking/v1/booking/" + svcid + "?month=" + month + "&year=" + year;
 
-    fetch(url, { method: "GET" })
-        .then(function(response) {
-            console.log(response);
-            return response.json();
-        })
-        .then(function(json) {
-            for (var i = 0; i < json.availableBookingDates.length; i++) {
-                var abd = obj.availableBookingDates[i];
-                if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
-                    //continue;
-                }
-                console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+    fetch(url, {
+        method: "GET",
+        credentials: "same-origin"
+    })
+    .then(function(response) {
+        console.log(response);
+        return response.json();
+    })
+    .then(function(json) {
+        for (var i = 0; i < json.availableBookingDates.length; i++) {
+            var abd = obj.availableBookingDates[i];
+            if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
+                //continue;
             }
-        })
-        .catch(function(error) {
-            console.log('Error on getAvailBookingDates: ' + error.message);
-        });
+            console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+        }
+    })
+    .catch(function(error) {
+        console.log('Error on getAvailBookingDates: ' + error.message);
+    });
 }
 
 function getAvailBookingTimes(date, testCenter, testClass) {
@@ -79,19 +82,22 @@ function getAvailBookingTimes(date, testCenter, testClass) {
 
     var url = "https://drivetest.ca/booking/v1/booking?date=" + date + "&is=" + svcid;
 
-    fetch(url, { method: "GET" })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(json) {
-            for (var i = 0; i < json.availableBookingTimes.length; i++) {
-                var abt = obj.availableBookingTimes[i];
-                console.log(date + ' ' + abt.timeslot);
-            }
-        })
-        .catch(function(error) {
-            console.log('Error on getAvailBookingTimes: ' + error.message);
-        });
+    fetch(url, {
+        method: "GET",
+        credentials: "same-origin"
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        for (var i = 0; i < json.availableBookingTimes.length; i++) {
+            var abt = obj.availableBookingTimes[i];
+            console.log(date + ' ' + abt.timeslot);
+        }
+    })
+    .catch(function(error) {
+        console.log('Error on getAvailBookingTimes: ' + error.message);
+    });
 }
 
 function getStatusToken(licenseNum) {
@@ -99,6 +105,7 @@ function getStatusToken(licenseNum) {
 
     fetch(url, {
         method: "POST",
+        credentials: "same-origin",
         body: JSON.stringify({ licenseNumber: licenseNum })
     })
     .then(function(response) {
@@ -119,6 +126,7 @@ function holdBooking(testCenter, testClass, time) {
 
     fetch(url, {
         method: "POST",
+        credentials: "same-origin",
         body: JSON.stringify({
             serviceId: svcid,
             time: time,
