@@ -35,6 +35,8 @@
     },
 
     "permissions": [
-        "tabs"
+        "tabs",
+        "webRequest",
+        "<all_urls>"
     ]
 }

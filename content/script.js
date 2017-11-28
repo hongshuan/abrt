@@ -49,12 +49,14 @@ function getAvailBookingDates(date, testCenter, testClass) {
     var month = dateParts[1];
     var day = dateParts[2];
 
+    // serviceId is not working, don't know why?
     var svcid = getServiceId(testCenter, testClass);
 
     var url = "https://drivetest.ca/booking/v1/booking/" + svcid + "?month=" + month + "&year=" + year;
-console.log(url);
+
     fetch(url, { method: "GET" })
         .then(function(response) {
+            console.log(response);
             return response.json();
         })
         .then(function(json) {
@@ -66,6 +68,9 @@ console.log(url);
                 console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
             }
         })
+        .catch(function(error) {
+            console.log('Error on getAvailBookingDates: ' + error.message);
+        });
 }
 
 function getAvailBookingTimes(date, testCenter, testClass) {
@@ -84,6 +89,9 @@ function getAvailBookingTimes(date, testCenter, testClass) {
                 console.log(date + ' ' + abt.timeslot);
             }
         })
+        .catch(function(error) {
+            console.log('Error on getAvailBookingTimes: ' + error.message);
+        });
 }
 
 function getStatusToken(licenseNum) {
@@ -99,6 +107,9 @@ function getStatusToken(licenseNum) {
     .then(function(json) {
         console.log(json.statusToken);
     })
+    .catch(function(error) {
+        console.log('Error on getStatusToken: ' + error.message);
+    });
 }
 
 function holdBooking(testCenter, testClass, time) {
@@ -121,6 +132,9 @@ function holdBooking(testCenter, testClass, time) {
     .then(function(json) {
         console.log(json.success);
     })
+    .catch(function(error) {
+        console.log('Error on holdBooking: ' + error.message);
+    });
 }
 
 console.log('--injected--');
