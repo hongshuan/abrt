@@ -25,8 +25,7 @@
             "*://drivetest.ca/book-a-road-test/booking.html"
         ],
         "js": [
-            "content/script.js",
-            "content/booking.js"
+            "content/script.js"
         ]
     }],
 
