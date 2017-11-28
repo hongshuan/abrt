@@ -1,20 +1,9 @@
 /**
- * If the click was on a link, send a message to the background page.
- * The message contains the link's URL.
+ * Send a message to the background page.
  */
 function notifyExtension(e) {
-  var target = e.target;
-
-  while ((target.tagName != "A" || !target.href) && target.parentNode) {
-    target = target.parentNode;
-  }
-
-  if (target.tagName != "A") {
-    return;
-  }
-
   console.log("content script sending message");
-  browser.runtime.sendMessage({"url": target.href});
+  browser.runtime.sendMessage({"url": "clicked"});
 }
 
 /**
@@ -22,6 +11,28 @@ function notifyExtension(e) {
  */
 window.addEventListener("click", notifyExtension);
 
+var timer;
+
+function start() {
+    if (timer) {
+        clearInterval(timer);
+    }
+    timer = setInterval(query, 1000);
+    query();
+}
+
+function stop() {
+    clearInterval(timer);
+    timer = null;
+}
+
+function query() {
+    console.log("executing query...");
+}
+
+/**
+ * call API
+ */
 function getServiceId(centerName, testClass) {
     var centers = {
         Oshawa: {

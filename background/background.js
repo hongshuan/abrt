@@ -1,3 +1,6 @@
+/**
+ * open ABRT page when user click browser toolbar icon
+ */
 browser.browserAction.onClicked.addListener(() => {
   //browser.tabs.create({ url: "abrt.html" });
     browser.tabs.create({
@@ -7,22 +10,24 @@ browser.browserAction.onClicked.addListener(() => {
 
 /**
  * Log that we received the message.
- * Then display a notification. The notification contains the URL,
- * which we read from the message.
  */
 function notify(message) {
-  console.log("background script received message");
-  var title = browser.i18n.getMessage("notificationTitle");
-  var content = browser.i18n.getMessage("notificationContent", message.url);
-  browser.notifications.create({
-    "type": "basic",
-    "iconUrl": browser.extension.getURL("icons/link-48.png"),
-    "title": title,
-    "message": content
-  });
+  console.log("background script received message", message);
 }
 
 /**
  * Assign `notify()` as a listener to messages from the content script.
  */
 browser.runtime.onMessage.addListener(notify);
+
+var licenseNum;
+var testCenter;
+var testDate;
+var testClass;
+
+function setBookingInfo(license, center, date, cls) {
+    licenseNum = license;
+    testCenter = center;
+    testDate   = date;
+    testClass  = cls;
+}
