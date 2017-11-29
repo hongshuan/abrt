@@ -16,14 +16,7 @@ function start() {
     var testDate   = document.getElementById("testdate").value;
     var testClass  = document.querySelector('input[name="testclass"]:checked').value;
 
-    /*
-    println("License=" + licenseNum);
-    println("TestCenter=" + testCenter);
-    println("TestDate=" + testDate);
-    println("TestClass=" + testClass);
-    */
-
-    console.log(backgroundPage);
+    // console.log(backgroundPage);
     backgroundPage.setCallbacks(writeln, println);
     backgroundPage.start(licenseNum, testCenter, testDate, testClass);
 }
