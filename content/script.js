@@ -1,15 +1,21 @@
 /**
- * Send a message to the background page.
+ * connects to the background script, and stores the Port in a variable myPort
  */
-function notifyExtension(e) {
-  console.log("content script sending message");
-  browser.runtime.sendMessage({"url": "clicked"});
-}
+var myPort = browser.runtime.connect({name:"port-from-cs"});
+myPort.postMessage({greeting: "hello from content script"});
 
 /**
- * Add notifyExtension() as a listener to click events.
+ * listens for messages on myPort, and logs them
  */
-window.addEventListener("click", notifyExtension);
+myPort.onMessage.addListener(function(m) {
+    console.log("In content script, received message from background script: ");
+    console.log(m.greeting);
+});
+
+/**
+ * sends messages to the background script, using myPort
+ */
+// myPort.postMessage({greeting: "they clicked the page!"});
 
 var timer;
 
@@ -130,7 +136,7 @@ function getStatusToken(licenseNum) {
     });
 }
 
-function holdBooking(testCenter, testClass, time) {
+function holdAppointment(testCenter, testClass, time) {
     var url = "https://drivetest.ca/booking/v1/booking/hold";
 
     var svcid = getServiceId(testCenter, testClass);
@@ -152,7 +158,7 @@ function holdBooking(testCenter, testClass, time) {
         console.log(json.success);
     })
     .catch(function(error) {
-        console.log('Error on holdBooking: ' + error.message);
+        console.log('Error on holdAppointment: ' + error.message);
     });
 }
 

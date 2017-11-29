@@ -6,17 +6,6 @@ document.getElementById("stop").addEventListener("click", stop);
 document.getElementById("clear").addEventListener("click", clear);
 document.getElementById("empty").addEventListener("click", empty);
 
-function handleMessage(request, sender, response) {
-    // Handle responses coming back from the background page.
-    if (request.msg === "output") {
-    }
-    if (request.msg === "message") {
-        // List out responses from the background page as they come in.
-    }
-}
-
-browser.runtime.onMessage.addListener(handleMessage);
-
 function start() {
     println('Start');
 
@@ -33,6 +22,7 @@ function start() {
     */
 
     var backgroundPage = browser.extension.getBackgroundPage();
+    // console.log(backgroundPage);
     backgroundPage.setBookingInfo(licenseNum, testCenter, testDate, testClass);
 
     // TODO: connect to content script?

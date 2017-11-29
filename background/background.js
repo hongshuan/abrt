@@ -8,18 +8,6 @@ browser.browserAction.onClicked.addListener(() => {
     });
 });
 
-/**
- * Log that we received the message.
- */
-function notify(message) {
-  console.log("background script received message", message);
-}
-
-/**
- * Assign `notify()` as a listener to messages from the content script.
- */
-browser.runtime.onMessage.addListener(notify);
-
 var licenseNum;
 var testCenter;
 var testDate;
@@ -30,4 +18,37 @@ function setBookingInfo(license, center, date, cls) {
     testCenter = center;
     testDate   = date;
     testClass  = cls;
+
+    // this doesn't work
+    // console.log("License=" + licenseNum);
+    // console.log("TestCenter=" + testCenter);
+    // console.log("TestDate=" + testDate);
+    // console.log("TestClass=" + testClass);
 }
+
+/**
+ * listens for connection attempts from the content script
+ */
+var portFromCS;
+
+/**
+ * when it receives a connection attempt:
+ *   - stores the port in a variable named portFromCS
+ *   - sends the content script a message using the port
+ *   - starts listening to messages received on the port, and logs them
+ */
+function connected(p) {
+    portFromCS = p;
+    portFromCS.postMessage({greeting: "hi there content script!"});
+    portFromCS.onMessage.addListener(function(m) {
+        console.log("In background script, received message from content script")
+        console.log(m.greeting);
+    });
+}
+
+browser.runtime.onConnect.addListener(connected);
+
+/**
+ * sends messages to the content script, using portFromCS
+ */
+// portFromCS.postMessage({greeting: "they clicked the button!"});
