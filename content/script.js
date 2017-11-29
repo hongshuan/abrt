@@ -15,7 +15,9 @@ myPort.onMessage.addListener(function(m) {
 /**
  * sends messages to the background script, using myPort
  */
-// myPort.postMessage({greeting: "they clicked the page!"});
+document.body.addEventListener("click", function() {
+    myPort.postMessage({greeting: "they clicked the page!"});
+});
 
 var timer;
 
@@ -163,5 +165,5 @@ function holdAppointment(testCenter, testClass, time) {
 }
 
 console.log('--injected--');
-console.log(getServiceId('Oshawa', 'G'));
-getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
+// console.log(getServiceId('Oshawa', 'G'));
+// getAvailBookingDates('2017-11-29', 'Oshawa', 'G');

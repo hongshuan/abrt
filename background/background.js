@@ -24,6 +24,8 @@ function setBookingInfo(license, center, date, cls) {
     // console.log("TestCenter=" + testCenter);
     // console.log("TestDate=" + testDate);
     // console.log("TestClass=" + testClass);
+
+    portFromCS.postMessage({greeting: "from background in setBookingInfo!"});
 }
 
 /**
