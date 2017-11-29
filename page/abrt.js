@@ -6,6 +6,8 @@ document.getElementById("stop").addEventListener("click", stop);
 document.getElementById("clear").addEventListener("click", clear);
 document.getElementById("empty").addEventListener("click", empty);
 
+var backgroundPage = browser.extension.getBackgroundPage();
+
 function start() {
     println('Start');
 
@@ -21,18 +23,14 @@ function start() {
     println("TestClass=" + testClass);
     */
 
-    var backgroundPage = browser.extension.getBackgroundPage();
-    // console.log(backgroundPage);
-    backgroundPage.setBookingInfo(licenseNum, testCenter, testDate, testClass);
-
-    // TODO: connect to content script?
-
-    // TODO: send message to content script
+    console.log(backgroundPage);
+    backgroundPage.setCallbacks(writeln, println);
+    backgroundPage.start(licenseNum, testCenter, testDate, testClass);
 }
 
 function stop() {
     println('Stop');
-    // TODO: send message to content script
+    backgroundPage.stop();
 }
 
 function clear() {

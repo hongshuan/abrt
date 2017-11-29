@@ -2,24 +2,46 @@
  * connects to the background script, and stores the Port in a variable myPort
  */
 var myPort = browser.runtime.connect({name:"port-from-cs"});
-myPort.postMessage({greeting: "hello from content script"});
 
 /**
- * listens for messages on myPort, and logs them
+ * listens for messages on myPort
  */
-myPort.onMessage.addListener(function(m) {
-    console.log("In content script, received message from background script: ");
-    console.log(m.greeting);
-});
+myPort.onMessage.addListener(handleMessage);
+
+function handleMessage(m) {
+    if (m.type == 'start') {
+        licenseNum = m.info.licenseNum;
+        testCenter = m.info.testCenter;
+        testDate   = m.info.testDate;
+        testClass  = m.info.testClass;
+        start();
+    }
+
+    if (m.type == 'stop') {
+        stop();
+    }
+}
+
+function sendMessage(m) {
+    myPort.postMessage({message: m});
+}
+
+function sendOutput(m) {
+    myPort.postMessage({output: m});
+}
 
 /**
  * sends messages to the background script, using myPort
  */
 document.body.addEventListener("click", function() {
-    myPort.postMessage({greeting: "they clicked the page!"});
+    myPort.postMessage('ping');
 });
 
 var timer;
+var licenseNum;
+var testCenter;
+var testDate;
+var testClass;
 
 function start() {
     if (timer) {
@@ -36,6 +58,10 @@ function stop() {
 
 function query() {
     console.log("executing query...");
+    console.log("License=" + licenseNum);
+    console.log("TestCenter=" + testCenter);
+    console.log("TestDate=" + testDate);
+    console.log("TestClass=" + testClass);
 }
 
 /**

@@ -8,26 +8,6 @@ browser.browserAction.onClicked.addListener(() => {
     });
 });
 
-var licenseNum;
-var testCenter;
-var testDate;
-var testClass;
-
-function setBookingInfo(license, center, date, cls) {
-    licenseNum = license;
-    testCenter = center;
-    testDate   = date;
-    testClass  = cls;
-
-    // this doesn't work
-    // console.log("License=" + licenseNum);
-    // console.log("TestCenter=" + testCenter);
-    // console.log("TestDate=" + testDate);
-    // console.log("TestClass=" + testClass);
-
-    portFromCS.postMessage({greeting: "from background in setBookingInfo!"});
-}
-
 /**
  * listens for connection attempts from the content script
  */
@@ -41,14 +21,43 @@ var portFromCS;
  */
 function connected(p) {
     portFromCS = p;
-    portFromCS.postMessage({greeting: "hi there content script!"});
-    portFromCS.onMessage.addListener(function(m) {
-        console.log("In background script, received message from content script")
-        console.log(m.greeting);
-    });
+    portFromCS.onMessage.addListener(handleMessage);
+    console.log('connected');
 }
 
 browser.runtime.onConnect.addListener(connected);
+
+function handleMessage(m) {
+    if (m.message) {
+        showMessage(m.message);
+    }
+    if (m.output) {
+        showOutput(m.output);
+    }
+}
+
+function start(license, center, date, cls) {
+    var info = {
+        licenseNum: license,
+        testCenter: center,
+        testDate:   date,
+        testClass:  cls
+    };
+
+    portFromCS.postMessage({type: "start", info: info});
+}
+
+function stop() {
+    portFromCS.postMessage({type: "stop"});
+}
+
+var showMessage;
+var showOutput;
+
+function setCallbacks(message, output) {
+    showMessage = message;
+    showOutput = output;
+}
 
 /**
  * sends messages to the content script, using portFromCS
