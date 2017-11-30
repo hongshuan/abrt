@@ -206,8 +206,16 @@ function fillForm() {
     if (e) {
         e.value = "lihsca@gmail.com";
     }
-    e = messageElement = document.getElementById("confirmEmailAddress");
+    e = document.getElementById("confirmEmailAddress");
     if (e) {
         e.value = "lihsca@gmail.com";
+    }
+    e = document.getElementById("licenceNumber");
+    if (e) {
+        e.value = "Z3187-79607-06108";
+    }
+    e = document.getElementById("licenceExpiryDate");
+    if (e) {
+        e.value = "2020/01/29";
     }
 }
