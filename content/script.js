@@ -56,7 +56,7 @@ function start() {
         clearInterval(timer);
     }
     timer = setInterval(query, 1000);
-    query();
+    // query();
 }
 
 function stop() {
@@ -65,11 +65,7 @@ function stop() {
 }
 
 function query() {
-    console.log("executing query...");
-    console.log("License=" + licenseNum);
-    console.log("TestCenter=" + testCenter);
-    console.log("TestDate=" + testDate);
-    console.log("TestClass=" + testClass);
+    sendOutput('Querying: ' + licenseNum + ' / ' + testCenter + ' / ' + testDate + ' / ' + testClass);
 }
 
 /**

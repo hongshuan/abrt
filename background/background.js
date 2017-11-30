@@ -22,7 +22,8 @@ var portFromCS;
 function connected(p) {
     portFromCS = p;
     portFromCS.onMessage.addListener(handleMessage);
-    console.log('connected');
+    portFromCS.onDisconnect.addListener((p) => { portFromCS = null; });
+    // console.log('connected');
 }
 
 browser.runtime.onConnect.addListener(connected);
@@ -64,6 +65,9 @@ function start(page) {
      */
     if (portFromCS) {
         portFromCS.postMessage({type: "start", info: info});
+        println('start');
+    } else {
+        println('open drivetest.ca first');
     }
 }
 
@@ -73,10 +77,18 @@ function stop() {
      */
     if (portFromCS) {
         portFromCS.postMessage({type: "stop"});
+        println('stop');
+    } else {
+        println('drivetest.ca is not open');
     }
 }
 
-function print(text) { outputElement.innerHTML += text; }
+function print(text) {
+    if (outputElement.innerHTML.length > 800) {
+        outputElement.innerHTML = '';
+    }
+    outputElement.innerHTML += text;
+}
 function println(text) { print(text + '<br>'); }
 
 function write(text) { messageElement.innerHTML += text; }
