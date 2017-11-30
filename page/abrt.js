@@ -38,7 +38,7 @@ function print(text) { document.getElementById("output").innerHTML += text; }
 function println(text) { print(text + '<br>'); }
 
 function write(text) { document.getElementById("messages").innerHTML += text; }
-function writeln(text) { show(text + '<br>'); }
+function writeln(text) { write(text + '<br>'); }
 
 function beep() { playSound('beep.wav'); }
 function sound() { playSound('NokiaEpic.mp3'); }

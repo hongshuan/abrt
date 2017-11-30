@@ -34,7 +34,7 @@ function sendOutput(m) {
  * sends messages to the background script, using myPort
  */
 document.body.addEventListener("click", function() {
-    myPort.postMessage('ping');
+    myPort.postMessage({output:'ping'});
 });
 
 var timer;

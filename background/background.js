@@ -44,11 +44,21 @@ function start(license, center, date, cls) {
         testClass:  cls
     };
 
-    portFromCS.postMessage({type: "start", info: info});
+    /**
+     * sends messages to the content script
+     */
+    if (portFromCS) {
+        portFromCS.postMessage({type: "start", info: info});
+    }
 }
 
 function stop() {
-    portFromCS.postMessage({type: "stop"});
+    /**
+     * sends messages to the content script
+     */
+    if (portFromCS) {
+        portFromCS.postMessage({type: "stop"});
+    }
 }
 
 var showMessage;
@@ -58,8 +68,3 @@ function setCallbacks(message, output) {
     showMessage = message;
     showOutput = output;
 }
-
-/**
- * sends messages to the content script, using portFromCS
- */
-// portFromCS.postMessage({greeting: "they clicked the button!"});
