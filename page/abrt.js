@@ -9,20 +9,11 @@ document.getElementById("empty").addEventListener("click", empty);
 var backgroundPage = browser.extension.getBackgroundPage();
 
 function start() {
-    println('Start');
-
-    var licenseNum = document.getElementById("licensenum").value;
-    var testCenter = document.getElementById("testcenter").value;
-    var testDate   = document.getElementById("testdate").value;
-    var testClass  = document.querySelector('input[name="testclass"]:checked').value;
-
     // console.log(backgroundPage);
-    backgroundPage.setCallbacks(writeln, println);
-    backgroundPage.start(licenseNum, testCenter, testDate, testClass);
+    backgroundPage.start(document);
 }
 
 function stop() {
-    println('Stop');
     backgroundPage.stop();
 }
 
@@ -33,9 +24,3 @@ function clear() {
 function empty() {
     document.getElementById("messages").innerHTML = '';
 }
-
-function print(text) { document.getElementById("output").innerHTML += text; }
-function println(text) { print(text + '<br>'); }
-
-function write(text) { document.getElementById("messages").innerHTML += text; }
-function writeln(text) { write(text + '<br>'); }
