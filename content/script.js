@@ -67,6 +67,7 @@ function stop() {
 
 function query() {
     sendOutput('Querying: ' + licenseNum + ' / ' + testCenter + ' / ' + testDate + ' / ' + testClass);
+    getAvailBookingDates(testDate, testCenter, testClass);
 }
 
 /**
@@ -109,7 +110,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
-        console.log(response);
+        //console.log(response);
         return response.json();
     })
     .then(function(json) {
@@ -118,7 +119,8 @@ function getAvailBookingDates(date, testCenter, testClass) {
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
                 //continue;
             }
-            console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+            //console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+            sendOutput(year + '-' + month + '-' + abd.day + ' ' + abd.description);
         }
     })
     .catch(function(error) {
@@ -137,6 +139,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
+        console.log(response);
         return response.json();
     })
     .then(function(json) {
