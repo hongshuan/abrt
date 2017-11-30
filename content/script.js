@@ -1,24 +1,63 @@
 /**
- * Send a message to the background page.
+ * connects to the background script, and stores the Port in a variable myPort
  */
-function notifyExtension(e) {
-  console.log("content script sending message");
-  browser.runtime.sendMessage({"url": "clicked"});
+var myPort = browser.runtime.connect({name:"port-from-cs"});
+
+/**
+ * listens for messages on myPort
+ */
+myPort.onMessage.addListener(handleMessage);
+
+function handleMessage(m) {
+    if (m.type == 'start') {
+        licenseNum = m.info.licenseNum;
+        testCenter = m.info.testCenter;
+        testDate   = m.info.testDate;
+        testClass  = m.info.testClass;
+        start();
+    }
+
+    if (m.type == 'stop') {
+        stop();
+    }
+}
+
+function sendMessage(m) {
+    myPort.postMessage({message: m});
+}
+
+function sendOutput(m) {
+    myPort.postMessage({output: m});
+}
+
+function beep() {
+    myPort.postMessage({beep: 1});
+}
+
+function sound() {
+    myPort.postMessage({sound: 1});
 }
 
 /**
- * Add notifyExtension() as a listener to click events.
+ * sends messages to the background script, using myPort
  */
-window.addEventListener("click", notifyExtension);
+document.body.addEventListener("click", function() {
+    // myPort.postMessage({output:'ping'});
+    fillForm();
+});
 
 var timer;
+var licenseNum;
+var testCenter;
+var testDate;
+var testClass;
 
 function start() {
     if (timer) {
         clearInterval(timer);
     }
     timer = setInterval(query, 1000);
-    query();
+    // query();
 }
 
 function stop() {
@@ -27,7 +66,8 @@ function stop() {
 }
 
 function query() {
-    console.log("executing query...");
+    sendOutput('Querying: ' + licenseNum + ' / ' + testCenter + ' / ' + testDate + ' / ' + testClass);
+    getAvailBookingDates(testDate, testCenter, testClass);
 }
 
 /**
@@ -70,7 +110,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
-        console.log(response);
+        //console.log(response);
         return response.json();
     })
     .then(function(json) {
@@ -79,7 +119,8 @@ function getAvailBookingDates(date, testCenter, testClass) {
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
                 //continue;
             }
-            console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+            //console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+            sendOutput(year + '-' + month + '-' + abd.day + ' ' + abd.description);
         }
     })
     .catch(function(error) {
@@ -98,6 +139,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
+        console.log(response);
         return response.json();
     })
     .then(function(json) {
@@ -130,7 +172,7 @@ function getStatusToken(licenseNum) {
     });
 }
 
-function holdBooking(testCenter, testClass, time) {
+function holdAppointment(testCenter, testClass, time) {
     var url = "https://drivetest.ca/booking/v1/booking/hold";
 
     var svcid = getServiceId(testCenter, testClass);
@@ -152,10 +194,31 @@ function holdBooking(testCenter, testClass, time) {
         console.log(json.success);
     })
     .catch(function(error) {
-        console.log('Error on holdBooking: ' + error.message);
+        console.log('Error on holdAppointment: ' + error.message);
     });
 }
 
-console.log('--injected--');
-console.log(getServiceId('Oshawa', 'G'));
-getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
+// console.log('--injected--');
+// console.log(getServiceId('Oshawa', 'G'));
+// getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
+
+// document.addEventListener('DOMContentLoaded', fillForm);
+
+function fillForm() {
+    var e = document.getElementById("emailAddress");
+    if (e) {
+        e.value = "lihsca@gmail.com";
+    }
+    e = document.getElementById("confirmEmailAddress");
+    if (e) {
+        e.value = "lihsca@gmail.com";
+    }
+    e = document.getElementById("licenceNumber");
+    if (e) {
+        e.value = "Z3187-79607-06108";
+    }
+    e = document.getElementById("licenceExpiryDate");
+    if (e) {
+        e.value = "2020/01/29";
+    }
+}

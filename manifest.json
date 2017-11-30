@@ -1,6 +1,6 @@
 {
-    "name": "Auto Book Road Test",
-    "description": "Auto Book A Road Test",
+    "name": "ABRT",
+    "description": "Auto Book Road Test",
     "manifest_version": 2,
     "version": "1.0",
 
