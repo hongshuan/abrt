@@ -34,6 +34,12 @@ function handleMessage(m) {
     if (m.output) {
         showOutput(m.output);
     }
+    if (m.beep) {
+        beep();
+    }
+    if (m.sound) {
+        sound();
+    }
 }
 
 function start(license, center, date, cls) {
@@ -68,3 +74,7 @@ function setCallbacks(message, output) {
     showMessage = message;
     showOutput = output;
 }
+
+function beep() { playSound('beep.wav'); }
+function sound() { playSound('NokiaEpic.mp3'); }
+function playSound(file) { var audio = new Audio('/webres/' + file); audio.play(); }

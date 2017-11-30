@@ -39,7 +39,3 @@ function println(text) { print(text + '<br>'); }
 
 function write(text) { document.getElementById("messages").innerHTML += text; }
 function writeln(text) { write(text + '<br>'); }
-
-function beep() { playSound('beep.wav'); }
-function sound() { playSound('NokiaEpic.mp3'); }
-function playSound(file) { var audio = new Audio('/webres/' + file); audio.play(); }

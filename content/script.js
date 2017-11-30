@@ -30,11 +30,19 @@ function sendOutput(m) {
     myPort.postMessage({output: m});
 }
 
+function beep() {
+    myPort.postMessage({beep: 1});
+}
+
+function sound() {
+    myPort.postMessage({sound: 1});
+}
+
 /**
  * sends messages to the background script, using myPort
  */
 document.body.addEventListener("click", function() {
-    myPort.postMessage({output:'ping'});
+    // myPort.postMessage({output:'ping'});
 });
 
 var timer;
@@ -190,6 +198,6 @@ function holdAppointment(testCenter, testClass, time) {
     });
 }
 
-console.log('--injected--');
+// console.log('--injected--');
 // console.log(getServiceId('Oshawa', 'G'));
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
