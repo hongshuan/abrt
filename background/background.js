@@ -29,10 +29,10 @@ browser.runtime.onConnect.addListener(connected);
 
 function handleMessage(m) {
     if (m.message) {
-        showMessage(m.message);
+        writeln(m.message);
     }
     if (m.output) {
-        showOutput(m.output);
+        println(m.output);
     }
     if (m.beep) {
         beep();
@@ -42,12 +42,21 @@ function handleMessage(m) {
     }
 }
 
-function start(license, center, date, cls) {
+var abrtPage;
+var outputElement;
+var messageElement;
+
+function start(page) {
+    abrtPage = page;
+
+    outputElement  = abrtPage.getElementById("output");
+    messageElement = abrtPage.getElementById("messages");
+
     var info = {
-        licenseNum: license,
-        testCenter: center,
-        testDate:   date,
-        testClass:  cls
+        licenseNum: abrtPage.getElementById("licensenum").value,
+        testCenter: abrtPage.getElementById("testcenter").value,
+        testDate:   abrtPage.getElementById("testdate").value,
+        testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value
     };
 
     /**
@@ -67,13 +76,11 @@ function stop() {
     }
 }
 
-var showMessage;
-var showOutput;
+function print(text) { outputElement.innerHTML += text; }
+function println(text) { print(text + '<br>'); }
 
-function setCallbacks(message, output) {
-    showMessage = message;
-    showOutput = output;
-}
+function write(text) { messageElement.innerHTML += text; }
+function writeln(text) { write(text + '<br>'); }
 
 function beep() { playSound('beep.wav'); }
 function sound() { playSound('NokiaEpic.mp3'); }
