@@ -43,6 +43,7 @@ function sound() {
  */
 document.body.addEventListener("click", function() {
     // myPort.postMessage({output:'ping'});
+    fillForm();
 });
 
 var timer;
@@ -197,3 +198,16 @@ function holdAppointment(testCenter, testClass, time) {
 // console.log('--injected--');
 // console.log(getServiceId('Oshawa', 'G'));
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
+
+// document.addEventListener('DOMContentLoaded', fillForm);
+
+function fillForm() {
+    var e = document.getElementById("emailAddress");
+    if (e) {
+        e.value = "lihsca@gmail.com";
+    }
+    e = messageElement = document.getElementById("confirmEmailAddress");
+    if (e) {
+        e.value = "lihsca@gmail.com";
+    }
+}
