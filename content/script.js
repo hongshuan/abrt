@@ -95,10 +95,9 @@ function getServiceId(centerName, testClass) {
 
 function getAvailBookingDates(date, testCenter, testClass) {
 
-    var dateParts = date.split('-');
-    var year = dateParts[0];
-    var month = dateParts[1];
-    var day = dateParts[2];
+    var year, month, day,
+
+    [ year, month, day ] = date.split('-');
 
     // serviceId is not working, don't know why?
     var svcid = getServiceId(testCenter, testClass);
