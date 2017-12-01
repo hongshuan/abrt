@@ -70,7 +70,7 @@ function start(page) {
         println('open drivetest.ca first');
     }
 
-    //outputElement.innerHTML = getCalendar();
+    //outputElement.innerHTML = getCalendar(info.testDate);
 }
 
 function stop() {

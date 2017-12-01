@@ -68,16 +68,17 @@ function getMonthName(month) {
     return ar[month];
 }
 
-function getCalendar() {
-    // standard time attributes
-    var now = new Date();
-    var year = now.getYear();
-    if (year < 1000) {
-        year += 1900;
-    }
-    var month = now.getMonth();
-    var monthName = getMonthName(month);
-    var date = now.getDate();
+function getCalendar(date) {
+    var year, month, day, monthName;
+
+    [ year, month, day ] = date.split('-');
+
+    var now = new Date(year, month-1, day);
+
+    year = now.getFullYear();
+    month = now.getMonth();
+    monthName = getMonthName(month);
+    day = now.getDate();
 
     // create instance of first day of month, and extract the day on which it occurs
     var firstDayInstance = new Date(year, month, 1);
@@ -87,7 +88,7 @@ function getCalendar() {
     var days = getDays(month, year);
 
     // call function to draw calendar
-    return drawCalendar(firstDay + 1, days, date, monthName, year);
+    return drawCalendar(firstDay + 1, days, day, monthName, year);
 }
 
 function drawCalendar(firstDay, lastDate, date, monthName, year) {
