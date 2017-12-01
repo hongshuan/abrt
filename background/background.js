@@ -35,6 +35,12 @@ function handleMessage(m) {
     if (m.output) {
         println(m.output);
     }
+    if (m.date) {
+        showDates(m.date);
+    }
+    if (m.time) {
+        showTimes(m.time);
+    }
     if (m.beep) {
         beep();
     }
@@ -46,6 +52,7 @@ function handleMessage(m) {
 var abrtPage;
 var outputElement;
 var messageElement;
+var calendar;
 
 function start(page) {
     abrtPage = page;
@@ -70,7 +77,7 @@ function start(page) {
         println('open drivetest.ca first');
     }
 
-    //outputElement.innerHTML = getCalendar(info.testDate);
+    calendar = getCalendar(info.testDate);
 }
 
 function stop() {
@@ -83,6 +90,12 @@ function stop() {
     } else {
         println('drivetest.ca is not open');
     }
+}
+
+function showDates(dates) {
+}
+
+function showTimes(times) {
 }
 
 function print(text) {
