@@ -69,6 +69,8 @@ function start(page) {
     } else {
         println('open drivetest.ca first');
     }
+
+    //outputElement.innerHTML = getCalendar();
 }
 
 function stop() {

@@ -1,13 +1,3 @@
-<style>
-#table { border-collapse: collapse; }
-.days td { width: 50px; height: 50px; }
-.day { border: 1px solid grey; }
-#weekdays { border: 1px solid grey; }
-</style>
-
-<script>
-setCal()
-
 function getTime() {
     // initialize time-related variables with current time settings
     var now = new Date();
@@ -78,7 +68,7 @@ function getMonthName(month) {
     return ar[month];
 }
 
-function setCal() {
+function getCalendar() {
     // standard time attributes
     var now = new Date();
     var year = now.getYear();
@@ -97,10 +87,10 @@ function setCal() {
     var days = getDays(month, year);
 
     // call function to draw calendar
-    drawCal(firstDay + 1, days, date, monthName, year);
+    return drawCalendar(firstDay + 1, days, date, monthName, year);
 }
 
-function drawCal(firstDay, lastDate, date, monthName, year) {
+function drawCalendar(firstDay, lastDate, date, monthName, year) {
     var text = "";
 
     text += '<center>';
@@ -155,6 +145,5 @@ function drawCal(firstDay, lastDate, date, monthName, year) {
     text += '</table>'
     text += '</center>'
 
-    document.write(text) 
+    return text;
 }
-</script>
