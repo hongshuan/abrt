@@ -3,6 +3,7 @@
 <head>
 <meta charset=utf-8>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 <title>ABRT</title>
 <link rel="stylesheet" href="/webres/w3.css">
 <link rel="stylesheet" href="/webres/font-awesome/css/font-awesome.min.css">
@@ -39,7 +40,7 @@
       </select>
 
       <p><label><i class="fa fa-calendar"></i> Date</label></p>
-      <input class="w3-input w3-border datepicker" type="text" placeholder="YYYY-MM-DD" id="testdate" value="2017-12-11">
+      <input class="w3-input w3-border" type="text" placeholder="YYYY-MM-DD" id="testdate" value="2017-12-11">
 
       <p><label><input type="radio" name="testclass" value="G2" checked> G2 License</label></p>
       <p><label><input type="radio" name="testclass" value="G"> G License</label></p>
@@ -72,13 +73,6 @@
   </div>
 </div>
 <!-- End page content -->
-
-<link rel="stylesheet" href="/webres/pickadate/themes/classic.css">
-<link rel="stylesheet" href="/webres/pickadate/themes/classic.date.css">
-
-<script src="/webres/jquery-2.1.0.min.js"></script>
-<script src="/webres/pickadate/picker.js"></script>
-<script src="/webres/pickadate/picker.date.js"></script>
 
 <script src="abrt.js"></script>
 
