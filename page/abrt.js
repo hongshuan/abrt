@@ -24,3 +24,10 @@ function clear() {
 function empty() {
     document.getElementById("messages").innerHTML = '';
 }
+
+$(document).ready(function() {
+    $('.datepicker').pickadate({
+        format: 'yyyy-mm-dd',
+        container: '#output'
+    });
+});
