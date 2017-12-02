@@ -20,22 +20,34 @@ function handleMessage(m) {
     if (m.type == 'stop') {
         stop();
     }
+
+    if (m.type == 'hold') {
+        hold(m.time);
+    }
 }
 
 function sendMessage(m) {
-    myPort.postMessage({message: m});
+    myPort.postMessage({type: 'message', message: m});
 }
 
 function sendOutput(m) {
-    myPort.postMessage({output: m});
+    myPort.postMessage({type: 'output', output: m});
+}
+
+function sendDates(d) {
+    myPort.postMessage({type: 'dates', dates: d});
+}
+
+function sendTimes(t) {
+    myPort.postMessage({type: 'times', times: t});
 }
 
 function beep() {
-    myPort.postMessage({beep: 1});
+    myPort.postMessage({type: 'beep' });
 }
 
 function sound() {
-    myPort.postMessage({sound: 1});
+    myPort.postMessage({type: 'sound' });
 }
 
 /**
@@ -66,8 +78,12 @@ function stop() {
 }
 
 function query() {
-    sendOutput('Querying: ' + licenseNum + ' / ' + testCenter + ' / ' + testDate + ' / ' + testClass);
+    //sendOutput('Querying: ' + licenseNum + ' / ' + testCenter + ' / ' + testDate + ' / ' + testClass);
     getAvailBookingDates(testDate, testCenter, testClass);
+}
+
+function hold(time) {
+    holdAppointment(testCenter, testClass, time);
 }
 
 /**
@@ -113,13 +129,17 @@ function getAvailBookingDates(date, testCenter, testClass) {
         return response.json();
     })
     .then(function(json) {
+        sendDates(json.availableBookingDates);
         for (var i = 0; i < json.availableBookingDates.length; i++) {
             var abd = json.availableBookingDates[i];
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
-                //continue;
+                continue;
             }
+
             //console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
-            sendOutput(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+            //sendOutput(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+
+            getAvailBookingTimes(date, testCenter, testClass);
         }
     })
     .catch(function(error) {
@@ -142,10 +162,11 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         return response.json();
     })
     .then(function(json) {
-        for (var i = 0; i < json.availableBookingTimes.length; i++) {
-            var abt = json.availableBookingTimes[i];
-            console.log(date + ' ' + abt.timeslot);
-        }
+        sendTimes(json.availableBookingTimes);
+        //for (var i = 0; i < json.availableBookingTimes.length; i++) {
+        //    var abt = json.availableBookingTimes[i];
+        //    console.log(date + ' ' + abt.timeslot);
+        //}
     })
     .catch(function(error) {
         console.log('Error on getAvailBookingTimes: ' + error.message);

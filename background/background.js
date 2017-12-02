@@ -29,23 +29,30 @@ function connected(p) {
 browser.runtime.onConnect.addListener(connected);
 
 function handleMessage(m) {
-    if (m.message) {
+    switch (m.type) {
+    case 'message':
         writeln(m.message);
-    }
-    if (m.output) {
+        break;
+
+    case 'output':
         println(m.output);
-    }
-    if (m.date) {
-        showDates(m.date);
-    }
-    if (m.time) {
-        showTimes(m.time);
-    }
-    if (m.beep) {
+        break;
+
+    case 'dates':
+        showDates(m.dates);
+        break;
+
+    case 'times':
+        showTimes(m.times);
+        break;
+
+    case 'beep':
         beep();
-    }
-    if (m.sound) {
+        break;
+
+    case 'sound':
         sound();
+        break;
     }
 }
 
@@ -93,6 +100,7 @@ function stop() {
 }
 
 function showDates(dates) {
+    outputElement.innerHTML = calendar;
 }
 
 function showTimes(times) {
