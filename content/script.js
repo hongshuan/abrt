@@ -8,21 +8,29 @@ var myPort = browser.runtime.connect({name:"port-from-cs"});
  */
 myPort.onMessage.addListener(handleMessage);
 
+var timer;
+var licenseNum;
+var testCenter;
+var testDate;
+var testClass;
+
 function handleMessage(m) {
-    if (m.type == 'start') {
+    switch (m.type) {
+    case 'start':
         licenseNum = m.info.licenseNum;
         testCenter = m.info.testCenter;
         testDate   = m.info.testDate;
         testClass  = m.info.testClass;
         start();
-    }
+        break;
 
-    if (m.type == 'stop') {
+    case 'stop':
         stop();
-    }
+        break;
 
-    if (m.type == 'hold') {
+    case 'hold':
         hold(m.time);
+        break;
     }
 }
 
@@ -53,12 +61,6 @@ document.body.addEventListener("click", function() {
     // myPort.postMessage({output:'ping'});
     fillForm();
 });
-
-var timer;
-var licenseNum;
-var testCenter;
-var testDate;
-var testClass;
 
 function start() {
     if (timer) {

@@ -116,6 +116,8 @@ function showDates(dates) {
 }
 
 function showTimes(times) {
+    console.log(times);
+
     for (var i = 0; i < times.length; i++) {
         var t = times[i];
         println(t.timeslot);
