@@ -3,7 +3,7 @@
  */
 document.getElementById("start").addEventListener("click", start);
 document.getElementById("stop").addEventListener("click", stop);
-document.getElementById("clear").addEventListener("click", clear);
+//document.getElementById("clear").addEventListener("click", clear);
 document.getElementById("empty").addEventListener("click", empty);
 
 var backgroundPage = browser.extension.getBackgroundPage();

@@ -59,13 +59,16 @@ function handleMessage(m) {
 var abrtPage;
 var outputElement;
 var messageElement;
+var progressBar;
 var calendar;
+var counter = 0;
 
 function start(page) {
     abrtPage = page;
 
     outputElement  = abrtPage.getElementById("output");
     messageElement = abrtPage.getElementById("messages");
+    progressBar    = abrtPage.getElementById("progressbar");
 
     var info = {
         licenseNum: abrtPage.getElementById("licensenum").value,
@@ -79,12 +82,13 @@ function start(page) {
      */
     if (portFromCS) {
         portFromCS.postMessage({type: "start", info: info});
-        println('start');
+        writeln('start');
     } else {
-        println('open drivetest.ca first');
+        writeln('open drivetest.ca first');
     }
 
-    calendar = getCalendar(info.testDate);
+    calendar = tableCalendar(info.testDate);
+    outputElement.innerHTML = calendar;
 }
 
 function stop() {
@@ -93,17 +97,70 @@ function stop() {
      */
     if (portFromCS) {
         portFromCS.postMessage({type: "stop"});
-        println('stop');
+        writeln('stop');
     } else {
-        println('drivetest.ca is not open');
+        writeln('drivetest.ca is not open');
     }
 }
 
 function showDates(dates) {
-    outputElement.innerHTML = calendar;
+    //console.log(dates);
+
+    progressBar.style.width = ++counter%100 + '%';
+    progressBar.innerText = counter.toString();
+
+    for (var i = 0; i < dates.length; i++) {
+        var d = dates[i];
+        var id = 'day' + d.day;
+        var el = abrtPage.getElementById(id);
+        el.classList.remove('some', 'most', 'open', 'unavailable');
+        el.classList.add(d.description.toLowerCase());
+        el.innerText = d.description;
+    }
 }
 
 function showTimes(times) {
+    for (var i = 0; i < times.length; i++) {
+        var t = times[i];
+        writeln(t.timeslot);
+        if (t.timeslot.substring(0, 10) < testDate) {
+            writeln('<b>' + t.timeslot + '</b>');
+            //portFromCS.postMessage({type: "hold", time: t.timeslot});
+            stop();
+            beep(); // sound();
+        }
+    }
+}
+
+function tableCalendar(date) {
+    var year, month, day;
+
+    [ year, month, day ] = date.split('-');
+
+    var now = new Date(year, month-1, day);
+
+    year = now.getFullYear();
+    month = now.getMonth();
+    day = now.getDate();
+
+    var days = getDays(month, year);
+
+    var text = "";
+    text += '<table border="0" cellspacing="0" class="w3-table w3-border w3-bordered">';
+    for (var d = 1; d <= days; d++) {
+        if (d%3 == 1) {
+            text += '<tr>';
+        }
+
+        text += '<td>' + year + '-' + (month+1) + '-' + d + '</td>';
+        text += '<td id="day' + d + '" width="25%"></td>';
+
+        if (d%3 == 0) {
+            text += '</tr>';
+        }
+    }
+    text += '</table>'
+    return text;
 }
 
 function print(text) {

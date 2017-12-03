@@ -121,7 +121,7 @@ function drawCalendar(firstDay, lastDate, date, monthName, year) {
     var curCell = 1;
 
     for (var row = 1; row <= Math.ceil((lastDate + firstDay - 1) / 7); ++row) {
-        text += '<tr class="days" align="center" valign="center">'
+        text += '<tr class="days" align="center" valign="center">';
         for (var col = 1; col <= 7; ++col) {
             if (digit > lastDate) {
                 break;
@@ -137,14 +137,14 @@ function drawCalendar(firstDay, lastDate, date, monthName, year) {
                 } else {
                     text += '<td class="day"' + ' id="day' + digit + '">' + digit + '</td>';
                 }
-                digit++
+                digit++;
             }
         }
-        text += '</tr>'
+        text += '</tr>';
     }
 
-    text += '</table>'
-    text += '</center>'
+    text += '</table>';
+    text += '</center>';
 
     return text;
 }
