@@ -107,7 +107,7 @@ function getServiceId(centerName, testClass) {
 // getServiceId('Lindsay', 'G2');
 // getServiceId('Lindsay', 'G');
 
-function getAvailBookingDates(date, testCenter, testClass) {
+async function getAvailBookingDates(date, testCenter, testClass) {
 
     var year, month, day,
 
@@ -118,7 +118,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
 
     var url = "https://drivetest.ca/booking/v1/booking/" + svcid + "?month=" + month + "&year=" + year;
 
-    fetch(url, {
+    await fetch(url, {
         method: "GET",
         credentials: "same-origin"
     })
@@ -152,13 +152,13 @@ function getAvailBookingDates(date, testCenter, testClass) {
     });
 }
 
-function getAvailBookingTimes(date, testCenter, testClass) {
+async function getAvailBookingTimes(date, testCenter, testClass) {
 
     var svcid = getServiceId(testCenter, testClass);
 
     var url = "https://drivetest.ca/booking/v1/booking?date=" + date + "&is=" + svcid;
 
-    fetch(url, {
+    await fetch(url, {
         method: "GET",
         credentials: "same-origin"
     })
@@ -187,10 +187,10 @@ function getAvailBookingTimes(date, testCenter, testClass) {
     });
 }
 
-function getStatusToken(licenseNum) {
+async function getStatusToken(licenseNum) {
     var url = "https://drivetest.ca/booking/v1/status";
 
-    fetch(url, {
+    await fetch(url, {
         method: "POST",
         credentials: "same-origin",
         body: JSON.stringify({ licenseNumber: licenseNum })
@@ -206,12 +206,12 @@ function getStatusToken(licenseNum) {
     });
 }
 
-function holdAppointment(testCenter, testClass, time) {
+async function holdAppointment(testCenter, testClass, time) {
     var url = "https://drivetest.ca/booking/v1/booking/hold";
 
     var svcid = getServiceId(testCenter, testClass);
 
-    fetch(url, {
+    await fetch(url, {
         method: "POST",
         credentials: "same-origin",
         body: JSON.stringify({
