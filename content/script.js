@@ -30,10 +30,6 @@ function sendMessage(m) {
     myPort.postMessage({type: 'message', message: m});
 }
 
-function sendOutput(m) {
-    myPort.postMessage({type: 'output', output: m});
-}
-
 function sendDates(d) {
     myPort.postMessage({type: 'dates', dates: d});
 }
@@ -83,7 +79,8 @@ function query() {
 }
 
 function hold(time) {
-    holdAppointment(testCenter, testClass, time);
+    sendMessage('HOLD ' + time);
+    //holdAppointment(testCenter, testClass, time);
 }
 
 /**
@@ -130,6 +127,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
     })
     .then(function(json) {
         sendDates(json.availableBookingDates);
+
         for (var i = 0; i < json.availableBookingDates.length; i++) {
             var abd = json.availableBookingDates[i];
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
@@ -139,7 +137,14 @@ function getAvailBookingDates(date, testCenter, testClass) {
             //console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
             //sendOutput(year + '-' + month + '-' + abd.day + ' ' + abd.description);
 
-            getAvailBookingTimes(date, testCenter, testClass);
+            var dt = new Date(year, month-1, abd.day);
+            var ymd = dt.substring(0, 10);
+
+            if (ymd <= testDate) {
+                getAvailBookingTimes(ymd, testCenter, testClass);
+                stop();
+                break;
+            }
         }
     })
     .catch(function(error) {
@@ -158,11 +163,16 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
-        console.log(response);
+        //console.log(response);
         return response.json();
     })
     .then(function(json) {
         sendTimes(json.availableBookingTimes);
+
+        if (json.availableBookingTimes.length > 0) {
+            hold(json.availableBookingTimes[0]);
+        }
+
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {
         //    var abt = json.availableBookingTimes[i];
         //    console.log(date + ' ' + abt.timeslot);

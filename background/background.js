@@ -31,11 +31,7 @@ browser.runtime.onConnect.addListener(connected);
 function handleMessage(m) {
     switch (m.type) {
     case 'message':
-        writeln(m.message);
-        break;
-
-    case 'output':
-        println(m.output);
+        println(m.message);
         break;
 
     case 'dates':
@@ -82,9 +78,9 @@ function start(page) {
      */
     if (portFromCS) {
         portFromCS.postMessage({type: "start", info: info});
-        writeln('start');
+        println('start');
     } else {
-        writeln('open drivetest.ca first');
+        println('open drivetest.ca first');
     }
 
     calendar = tableCalendar(info.testDate);
@@ -97,9 +93,9 @@ function stop() {
      */
     if (portFromCS) {
         portFromCS.postMessage({type: "stop"});
-        writeln('stop');
+        println('stop');
     } else {
-        writeln('drivetest.ca is not open');
+        println('drivetest.ca is not open');
     }
 }
 
@@ -122,13 +118,7 @@ function showDates(dates) {
 function showTimes(times) {
     for (var i = 0; i < times.length; i++) {
         var t = times[i];
-        writeln(t.timeslot);
-        if (t.timeslot.substring(0, 10) < testDate) {
-            writeln('<b>' + t.timeslot + '</b>');
-            //portFromCS.postMessage({type: "hold", time: t.timeslot});
-            stop();
-            beep(); // sound();
-        }
+        println(t.timeslot);
     }
 }
 
@@ -163,16 +153,8 @@ function tableCalendar(date) {
     return text;
 }
 
-function print(text) {
-    if (outputElement.innerHTML.length > 800) {
-        outputElement.innerHTML = '';
-    }
-    outputElement.innerHTML += text;
-}
+function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
-
-function write(text) { messageElement.innerHTML += text; }
-function writeln(text) { write(text + '<br>'); }
 
 function beep() { playSound('beep.wav'); }
 function sound() { playSound('NokiaEpic.mp3'); }
