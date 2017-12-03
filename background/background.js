@@ -116,7 +116,10 @@ function showDates(dates) {
 }
 
 function showTimes(times) {
-    console.log(times);
+    //console.log(times);
+
+    progressBar.style.width = ++counter%100 + '%';
+    progressBar.innerText = counter.toString();
 
     for (var i = 0; i < times.length; i++) {
         var t = times[i];

@@ -76,13 +76,12 @@ function stop() {
 }
 
 function query() {
-    //sendOutput('Querying: ' + licenseNum + ' / ' + testCenter + ' / ' + testDate + ' / ' + testClass);
     getAvailBookingDates(testDate, testCenter, testClass);
 }
 
 function hold(time) {
-    sendMessage('HOLD ' + time);
-    //holdAppointment(testCenter, testClass, time);
+    sendMessage('HOLD ' + time.timeslot);
+    //holdAppointment(testCenter, testClass, time.timeslot);
 }
 
 /**
@@ -137,10 +136,9 @@ function getAvailBookingDates(date, testCenter, testClass) {
             }
 
             //console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
-            //sendOutput(year + '-' + month + '-' + abd.day + ' ' + abd.description);
 
             var dt = new Date(year, month-1, abd.day);
-            var ymd = dt.substring(0, 10);
+            var ymd = dt.toISOString().substring(0, 10);
 
             if (ymd <= testDate) {
                 getAvailBookingTimes(ymd, testCenter, testClass);
@@ -172,7 +170,11 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         sendTimes(json.availableBookingTimes);
 
         if (json.availableBookingTimes.length > 0) {
+            console.log(json.availableBookingTimes[0]);
             hold(json.availableBookingTimes[0]);
+            stop();
+        } else {
+            start();
         }
 
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {
