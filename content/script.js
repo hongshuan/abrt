@@ -59,7 +59,7 @@ function sound() {
  */
 document.body.addEventListener("click", function() {
     // myPort.postMessage({output:'ping'});
-    fillForm();
+    //fillForm();
 });
 
 function start() {
@@ -84,8 +84,9 @@ function query() {
 }
 
 function hold(time) {
-    sendMessage('HOLD ' + time.timeslot);
-    //holdAppointment(testCenter, testClass, time.timeslot);
+    sendMessage('<b>HOLD ' + time.timeslot + '</b>');
+    sound();
+    holdAppointment(testCenter, testClass, time.timeslot);
 }
 
 /**
