@@ -8,11 +8,12 @@ var myPort = browser.runtime.connect({name:"port-from-cs"});
  */
 myPort.onMessage.addListener(handleMessage);
 
-var timer;
+var stopped = true;
 var licenseNum;
 var testCenter;
 var testDate;
 var testClass;
+var holdGuid;
 
 function handleMessage(m) {
     switch (m.type) {
@@ -63,29 +64,27 @@ document.body.addEventListener("click", function() {
 });
 
 function start() {
-    if (timer) {
-        clearTimeout(timer);
+    if (stopped) {
+        stopped = false;
+        setTimeout(query, 1000);
+        // query();
     }
-    timer = setTimeout(query, 1000);
-    // query();
 }
 
 function stop() {
-    clearTimeout(timer);
-    timer = null;
+    stopped = true;
 }
 
 function query() {
-    getAvailBookingDates(testDate, testCenter, testClass);
-
-    if (timer) {
-        timer = setTimeout(query, 1000);
+    if (stopped) {
+        return;
     }
+
+    getAvailBookingDates(testDate, testCenter, testClass);
 }
 
 function hold(time) {
     sendMessage('<b>HOLD ' + time.timeslot + '</b>');
-    sound();
     holdAppointment(testCenter, testClass, time.timeslot);
 }
 
@@ -134,6 +133,8 @@ function getAvailBookingDates(date, testCenter, testClass) {
     .then(function(json) {
         sendDates(json.availableBookingDates);
 
+        var foundDate = false;
+
         for (var i = 0; i < json.availableBookingDates.length; i++) {
             var abd = json.availableBookingDates[i];
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
@@ -146,10 +147,15 @@ function getAvailBookingDates(date, testCenter, testClass) {
             var ymd = dt.toISOString().substring(0, 10);
 
             if (ymd <= testDate) {
-                getAvailBookingTimes(ymd, testCenter, testClass);
-                stop();
+                foundDate = ymd;
                 break;
             }
+        }
+
+        if (foundDate) {
+            getAvailBookingTimes(foundDate, testCenter, testClass);
+        } else {
+            setTimeout(query, 1000);
         }
     })
     .catch(function(error) {
@@ -177,9 +183,8 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         if (json.availableBookingTimes.length > 0) {
             console.log(json.availableBookingTimes[0]);
             hold(json.availableBookingTimes[0]);
-            stop();
         } else {
-            start();
+            setTimeout(query, 1000);
         }
 
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {
@@ -230,18 +235,72 @@ function holdAppointment(testCenter, testClass, time) {
         return response.json();
     })
     .then(function(json) {
-        console.log(json.success);
+        if (json.success) {
+            holdGuid = json.guid;
+            payFee(testClass);
+        } else {
+            setTimeout(query, 1000);
+        }
     })
     .catch(function(error) {
         console.log('Error on holdAppointment: ' + error.message);
     });
 }
 
+function payFee(testClass) {
+    var url = "https://drivetest.ca/booking/v1/booking/fees";
+
+    fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        body: JSON.stringify({
+            licenceClass: testClass,
+            reschedule: false,
+            existingAppointmentGuid: null
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        complete(testClass, holdGuid);
+    })
+    .catch(function(error) {
+        console.log('Error on payFee: ' + error.message);
+    });
+}
+
+function complete(testClass, holdGuid) {
+    var url = "https://drivetest.ca/booking/v1/booking/complete";
+
+    var now = (new Date()).getTime();
+
+    fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        body: JSON.stringify({
+            appointmentHoldGuid: holdGuid,
+            confirmationNumber: "",
+            timestamp: now,
+            licenceClass: testClass
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        sendMessage('<img src="data:image/png;base64,' + json.barcode + '" />');
+        stop();
+        sound();
+    })
+    .catch(function(error) {
+        console.log('Error on complete: ' + error.message);
+    });
+}
+
 // console.log('--injected--');
 // console.log(getServiceId('Oshawa', 'G'));
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
-
-// document.addEventListener('DOMContentLoaded', fillForm);
 
 function fillForm() {
     var e = document.getElementById("emailAddress");
