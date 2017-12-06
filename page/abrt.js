@@ -6,6 +6,8 @@ document.getElementById("stop").addEventListener("click", stop);
 //document.getElementById("clear").addEventListener("click", clear);
 document.getElementById("empty").addEventListener("click", empty);
 
+document.addEventListener('DOMContentLoaded', domReady);
+
 var backgroundPage = browser.extension.getBackgroundPage();
 
 function start() {
@@ -23,4 +25,38 @@ function clear() {
 
 function empty() {
     document.getElementById("messages").innerHTML = '';
+}
+
+function domReady() {
+    fillDateList();
+    fillCenterList();
+}
+
+function fillDateList() {
+    var dropdown = document.getElementById("testdate");
+
+    var today = new Date();
+    for (var i = 0; i < 30; i++) {
+        var d = new Date(today);
+        d.setDate(today.getDate() + i);
+
+        var option = document.createElement("option");
+        option.text = d.toISOString().substring(0, 10);
+        option.value = option.text;
+
+        dropdown.add(option);
+    }
+}
+
+function fillCenterList() {
+    var dropdown = document.getElementById("testcenter");
+
+    var centers = [ 'Oshawa', 'Lindsay' ];
+    for (var i = 0; i < centers.length; i++) {
+        var option = document.createElement("option");
+        option.text = centers[i];
+        option.value = option.text;
+
+        dropdown.add(option);
+    }
 }
