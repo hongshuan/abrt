@@ -1,3 +1,5 @@
+const DEBUG = 1;
+
 /**
  * connects to the background script, and stores the Port in a variable myPort
  */
@@ -53,6 +55,12 @@ function beep() {
 
 function sound() {
     myPort.postMessage({type: 'sound' });
+}
+
+function dpr(arg) {
+    if (DEBUG) {
+        console.log(arg);
+    }
 }
 
 /**

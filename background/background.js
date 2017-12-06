@@ -1,3 +1,5 @@
+const DEBUG = 1;
+
 /**
  * open ABRT page when user click browser toolbar icon
  */
@@ -96,6 +98,12 @@ function stop() {
         println('stop');
     } else {
         println('drivetest.ca is not open');
+    }
+}
+
+function dpr(arg) {
+    if (DEBUG) {
+        console.log(arg);
     }
 }
 
