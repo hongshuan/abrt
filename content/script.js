@@ -30,10 +30,6 @@ function handleMessage(m) {
     case 'stop':
         stop();
         break;
-
-    case 'hold':
-        hold(m.time);
-        break;
     }
 }
 
