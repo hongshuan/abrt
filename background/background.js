@@ -168,7 +168,7 @@ function tableCalendar(date) {
 
 function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
-function errorln(text) { println('<span style="color:red;">' + text + '</span>');
+function errorln(text) { println('<span style="color:red;">' + text + '</span>'); }
 
 function beep() { playSound('beep.wav'); }
 function sound() { playSound('NokiaEpic.mp3'); }
