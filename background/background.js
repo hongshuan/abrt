@@ -75,6 +75,11 @@ function start(page) {
         testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value
     };
 
+    if (DEBUG && info.licenseNum.length == 0) {
+        info.licenseNum = 'Z3187-79607-06108';
+        abrtPage.getElementById("licensenum").value = info.licenseNum;
+    }
+
     /**
      * sends messages to the content script
      */
