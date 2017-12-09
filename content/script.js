@@ -54,6 +54,10 @@ function beep() {
 }
 
 function sound() {
+    if (DEBUG) {
+        beep();
+        return;
+    }
     myPort.postMessage({type: 'sound' });
 }
 
@@ -73,6 +77,7 @@ document.body.addEventListener("click", function() {
 
 function start() {
     if (stopped) {
+        dpr('start');
         stopped = false;
         setTimeout(query, 1000);
         // query();
@@ -84,10 +89,12 @@ function stop() {
 }
 
 function query() {
+    dpr('query 1');
     if (stopped) {
         return;
     }
 
+    dpr('query 2');
     getAvailBookingDates(testDate, testCenter, testClass);
 }
 
@@ -139,6 +146,10 @@ function getAvailBookingDates(date, testCenter, testClass) {
         return response.json();
     })
     .then(function(json) {
+        dpr(url);
+        dpr('getAvailDates');
+        dpr(json);
+
         sendDates(json.availableBookingDates);
 
         var foundDate = false;
@@ -186,6 +197,10 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         return response.json();
     })
     .then(function(json) {
+        dpr(url);
+        dpr('getAvailTimes');
+        dpr(json);
+
         sendTimes(json.availableBookingTimes);
 
         if (json.availableBookingTimes.length > 0) {
@@ -217,6 +232,10 @@ function getStatusToken(licenseNum) {
         return response.json();
     })
     .then(function(json) {
+        dpr(url);
+        dpr('getStatusToken');
+        dpr(json);
+
         console.log(json.statusToken);
     })
     .catch(function(error) {
@@ -243,6 +262,10 @@ function holdAppointment(testCenter, testClass, time) {
         return response.json();
     })
     .then(function(json) {
+        dpr(url);
+        dpr('hold');
+        dpr(json);
+
         if (json.success) {
             holdGuid = json.guid;
             payFee(testClass);
@@ -271,6 +294,10 @@ function payFee(testClass) {
         return response.json();
     })
     .then(function(json) {
+        dpr(url);
+        dpr('payfees');
+        dpr(json);
+
         complete(testClass, holdGuid);
     })
     .catch(function(error) {
@@ -297,7 +324,13 @@ function complete(testClass, holdGuid) {
         return response.json();
     })
     .then(function(json) {
-        sendMessage('<img src="data:image/png;base64,' + json.barcode + '" />');
+        dpr(url);
+        dpr('complete');
+        dpr(json);
+        dpr('<img src="data:image/png;base64,' + json.barcode + '" />');
+
+        sendMessage(json.displayId);
+        sendMessage('<img width="220" height="32" src="data:image/png;base64,' + json.barcode + '" />');
         stop();
         sound();
     })
