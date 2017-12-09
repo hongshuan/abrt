@@ -82,7 +82,7 @@ function start(page) {
         portFromCS.postMessage({type: "start", info: info});
         println('start');
     } else {
-        println('open drivetest.ca first');
+        errorln('open drivetest.ca first');
     }
 
     calendar = tableCalendar(info.testDate);
@@ -97,7 +97,7 @@ function stop() {
         portFromCS.postMessage({type: "stop"});
         println('stop');
     } else {
-        println('drivetest.ca is not open');
+        errorln('drivetest.ca is not open');
     }
 }
 
@@ -168,6 +168,7 @@ function tableCalendar(date) {
 
 function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
+function errorln(text) { println('<span style="color:red;">' + text + '</span>');
 
 function beep() { playSound('beep.wav'); }
 function sound() { playSound('NokiaEpic.mp3'); }
