@@ -156,7 +156,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
                 continue;
             }
 
-            //console.log(year + '-' + month + '-' + abd.day + ' ' + abd.description);
+            dpr(year + '-' + month + '-' + abd.day + ' ' + abd.description);
 
             var dt = new Date(year, month-1, abd.day);
             var ymd = dt.toISOString().substring(0, 10);
@@ -200,7 +200,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         sendTimes(json.availableBookingTimes);
 
         if (json.availableBookingTimes.length > 0) {
-            console.log(json.availableBookingTimes[0]);
+            dpr('HOLD ' + json.availableBookingTimes[0]);
             hold(json.availableBookingTimes[0]);
         } else {
             setTimeout(query, 1000);
@@ -232,7 +232,7 @@ function getStatusToken(licenseNum) {
         dpr('getStatusToken');
         dpr(json);
 
-        console.log(json.statusToken);
+        dpr(json.statusToken);
     })
     .catch(function(error) {
         console.log('Error on getStatusToken: ' + error.message);
@@ -341,19 +341,14 @@ function complete(testClass, holdGuid) {
 
 function fillForm() {
     var e = document.getElementById("emailAddress");
-    if (e) {
-        e.value = "lihsca@gmail.com";
-    }
+    if (e) e.value = "lihsca@gmail.com";
+
     e = document.getElementById("confirmEmailAddress");
-    if (e) {
-        e.value = "lihsca@gmail.com";
-    }
+    if (e) e.value = "lihsca@gmail.com";
+
     e = document.getElementById("licenceNumber");
-    if (e) {
-        e.value = "Z3187-79607-06108";
-    }
+    if (e) e.value = "Z3187-79607-06108";
+
     e = document.getElementById("licenceExpiryDate");
-    if (e) {
-        e.value = "2020/01/29";
-    }
+    if (e) e.value = "2020/01/29";
 }

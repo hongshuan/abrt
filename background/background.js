@@ -25,7 +25,7 @@ function connected(p) {
     portFromCS = p;
     portFromCS.onMessage.addListener(handleMessage);
     portFromCS.onDisconnect.addListener((p) => { portFromCS = null; });
-    // console.log('connected');
+    dpr('content script connected');
 }
 
 browser.runtime.onConnect.addListener(connected);
@@ -113,7 +113,7 @@ function dpr(arg) {
 }
 
 function showDates(dates) {
-    //console.log(dates);
+    dpr(dates);
 
     progressBar.style.width = ++counter%100 + '%';
     progressBar.innerText = counter.toString();
@@ -129,7 +129,7 @@ function showDates(dates) {
 }
 
 function showTimes(times) {
-    //console.log(times);
+    dpr(times);
 
     progressBar.style.width = ++counter%100 + '%';
     progressBar.innerText = counter.toString();
