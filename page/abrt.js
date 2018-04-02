@@ -35,7 +35,7 @@ function domReady() {
 function fillDateList() {
     var fillList = function(dropdown) {
         var today = new Date();
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 30; i++) {
             var d = new Date(today);
             d.setDate(today.getDate() + i);
 

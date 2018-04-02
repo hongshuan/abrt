@@ -73,7 +73,8 @@ function start(page) {
         testCenter: abrtPage.getElementById("testcenter").value,
         startDate:  abrtPage.getElementById("startdate").value,
         endDate:    abrtPage.getElementById("enddate").value,
-        testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value
+        testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value,
+        scanOnly:   abrtPage.querySelector('input[name="scanonly"]:checked').value
     };
 
     if (DEBUG && info.licenseNum.length == 0) {

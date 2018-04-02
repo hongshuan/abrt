@@ -16,6 +16,7 @@ var testCenter;
 var startDate;
 var endDate;
 var testClass;
+var scanOnly;
 var holdGuid;
 
 function handleMessage(m) {
@@ -26,6 +27,7 @@ function handleMessage(m) {
         startDate  = m.info.startDate;
         endDate    = m.info.endDate;
         testClass  = m.info.testClass;
+        scanOnly   = m.info.scanOnly;
         start();
         break;
 
@@ -97,6 +99,14 @@ function query() {
 }
 
 function hold(time) {
+    dpr('HOLD ' + time);
+
+    if (scanOnly) {
+        beep();
+        setTimeout(query, 1000);
+        return;
+    }
+
     sendMessage('<b>HOLD ' + time.timeslot + '</b>');
     holdAppointment(testCenter, testClass, time.timeslot);
 }
@@ -202,7 +212,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         sendTimes(json.availableBookingTimes);
 
         if (json.availableBookingTimes.length > 0) {
-            dpr('HOLD ' + json.availableBookingTimes[0]);
+            //dpr('HOLD ' + json.availableBookingTimes[0]);
             hold(json.availableBookingTimes[0]);
         } else {
             setTimeout(query, 1000);
