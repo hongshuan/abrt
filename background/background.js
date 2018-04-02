@@ -1,4 +1,4 @@
-const DEBUG = 1;
+const DEBUG = 0;
 
 /**
  * open ABRT page when user click browser toolbar icon
