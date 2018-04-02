@@ -33,19 +33,27 @@ function domReady() {
 }
 
 function fillDateList() {
-    var dropdown = document.getElementById("testdate");
+    var fillList = function(dropdown) {
+        var today = new Date();
+        for (var i = 0; i < 20; i++) {
+            var d = new Date(today);
+            d.setDate(today.getDate() + i);
 
-    var today = new Date();
-    for (var i = 0; i < 20; i++) {
-        var d = new Date(today);
-        d.setDate(today.getDate() + i);
+            var option = document.createElement("option");
+            option.text = d.toISOString().substring(0, 10);
+            option.value = option.text;
 
-        var option = document.createElement("option");
-        option.text = d.toISOString().substring(0, 10);
-        option.value = option.text;
-
-        dropdown.add(option);
+            dropdown.add(option);
+        }
     }
+
+    var dropdown;
+
+    dropdown = document.getElementById("startdate");
+    fillList(dropdown);
+
+    dropdown = document.getElementById("enddate");
+    fillList(dropdown);
 }
 
 function fillCenterList() {

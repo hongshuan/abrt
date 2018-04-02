@@ -13,7 +13,8 @@ myPort.onMessage.addListener(handleMessage);
 var stopped = true;
 var licenseNum;
 var testCenter;
-var testDate;
+var startDate;
+var endDate;
 var testClass;
 var holdGuid;
 
@@ -22,7 +23,8 @@ function handleMessage(m) {
     case 'start':
         licenseNum = m.info.licenseNum;
         testCenter = m.info.testCenter;
-        testDate   = m.info.testDate;
+        startDate  = m.info.startDate;
+        endDate    = m.info.endDate;
         testClass  = m.info.testClass;
         start();
         break;
@@ -91,7 +93,7 @@ function query() {
     }
 
     dpr('query 2');
-    getAvailBookingDates(testDate, testCenter, testClass);
+    getAvailBookingDates(startDate, endDate, testCenter, testClass);
 }
 
 function hold(time) {
@@ -122,11 +124,11 @@ function getServiceId(centerName, testClass) {
 // getServiceId('Lindsay', 'G2');
 // getServiceId('Lindsay', 'G');
 
-function getAvailBookingDates(date, testCenter, testClass) {
+function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
 
     var year, month, day,
 
-    [ year, month, day ] = date.split('-');
+    [ year, month, day ] = endDate.split('-');
 
     // serviceId is not working, don't know why?
     var svcid = getServiceId(testCenter, testClass);
@@ -161,7 +163,7 @@ function getAvailBookingDates(date, testCenter, testClass) {
             var dt = new Date(year, month-1, abd.day);
             var ymd = dt.toISOString().substring(0, 10);
 
-            if (ymd <= testDate) {
+            if (ymd >= startDate && ymd <= endDate) {
                 foundDate = ymd;
                 break;
             }

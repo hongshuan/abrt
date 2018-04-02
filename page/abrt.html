@@ -10,6 +10,7 @@
 <style>
   html,body { height:100%; }
   body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+  p { margin-bottom: 0; }
   .w3-table td, .w3-table th { padding: 5px 8px; }
   .full { background-color: #eee; }
   .unavailable { background-color: #ddd; }
@@ -22,7 +23,7 @@
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="width:260px">
-  <div class="w3-container w3-padding-16">
+  <div class="w3-container _w3-padding-16">
     <h3>ABRT</h3>
     <form id="form">
       <p><label><i class="fa fa-id-card-o"></i> Driver License</label></p>
@@ -32,8 +33,12 @@
       <select class="w3-select w3-border" id="testcenter">
       </select>
 
-      <p><label><i class="fa fa-calendar"></i> Date</label></p>
-      <select class="w3-select w3-border" id="testdate">
+      <p><label><i class="fa fa-calendar"></i> Start Date</label></p>
+      <select class="w3-select w3-border" id="startdate">
+      </select>
+
+      <p><label><i class="fa fa-calendar"></i> End Date</label></p>
+      <select class="w3-select w3-border" id="enddate">
       </select>
 
       <p><label><input type="radio" name="testclass" value="G2" checked> G2 License</label></p>

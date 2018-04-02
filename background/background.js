@@ -71,7 +71,8 @@ function start(page) {
     var info = {
         licenseNum: abrtPage.getElementById("licensenum").value,
         testCenter: abrtPage.getElementById("testcenter").value,
-        testDate:   abrtPage.getElementById("testdate").value,
+        startDate:  abrtPage.getElementById("startdate").value,
+        endDate:    abrtPage.getElementById("enddate").value,
         testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value
     };
 
@@ -90,7 +91,7 @@ function start(page) {
         errorln('open drivetest.ca first');
     }
 
-    calendar = tableCalendar(info.testDate);
+    calendar = tableCalendar(info.startDate);
     outputElement.innerHTML = calendar;
 }
 
