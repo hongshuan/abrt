@@ -97,10 +97,9 @@ function query() {
 }
 
 function hold(time) {
-    dpr('TIME ' + time);
-
     if (scanOnly) {
         sound();
+        sendMessage('<b>TIME ' + time.timeslot + '</b>');
         setTimeout(query, interval);
         return;
     }
@@ -210,7 +209,6 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         sendTimes(json.availableBookingTimes);
 
         if (json.availableBookingTimes.length > 0) {
-            //dpr('HOLD ' + json.availableBookingTimes[0]);
             hold(json.availableBookingTimes[0]);
         } else {
             setTimeout(query, interval);
