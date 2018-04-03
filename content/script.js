@@ -10,6 +10,7 @@ var myPort = browser.runtime.connect({name:"port-from-cs"});
  */
 myPort.onMessage.addListener(handleMessage);
 
+var interval = 2000;
 var stopped = true;
 var licenseNum;
 var testCenter;
@@ -77,9 +78,8 @@ document.body.addEventListener("click", function() {
 
 function start() {
     if (stopped) {
-        dpr('start');
         stopped = false;
-        setTimeout(query, 1000);
+        setTimeout(query, interval);
         // query();
     }
 }
@@ -89,12 +89,10 @@ function stop() {
 }
 
 function query() {
-    dpr('query 1');
     if (stopped) {
         return;
     }
 
-    dpr('query 2');
     getAvailBookingDates(startDate, endDate, testCenter, testClass);
 }
 
@@ -103,7 +101,7 @@ function hold(time) {
 
     if (scanOnly) {
         sound();
-        setTimeout(query, 1000);
+        setTimeout(query, interval);
         return;
     }
 
@@ -182,7 +180,7 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
         if (foundDate) {
             getAvailBookingTimes(foundDate, testCenter, testClass);
         } else {
-            setTimeout(query, 1000);
+            setTimeout(query, interval);
         }
     })
     .catch(function(error) {
@@ -215,7 +213,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
             //dpr('HOLD ' + json.availableBookingTimes[0]);
             hold(json.availableBookingTimes[0]);
         } else {
-            setTimeout(query, 1000);
+            setTimeout(query, interval);
         }
 
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {
@@ -278,7 +276,7 @@ function holdAppointment(testCenter, testClass, time) {
             holdGuid = json.guid;
             payFee(testClass);
         } else {
-            setTimeout(query, 1000);
+            setTimeout(query, interval);
         }
     })
     .catch(function(error) {
