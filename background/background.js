@@ -1,4 +1,4 @@
-const DEBUG = 0;
+const DEBUG = 1;
 
 /**
  * open ABRT page when user click browser toolbar icon
@@ -74,13 +74,9 @@ function start(page) {
         startDate:  abrtPage.getElementById("startdate").value,
         endDate:    abrtPage.getElementById("enddate").value,
         testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value,
-        scanOnly:   abrtPage.querySelector('input[name="scanonly"]:checked').value
+        scanOnly:   abrtPage.querySelector('input[name="scanonly"]').checked
     };
-
-    if (DEBUG && info.licenseNum.length == 0) {
-        info.licenseNum = 'Z3187-79607-06108';
-        abrtPage.getElementById("licensenum").value = info.licenseNum;
-    }
+    dpr(info);
 
     /**
      * sends messages to the content script

@@ -99,10 +99,10 @@ function query() {
 }
 
 function hold(time) {
-    dpr('HOLD ' + time);
+    dpr('TIME ' + time);
 
     if (scanOnly) {
-        beep();
+        sound();
         setTimeout(query, 1000);
         return;
     }
