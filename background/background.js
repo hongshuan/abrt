@@ -102,6 +102,8 @@ function stop() {
     } else {
         errorln('drivetest.ca is not open');
     }
+
+    counter = 0;
 }
 
 function dpr(arg) {
@@ -129,8 +131,8 @@ function showDates(dates) {
 function showTimes(times) {
     dpr(times);
 
-    progressBar.style.width = ++counter%100 + '%';
-    progressBar.innerText = counter.toString();
+    //progressBar.style.width = ++counter%100 + '%';
+    //progressBar.innerText = counter.toString();
 
     for (var i = 0; i < times.length; i++) {
         var t = times[i];
@@ -173,6 +175,6 @@ function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
 function errorln(text) { println('<span style="color:red;">' + text + '</span>'); }
 
-function beep() { playSound('beep.wav'); }
+function beep() { playSound('BikeHorn.mp3'); }
 function sound() { playSound('NokiaEpic.mp3'); }
 function playSound(file) { var audio = new Audio('/webres/' + file); audio.play(); }
