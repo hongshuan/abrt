@@ -157,8 +157,6 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
 
         sendDates(json.availableBookingDates);
 
-        var foundDate = false;
-
         for (var i = 0; i < json.availableBookingDates.length; i++) {
             var abd = json.availableBookingDates[i];
             if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
@@ -171,14 +169,11 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
             dpr(ymd + ' ' + abd.description);
 
             if (ymd >= startDate && ymd <= endDate) {
-                foundDate = ymd;
-                break;
+                getAvailBookingTimes(ymd, testCenter, testClass);
             }
         }
 
-        if (foundDate) {
-            getAvailBookingTimes(foundDate, testCenter, testClass);
-        } else {
+        if (!stopped) {
             setTimeout(query, interval);
         }
     })
@@ -210,8 +205,6 @@ function getAvailBookingTimes(date, testCenter, testClass) {
 
         if (json.availableBookingTimes.length > 0) {
             hold(json.availableBookingTimes[0]);
-        } else {
-            setTimeout(query, interval);
         }
 
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {
@@ -273,8 +266,6 @@ function holdAppointment(testCenter, testClass, time) {
         if (json.success) {
             holdGuid = json.guid;
             payFee(testClass);
-        } else {
-            setTimeout(query, interval);
         }
     })
     .catch(function(error) {
