@@ -151,7 +151,7 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
         return response.json();
     })
     .then(function(json) {
-        dpr(url);
+      //dpr(url);
         dpr('getAvailDates');
         dpr(json);
 
@@ -165,10 +165,10 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
                 continue;
             }
 
-            dpr(year + '-' + month + '-' + abd.day + ' ' + abd.description);
-
             var dt = new Date(year, month-1, abd.day);
             var ymd = dt.toISOString().substring(0, 10);
+
+            dpr(ymd + ' ' + abd.description);
 
             if (ymd >= startDate && ymd <= endDate) {
                 foundDate = ymd;
@@ -202,7 +202,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         return response.json();
     })
     .then(function(json) {
-        dpr(url);
+      //dpr(url);
         dpr('getAvailTimes');
         dpr(json);
 
@@ -236,7 +236,7 @@ function getStatusToken(licenseNum) {
         return response.json();
     })
     .then(function(json) {
-        dpr(url);
+      //dpr(url);
         dpr('getStatusToken');
         dpr(json);
 
@@ -266,7 +266,7 @@ function holdAppointment(testCenter, testClass, time) {
         return response.json();
     })
     .then(function(json) {
-        dpr(url);
+      //dpr(url);
         dpr('hold');
         dpr(json);
 
@@ -298,7 +298,7 @@ function payFee(testClass) {
         return response.json();
     })
     .then(function(json) {
-        dpr(url);
+      //dpr(url);
         dpr('payfees');
         dpr(json);
 
@@ -328,7 +328,7 @@ function complete(testClass, holdGuid) {
         return response.json();
     })
     .then(function(json) {
-        dpr(url);
+      //dpr(url);
         dpr('complete');
         dpr(json);
         dpr('<img src="data:image/png;base64,' + json.barcode + '" />');
