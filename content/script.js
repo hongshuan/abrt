@@ -55,10 +55,6 @@ function beep() {
 }
 
 function sound() {
-    if (DEBUG) {
-        beep();
-        return;
-    }
     myPort.postMessage({type: 'sound' });
 }
 
@@ -98,9 +94,7 @@ function query() {
 
 function hold(time) {
     if (scanOnly) {
-        sound();
         sendMessage('<b>TIME ' + time.timeslot + '</b>');
-        setTimeout(query, interval);
         return;
     }
 
@@ -205,6 +199,9 @@ function getAvailBookingTimes(date, testCenter, testClass) {
 
         if (json.availableBookingTimes.length > 0) {
             hold(json.availableBookingTimes[0]);
+            if (scanOnly) {
+                beep();
+            }
         }
 
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {
