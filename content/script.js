@@ -113,6 +113,7 @@ function getServiceId(centerName, testClass) {
         Brampton:  { G2: 12196, G: 12197 },
         Guelph:    { G2: 12405, G: 12406 },
         London:    { G2: 12594, G: 12595 },
+        PortUnion: { G2: 12777, G: 12778 },
         Newmarket: { G2: 12120, G: 12121 }
     };
 
