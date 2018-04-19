@@ -93,11 +93,6 @@ function query() {
 }
 
 function hold(time) {
-    if (scanOnly) {
-        sendMessage('<b>TIME ' + time.timeslot + '</b>');
-        return;
-    }
-
     sendMessage('<b>HOLD ' + time.timeslot + '</b>');
     holdAppointment(testCenter, testClass, time.timeslot);
 }
@@ -195,13 +190,13 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         dpr('getAvailTimes');
         dpr(json);
 
-        sendTimes(json.availableBookingTimes);
-
         if (json.availableBookingTimes.length > 0) {
-            hold(json.availableBookingTimes[0]);
+            sendTimes(json.availableBookingTimes);
             if (scanOnly) {
                 beep();
+                return;
             }
+            hold(json.availableBookingTimes[0]);
         }
 
         //for (var i = 0; i < json.availableBookingTimes.length; i++) {

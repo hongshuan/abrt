@@ -134,10 +134,21 @@ function showTimes(times) {
     //progressBar.style.width = ++counter%100 + '%';
     //progressBar.innerText = counter.toString();
 
+    var list = '<ul style="margin:0;">'
     for (var i = 0; i < times.length; i++) {
         var t = times[i];
-        println(t.timeslot);
+        list += '<li>' + t.timeslot + '</li>';
     }
+    list += '</ul>';
+
+    println(now() + list);
+}
+
+function now() {
+    var d = new Date();
+    d.setTime(d.getTime()-d.getTimezoneOffset()*60*1000);
+    var s = d.toISOString();
+    return s.substr(0, 10) + ' ' + s.substr(11, 8);
 }
 
 function tableCalendar(date) {
