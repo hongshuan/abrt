@@ -1,0 +1,349 @@
+{
+    "driveTestCentres": [
+        {
+            "address1": "1 Henderson Drive",
+            "address2": "Unit 4",
+            "city": "Aurora",
+            "id": 19,
+            "latitude": "43.9823244",
+            "licenceTestTypes": [
+                "G2",
+                "G",
+                "LM2",
+                "LM",
+                "M2",
+                "M"
+            ],
+            "locationHours": [
+                {
+                    "dayOFWeek": 0,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 1,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 2,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 3,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 4,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 5,
+                    "endTime": "16:00",
+                    "startTime": "16:00"
+                }
+            ],
+            "longitude": "-79.4648307",
+            "name": "Aurora",
+            "postalCode": "L4G 4J7",
+            "province": "Ontario",
+            "services": [
+                {
+                    "Active": true,
+                    "AllowPublic": true,
+                    "DayReminder": false,
+                    "ID": 9,
+                    "LocationID": 19,
+                    "MinuteDuration": 15,
+                    "Name": "Aurora Services",
+                    "SelectionMethod": 0,
+                    "TakesPayment": false,
+                    "UsesWeeklySchedule": true,
+                    "VariableDuration": false,
+                    "WeekReminder": false
+                }
+            ]
+        },
+        {
+            "address1": "142 Hastings St.N.",
+            "address2": "Unit 2",
+            "city": "Bancroft",
+            "id": 5,
+            "latitude": "45.0625872",
+            "licenceTestTypes": [
+                "G2",
+                "G",
+                "LM2",
+                "LM",
+                "M2",
+                "M",
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "Z"
+            ],
+            "locationHours": [
+                {
+                    "dayOFWeek": 0,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 1,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 2,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 3,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 4,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                }
+            ],
+            "longitude": "-77.8566692",
+            "name": "Bancroft",
+            "postalCode": "K0L 1C0",
+            "province": "Ontario",
+            "services": [
+                {
+                    "Active": true,
+                    "AllowPublic": true,
+                    "DayReminder": false,
+                    "ID": 10,
+                    "LocationID": 5,
+                    "MinuteDuration": 0,
+                    "Name": "Bancroft Services",
+                    "SelectionMethod": 0,
+                    "TakesPayment": false,
+                    "UsesWeeklySchedule": true,
+                    "VariableDuration": false,
+                    "WeekReminder": false
+                }
+            ]
+        },
+        {
+            "address1": "520 Bryne Drive",
+            "address2": "Unit 7",
+            "city": "Barrie",
+            "id": 42,
+            "latitude": "44.3302802",
+            "licenceTestTypes": [
+                "G2",
+                "G",
+                "LM2",
+                "LM",
+                "M2",
+                "M",
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "Z",
+                "PerfTestServiceGroup 2509152031"
+            ],
+            "locationHours": [
+                {
+                    "dayOFWeek": 0,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 1,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 2,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 3,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 4,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                }
+            ],
+            "longitude": "-79.6886708",
+            "name": "Barrie",
+            "postalCode": "L4N 9P6",
+            "province": "Ontario",
+            "services": [
+                {
+                    "Active": true,
+                    "AllowPublic": true,
+                    "DayReminder": false,
+                    "ID": 11,
+                    "LocationID": 42,
+                    "MinuteDuration": 0,
+                    "Name": "Barrie Services",
+                    "SelectionMethod": 0,
+                    "TakesPayment": false,
+                    "UsesWeeklySchedule": true,
+                    "VariableDuration": false,
+                    "WeekReminder": false
+                }
+            ]
+        },
+        {
+            "address1": "345 College Street E.",
+            "address2": "Unit 12, R.R. #6",
+            "city": "Belleville",
+            "id": 6,
+            "latitude": "44.1852801",
+            "licenceTestTypes": [
+                "G2",
+                "G",
+                "LM2",
+                "LM",
+                "M2",
+                "M",
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "Z",
+                "PerfTestServiceGroup 2409161036"
+            ],
+            "locationHours": [
+                {
+                    "dayOFWeek": 0,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 1,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 2,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 3,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 4,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                }
+            ],
+            "longitude": "-77.3689885",
+            "name": "Belleville",
+            "postalCode": "K8N 5S7",
+            "province": "Ontario",
+            "services": [
+                {
+                    "Active": true,
+                    "AllowPublic": true,
+                    "DayReminder": false,
+                    "ID": 12,
+                    "LocationID": 6,
+                    "MinuteDuration": 0,
+                    "Name": "Belleville Services",
+                    "SelectionMethod": 0,
+                    "TakesPayment": false,
+                    "UsesWeeklySchedule": true,
+                    "VariableDuration": false,
+                    "WeekReminder": false
+                }
+            ]
+        },
+        {
+            "address1": "59 First Gulf Blvd",
+            "address2": "Unit #9",
+            "city": "Brampton",
+            "id": 23,
+            "latitude": "43.6784563",
+            "licenceTestTypes": [
+                "G2",
+                "G",
+                "LM2",
+                "LM",
+                "M2",
+                "M",
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "Z"
+            ],
+            "locationHours": [
+                {
+                    "dayOFWeek": 0,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 1,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 2,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 3,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                },
+                {
+                    "dayOFWeek": 4,
+                    "endTime": "17:00",
+                    "startTime": "17:00"
+                }
+            ],
+            "longitude": "-79.7145361",
+            "name": "Brampton",
+            "postalCode": "L6W 4P9",
+            "province": "Ontario",
+            "services": [
+                {
+                    "Active": true,
+                    "AllowPublic": true,
+                    "DayReminder": false,
+                    "ID": 13,
+                    "LocationID": 23,
+                    "MinuteDuration": 0,
+                    "Name": "Brampton Services",
+                    "SelectionMethod": 0,
+                    "TakesPayment": false,
+                    "UsesWeeklySchedule": true,
+                    "VariableDuration": false,
+                    "WeekReminder": false
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,155 @@
+{
+    "availableBookingDates": [
+        { "code": 4, "day": 1, "description": "Unavailable" },
+        { "code": 4, "day": 2, "description": "Unavailable" },
+        { "code": 4, "day": 3, "description": "Unavailable" },
+        { "code": 4, "day": 4, "description": "Unavailable" },
+        { "code": 4, "day": 5, "description": "Unavailable" },
+        { "code": 1, "day": 6, "description": "Some" },
+        { "code": 1, "day": 7, "description": "Some" },
+        { "code": 1, "day": 8, "description": "Some" },
+        { "code": 1, "day": 9, "description": "Some" },
+        { "code": 1, "day": 10, "description": "Some" },
+        { "code": 4, "day": 11, "description": "Unavailable" },
+        { "code": 4, "day": 12, "description": "Unavailable" },
+        { "code": 1, "day": 13, "description": "Some" },
+        { "code": 1, "day": 14, "description": "Some" },
+        { "code": 1, "day": 15, "description": "Some" },
+        { "code": 2, "day": 16, "description": "Most" },
+        { "code": 1, "day": 17, "description": "Some" },
+        { "code": 4, "day": 18, "description": "Unavailable" },
+        { "code": 4, "day": 19, "description": "Unavailable" },
+        { "code": 1, "day": 20, "description": "Some" },
+        { "code": 1, "day": 21, "description": "Some" },
+        { "code": 1, "day": 22, "description": "Some" },
+        { "code": 1, "day": 23, "description": "Some" },
+        { "code": 0, "day": 24, "description": "Open" },
+        { "code": 4, "day": 25, "description": "Unavailable" },
+        { "code": 4, "day": 26, "description": "Unavailable" },
+        { "code": 0, "day": 27, "description": "Open" },
+        { "code": 1, "day": 28, "description": "Some" },
+        { "code": 1, "day": 29, "description": "Some" },
+        { "code": 1, "day": 30, "description": "Some" },
+        { "code": 0, "day": 31, "description": "Open" }
+    ]
+}
+
+{
+    "availableBookingDates": [
+        { "day": 1, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 2, "density": 2, "description": "MOST" },
+        { "day": 3, "density": 1, "description": "SOME" },
+        { "day": 4, "density": 1, "description": "SOME" },
+        { "day": 5, "density": 0, "description": "OPEN" },
+        { "day": 6, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 7, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 8, "density": 3, "description": "FULL" },
+        { "day": 9, "density": 3, "description": "FULL" },
+        { "day": 10, "density": 2, "description": "MOST" },
+        { "day": 11, "density": 2, "description": "MOST" },
+        { "day": 12, "density": 2, "description": "MOST" },
+        { "day": 13, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 14, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 15, "density": 2, "description": "MOST" },
+        { "day": 16, "density": 1, "description": "SOME" },
+        { "day": 17, "density": 1, "description": "SOME" },
+        { "day": 18, "density": 1, "description": "SOME" },
+        { "day": 19, "density": 1, "description": "SOME" },
+        { "day": 20, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 21, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 22, "density": 1, "description": "SOME" },
+        { "day": 23, "density": 1, "description": "SOME" },
+        { "day": 24, "density": 1, "description": "SOME" },
+        { "day": 25, "density": 1, "description": "SOME" },
+        { "day": 26, "density": 1, "description": "SOME" },
+        { "day": 27, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 28, "density": 4, "description": "UNAVAILABLE" },
+        { "day": 29, "density": 1, "description": "SOME" },
+        { "day": 30, "density": 1, "description": "SOME" },
+        { "day": 31, "density": 1, "description": "SOME" }
+    ]
+}
+
+{
+    "availableBookingTimes": [
+        { "timeslot": 1418929200000 },
+        { "timeslot": 1418931000000 },
+        { "timeslot": 1418932800000 },
+        { "timeslot": 1418934600000 },
+        { "timeslot": 1418936400000 },
+        { "timeslot": 1418938200000 },
+        { "timeslot": 1418940000000 },
+        { "timeslot": 1418941800000 },
+        { "timeslot": 1418943600000 },
+        { "timeslot": 1418945400000 },
+        { "timeslot": 1418947200000 },
+        { "timeslot": 1418949000000 },
+        { "timeslot": 1418950800000 },
+        { "timeslot": 1418952600000 },
+        { "timeslot": 1418954400000 }
+    ]
+}
+
+var dates = `{
+    "availableBookingDates":[
+        {"day":1,"density":3,"description":"FULL"},
+        {"day":2,"density":4,"description":"UNAVAILABLE"},
+        {"day":3,"density":4,"description":"UNAVAILABLE"},
+        {"day":4,"density":3,"description":"FULL"},
+        {"day":5,"density":3,"description":"FULL"},
+        {"day":6,"density":3,"description":"FULL"},
+        {"day":7,"density":3,"description":"FULL"},
+        {"day":8,"density":3,"description":"FULL"},
+        {"day":9,"density":4,"description":"UNAVAILABLE"},
+        {"day":10,"density":4,"description":"UNAVAILABLE"},
+        {"day":11,"density":3,"description":"FULL"},
+        {"day":12,"density":3,"description":"FULL"},
+        {"day":13,"density":3,"description":"FULL"},
+        {"day":14,"density":3,"description":"FULL"},
+        {"day":15,"density":3,"description":"FULL"},
+        {"day":16,"density":4,"description":"UNAVAILABLE"},
+        {"day":17,"density":4,"description":"UNAVAILABLE"},
+        {"day":18,"density":3,"description":"FULL"},
+        {"day":19,"density":3,"description":"FULL"},
+        {"day":20,"density":3,"description":"FULL"},
+        {"day":21,"density":3,"description":"FULL"},
+        {"day":22,"density":3,"description":"FULL"},
+        {"day":23,"density":4,"description":"UNAVAILABLE"},
+        {"day":24,"density":4,"description":"UNAVAILABLE"},
+        {"day":25,"density":4,"description":"UNAVAILABLE"},
+        {"day":26,"density":4,"description":"UNAVAILABLE"},
+        {"day":27,"density":3,"description":"FULL"},
+        {"day":28,"density":2,"description":"MOST"},
+        {"day":29,"density":2,"description":"MOST"},
+        {"day":30,"density":4,"description":"UNAVAILABLE"},
+        {"day":31,"density":4,"description":"UNAVAILABLE"}
+    ]
+}`;
+
+var times = `{
+    "availableBookingTimes":[
+        {"timeslot":"2018-01-02T09:05-0500"},
+        {"timeslot":"2018-01-02T09:25-0500"},
+        {"timeslot":"2018-01-02T09:45-0500"},
+        {"timeslot":"2018-01-02T15:25-0500"},
+        {"timeslot":"2018-01-02T15:45-0500"},
+        {"timeslot":"2018-01-02T16:05-0500"}
+    ]
+}`;
+
+var obj = JSON.parse(dates);
+
+for (var i = 0; i < obj.availableBookingDates.length; i++) {
+    var abd = obj.availableBookingDates[i];
+    if (abd.description == 'UNAVAILABLE' || abd.description == 'FULL') {
+        continue;
+    }
+    console.log(abd.day + ' ' + abd.description);
+}
+
+obj = JSON.parse(times);
+
+for (var i = 0; i < obj.availableBookingTimes.length; i++) {
+    var abt = obj.availableBookingTimes[i];
+    console.log(abt.timeslot);
+}
