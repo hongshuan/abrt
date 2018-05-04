@@ -102,7 +102,8 @@ function hold(time) {
  */
 function getServiceId(centerName, testClass) {
     var centers = {
-        Oshawa:    { G2: 12694, G: 12695 },
+        Oshawa:    { G2: 18295, G: 18382 },
+
         Lindsay:   { G2: 12576, G: 12577 },
         Barrie:    { G2: 12160, G: 12161 },
         Brampton:  { G2: 12196, G: 12197 },
