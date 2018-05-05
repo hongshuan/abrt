@@ -10,7 +10,7 @@ var myPort = browser.runtime.connect({name:"port-from-cs"});
  */
 myPort.onMessage.addListener(handleMessage);
 
-var interval = 2000;
+var interval = 500;
 var stopped = true;
 var licenseNum;
 var testCenter;
@@ -140,8 +140,8 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
     })
     .then(function(json) {
       //dpr(url);
-        dpr('getAvailDates');
-        dpr(json);
+      //dpr('getAvailDates');
+      //dpr(json);
 
         sendDates(json.availableBookingDates);
 
@@ -190,9 +190,9 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         dpr(json);
 
         if (json.availableBookingTimes.length > 0) {
+            beep();
             sendTimes(json.availableBookingTimes);
             if (scanOnly) {
-                beep();
                 return;
             }
             hold(json.availableBookingTimes[0]);
