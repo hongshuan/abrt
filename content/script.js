@@ -103,14 +103,12 @@ function hold(time) {
 function getServiceId(centerName, testClass) {
     var centers = {
         Oshawa:    { G2: 18295, G: 18382 },
-
-        Lindsay:   { G2: 12576, G: 12577 },
-        Barrie:    { G2: 12160, G: 12161 },
-        Brampton:  { G2: 12196, G: 12197 },
-        Guelph:    { G2: 12405, G: 12406 },
-        London:    { G2: 12594, G: 12595 },
-        PortUnion: { G2: 12777, G: 12778 },
-        Newmarket: { G2: 12120, G: 12121 }
+        Lindsay:   { G2: 18264, G: 18373 },
+        Guelph:    { G2: 18280, G: 18364 },
+        Barrie:    { G2: 18272, G: 18351 },
+        Brampton:  { G2: 18273, G: 18353 },
+        London:    { G2: 18287, G: 18374 },
+        Newmarket: { G2: 18290, G: 18377 }
     };
 
     return centers[centerName][testClass];
