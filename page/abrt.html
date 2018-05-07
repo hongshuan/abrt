@@ -6,7 +6,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src *; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 <title>ABRT</title>
 <link rel="icon" href="/assets/icon-48.png" sizes="32x32" >
-<link rel="stylesheet" href="/assets/w3.css">
+<link rel="stylesheet" type="text/css" href="/assets/w3.css">
+<link rel="stylesheet" type="text/css" href="/assets/flatpickr/flatpickr.css">
+<link rel="stylesheet" type="text/css" href="/assets/flatpickr/themes/material_blue.css">
 <style>
   html,body { height:100%; }
   body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
@@ -36,12 +38,10 @@
       </select>
 
       <p><label>Start Date</label></p>
-      <select class="w3-select w3-border" id="startdate">
-      </select>
+      <input class="w3-input w3-border" type="text" id="startdate">
 
       <p><label>End Date</label></p>
-      <select class="w3-select w3-border" id="enddate">
-      </select>
+      <input class="w3-input w3-border" type="text" id="enddate">
 
       <p>
         <label><input type="radio" name="testclass" value="G2" checked> G2 License</label><br>
@@ -87,6 +87,7 @@
 </div>
 <!-- End page content -->
 
+<script src="/assets/flatpickr/flatpickr.js"></script>
 <script src="abrt.js"></script>
 
 </body>

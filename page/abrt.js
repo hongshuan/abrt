@@ -28,8 +28,10 @@ function empty() {
 }
 
 function domReady() {
-    fillDateList();
+    //fillDateList();
     fillCenterList();
+    flatpickr("#startdate", {});
+    flatpickr("#enddate", {});
 }
 
 function fillDateList() {
