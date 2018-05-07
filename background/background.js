@@ -188,4 +188,4 @@ function errorln(text) { println('<span style="color:red;">' + text + '</span>')
 
 function beep() { playSound('BikeHorn.mp3'); }
 function sound() { playSound('NokiaEpic.mp3'); }
-function playSound(file) { var audio = new Audio('/webres/' + file); audio.play(); }
+function playSound(file) { var audio = new Audio('/assets/' + file); audio.play(); }
