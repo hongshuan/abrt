@@ -67,9 +67,9 @@ function dpr(arg) {
 /**
  * sends messages to the background script, using myPort
  */
-document.body.addEventListener("click", function() {
+document.body.addEventListener("keyup", function() {
     // myPort.postMessage({output:'ping'});
-    //fillForm();
+    fillForm();
 });
 
 function start() {
@@ -204,6 +204,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         //}
     })
     .catch(function(error) {
+        // TODO: show error messaage in message window
         console.log('Error on getAvailBookingTimes: ' + error.message);
     });
 }
@@ -217,13 +218,13 @@ function getStatusToken(licenseNum) {
         body: JSON.stringify({ licenseNumber: licenseNum })
     })
     .then(function(response) {
+      //dpr(url);
+        dpr('getStatusToken');
+        dpr(response);
         return response.json();
     })
     .then(function(json) {
-      //dpr(url);
-        dpr('getStatusToken');
-        dpr(json);
-
+      //dpr(json);
         dpr(json.statusToken);
     })
     .catch(function(error) {
@@ -247,19 +248,20 @@ function holdAppointment(testCenter, testClass, time) {
         })
     })
     .then(function(response) {
+      //dpr(url);
+        dpr('holdAppointment');
+        dpr(response);
         return response.json();
     })
     .then(function(json) {
-      //dpr(url);
-        dpr('hold');
-        dpr(json);
-
+      //dpr(json);
         if (json.success) {
             holdGuid = json.guid;
             payFee(testClass);
         }
     })
     .catch(function(error) {
+        // TODO: show error messaage in message window
         console.log('Error on holdAppointment: ' + error.message);
     });
 }
@@ -277,16 +279,16 @@ function payFee(testClass) {
         })
     })
     .then(function(response) {
+      //dpr(url);
+        dpr('payFee');
+        dpr(response);
         return response.json();
     })
     .then(function(json) {
-      //dpr(url);
-        dpr('payfees');
-        dpr(json);
-
         complete(testClass, holdGuid);
     })
     .catch(function(error) {
+        // TODO: show error messaage in message window
         console.log('Error on payFee: ' + error.message);
     });
 }
@@ -307,12 +309,12 @@ function complete(testClass, holdGuid) {
         })
     })
     .then(function(response) {
+      //dpr(url);
+        dpr('complete');
+        dpr(response);
         return response.json();
     })
     .then(function(json) {
-      //dpr(url);
-        dpr('complete');
-        dpr(json);
         dpr('<img src="data:image/png;base64,' + json.barcode + '" />');
 
         sendMessage(json.displayId);
@@ -321,6 +323,7 @@ function complete(testClass, holdGuid) {
         sound();
     })
     .catch(function(error) {
+        // TODO: show error messaage in message window
         console.log('Error on complete: ' + error.message);
     });
 }
@@ -330,11 +333,13 @@ function complete(testClass, holdGuid) {
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
 
 function fillForm() {
+    var email = "zhuyf2000@gmail.com";
+
     var e = document.getElementById("emailAddress");
-    if (e) e.value = "lihsca@gmail.com";
+    if (e) e.value = email;
 
     e = document.getElementById("confirmEmailAddress");
-    if (e) e.value = "lihsca@gmail.com";
+    if (e) e.value = email;
 
     e = document.getElementById("licenceNumber");
     if (e) e.value = "Z3187-79607-06108";
