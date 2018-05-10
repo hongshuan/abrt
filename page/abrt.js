@@ -61,7 +61,7 @@ function fillDateList() {
 function fillCenterList() {
     var dropdown = document.getElementById("testcenter");
 
-    var centers = [ 'Oshawa', 'Lindsay' ];
+    var centers = [ 'Oshawa', 'Lindsay', 'Guelph', 'Barrie', 'Brampton', 'London', 'Newmarket' ];
     for (var i = 0; i < centers.length; i++) {
         var option = document.createElement("option");
         option.text = centers[i];
