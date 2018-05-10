@@ -67,9 +67,11 @@ function dpr(arg) {
 /**
  * sends messages to the background script, using myPort
  */
-document.body.addEventListener("keyup", function() {
+document.body.addEventListener("keyup", function(e) {
     // myPort.postMessage({output:'ping'});
-    fillForm();
+    if (e.keyCode === 27) {
+        fillForm();
+    }
 });
 
 function start() {
@@ -333,7 +335,7 @@ function complete(testClass, holdGuid) {
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
 
 function fillForm() {
-    var email = "zhuyf2000@gmail.com";
+    var email = "zhuyf2000@gmail.com*";
 
     var e = document.getElementById("emailAddress");
     if (e) e.value = email;
@@ -342,8 +344,8 @@ function fillForm() {
     if (e) e.value = email;
 
     e = document.getElementById("licenceNumber");
-    if (e) e.value = "Z3187-79607-06108";
+    if (e) e.value = "R2492-14709-00720*";
 
     e = document.getElementById("licenceExpiryDate");
-    if (e) e.value = "2020/01/29";
+    if (e) e.value = "2022/07/23*";
 }
