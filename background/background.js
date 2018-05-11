@@ -188,9 +188,9 @@ function errorln(text) { println('<span style="color:red;">' + text + '</span>')
 
 function beep() {
     var testClass = abrtPage.querySelector('input[name="testclass"]:checked').value;
-    if (testClass == 'G) {
+    if (testClass == 'G') {
         playSound('BikeHorn.mp3');
-    } else {
+    } else if (testClass == 'G2') {
         playSound('TwoTone.mp3');
     }
 }
