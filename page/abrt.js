@@ -23,11 +23,6 @@ function domReady() {
 
     flatpickr("#startdate", {});
     flatpickr("#enddate", {});
-
-    var btns = document.querySelectorAll("td span.w3-btn");
-    for (var btn of btns) {
-        btn.onclick = selectDriver;
-    }
 }
 
 var backgroundPage = browser.extension.getBackgroundPage();
@@ -52,6 +47,13 @@ function empty() {
 function showModal() {
     getE('md01').style.display = 'block';
     getE("tablink1").click();
+
+    loadLicenses();
+
+    var btns = document.querySelectorAll("td span.w3-btn");
+    for (var btn of btns) {
+        btn.onclick = selectDriver;
+    }
 }
 
 function closeModal() {
