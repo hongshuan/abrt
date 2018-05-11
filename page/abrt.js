@@ -3,7 +3,6 @@
  */
 document.getElementById("start").addEventListener("click", start);
 document.getElementById("stop").addEventListener("click", stop);
-//document.getElementById("clear").addEventListener("click", clear);
 document.getElementById("empty").addEventListener("click", empty);
 
 document.getElementById("openModal").addEventListener("click", showModal);
@@ -28,84 +27,55 @@ function stop() {
     backgroundPage.stop();
 }
 
-function clear() {
-    document.getElementById("output").innerHTML = '';
-}
-
 function empty() {
     document.getElementById("messages").innerHTML = '';
 }
 
 function showModal() {
-  document.getElementById('md01').style.display = 'block';
-  document.getElementsByClassName("tablink")[0].click();
+    document.getElementById('md01').style.display = 'block';
+    document.getElementsByClassName("tablink")[0].click();
 }
 
 function closeModal() {
-  document.getElementById('md01').style.display = 'none';
+    document.getElementById('md01').style.display = 'none';
 }
 
 function openTab(evt, cityName) {
-  var i, x, tablinks;
-  x = document.getElementsByClassName("tab");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-    tablinks[i].classList.remove("w3-light-grey");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.classList.add("w3-light-grey");
+    var i, x, tablinks;
+    x = document.getElementsByClassName("tab");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < x.length; i++) {
+        tablinks[i].classList.remove("w3-light-grey");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.classList.add("w3-light-grey");
 }
 
 function licenseFilter() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myinput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("mytable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myinput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("mytable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
     }
-  }
 }
 
 function domReady() {
-    //fillDateList();
     fillCenterList();
     flatpickr("#startdate", {});
     flatpickr("#enddate", {});
-}
-
-function fillDateList() {
-    var fillList = function(dropdown) {
-        var today = new Date();
-        for (var i = 0; i < 60; i++) {
-            var d = new Date(today);
-            d.setDate(today.getDate() + i);
-
-            var option = document.createElement("option");
-            option.text = d.toISOString().substring(0, 10);
-            option.value = option.text;
-
-            dropdown.add(option);
-        }
-    }
-
-    var dropdown;
-
-    dropdown = document.getElementById("startdate");
-    fillList(dropdown);
-
-    dropdown = document.getElementById("enddate");
-    fillList(dropdown);
 }
 
 function fillCenterList() {
