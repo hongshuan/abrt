@@ -1,22 +1,33 @@
 /**
- * four buttons
+ * domReady
  */
-document.getElementById("start").addEventListener("click", start);
-document.getElementById("stop").addEventListener("click", stop);
-document.getElementById("empty").addEventListener("click", empty);
-
-document.getElementById("openModal").addEventListener("click", showModal);
-document.getElementById("closeModal").addEventListener("click", closeModal);
-
-document.getElementById("search").addEventListener("keyup", licenseFilter);
-
-document.getElementById("tablink1").addEventListener("click", function(e) { openTab(e, "tab2") });
-document.getElementById("tablink2").addEventListener("click", function(e) { openTab(e, "tab1") });
-document.getElementById("tablink3").addEventListener("click", function(e) { openTab(e, "tab3") });
-
 document.addEventListener('DOMContentLoaded', domReady);
 
+function domReady() {
+    getE("start").addEventListener("click", start);
+    getE("stop").addEventListener("click", stop);
+    getE("empty").addEventListener("click", empty);
+
+    getE("openModal").addEventListener("click", showModal);
+    getE("closeModal").addEventListener("click", closeModal);
+
+    getE("search").addEventListener("keyup", licenseFilter);
+
+    getE("tablink1").addEventListener("click", function(e) { openTab(e, "tab2") });
+    getE("tablink2").addEventListener("click", function(e) { openTab(e, "tab1") });
+    getE("tablink3").addEventListener("click", function(e) { openTab(e, "tab3") });
+
+    fillCenterList();
+
+    flatpickr("#startdate", {});
+    flatpickr("#enddate", {});
+}
+
 var backgroundPage = browser.extension.getBackgroundPage();
+
+function getE(id) {
+    return document.getElementById(id);
+}
 
 function start() {
     // console.log(backgroundPage);
@@ -28,16 +39,16 @@ function stop() {
 }
 
 function empty() {
-    document.getElementById("messages").innerHTML = '';
+    getE("messages").innerHTML = '';
 }
 
 function showModal() {
-    document.getElementById('md01').style.display = 'block';
-    document.getElementsByClassName("tablink")[0].click();
+    getE('md01').style.display = 'block';
+    getE("tablink1").click();
 }
 
 function closeModal() {
-    document.getElementById('md01').style.display = 'none';
+    getE('md01').style.display = 'none';
 }
 
 function openTab(evt, cityName) {
@@ -72,14 +83,8 @@ function licenseFilter() {
     }
 }
 
-function domReady() {
-    fillCenterList();
-    flatpickr("#startdate", {});
-    flatpickr("#enddate", {});
-}
-
 function fillCenterList() {
-    var dropdown = document.getElementById("testcenter");
+    var dropdown = getE("testcenter");
 
     var centers = [ 'Oshawa', 'Lindsay', 'Guelph', 'Barrie', 'Brampton', 'London', 'Newmarket' ];
     for (var i = 0; i < centers.length; i++) {
