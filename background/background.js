@@ -186,6 +186,14 @@ function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
 function errorln(text) { println('<span style="color:red;">' + text + '</span>'); }
 
-function beep() { playSound('BikeHorn.mp3'); }
+function beep() {
+    var testClass = abrtPage.querySelector('input[name="testclass"]:checked').value;
+    if (testClass == 'G) {
+        playSound('BikeHorn.mp3');
+    } else {
+        playSound('TwoTone.mp3');
+    }
+}
+
 function sound() { playSound('NokiaEpic.mp3'); }
 function playSound(file) { var audio = new Audio('/assets/' + file); audio.play(); }
