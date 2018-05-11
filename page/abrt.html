@@ -30,9 +30,10 @@
 <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="width:260px">
   <div class="w3-container _w3-padding-16">
     <h3><img src="/assets/icon-48.png" width="32"> ABRT</h3>
-    <form id="form">
+    <form id="paneform">
       <p><label>Driver License</label></p>
       <input class="w3-input w3-border" type="text" id="licensenum" value="">
+      <input type="hidden" id="expiry" value="">
 
       <p><label>Test Center</label></p>
       <select class="w3-select w3-border" id="testcenter">
@@ -117,7 +118,7 @@
 
     <div id="tab1" class="w3-container tab">
       <h3>Add Driver License</h3>
-      <form>
+      <form id="inputform">
         <div class="w3-section">
         <!--
           <label>Your Email Address</label>
@@ -146,7 +147,7 @@
 
     <div id="tab2" class="w3-container tab">
       <br>
-      <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for licenses..." id="myinput">
+      <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for licenses..." id="search">
 
       <table class="w3-table w3-bordered w3-margin-top" id="mytable">
         <!-- thead -->

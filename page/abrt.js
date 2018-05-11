@@ -56,7 +56,7 @@ function openTab(evt, cityName) {
 
 function licenseFilter() {
     var input, filter, table, tr, td, i;
-    input = document.getElementById("myinput");
+    input = document.getElementById("search");
     filter = input.value.toUpperCase();
     table = document.getElementById("mytable");
     tr = table.getElementsByTagName("tr");
