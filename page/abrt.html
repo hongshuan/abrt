@@ -11,8 +11,9 @@
 <link rel="stylesheet" type="text/css" href="/assets/flatpickr/themes/material_blue.css">
 <style>
   html,body { height:100%; }
-  body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+  body,h1,h2,h3,h4,h5,h6 {/*font-family: "Raleway", Arial, Helvetica, sans-serif*/}
   p { margin-bottom: 0; }
+  input { text-transform: uppercase; }
   .w3-table td, .w3-table th { padding: 4px 8px; }
   .w3-select { padding: 4px; }
   .w3-input { padding: 3px; }
@@ -77,6 +78,9 @@
   <div class="w3-container" style="height:5%">
     <div class="w3-row">
       <span class="w3-text-blue">&#9993; Messages</span>
+      <!--
+      -->
+      <span id="openModal" class="w3-button w3-blue w3-tiny w3-margin-left">Manage</span>
       <span id="empty" class="w3-button w3-right w3-blue w3-tiny">Clear</span>
     </div>
   </div>
@@ -86,6 +90,120 @@
   </div>
 </div>
 <!-- End page content -->
+
+<!-- modal start -->
+<style>
+#md01 .tab { display:none }
+#md01 tbody{
+  display:block;
+  overflow:auto;
+  height:280px;
+  width:100%;
+}
+#md01 thead tr{ display:block; }
+</style>
+<div id="md01" class="w3-modal">
+  <div id="id01header" class="w3-modal-content w3-card-4" style="width:600px; height:480px;">
+    <header class="w3-container w3-blue">
+      <span id="closeModal" class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
+      <h2 style="margin:0">Information</h2>
+    </header>
+
+    <div class="w3-bar w3-border-bottom">
+      <button id="tablink1" class="tablink w3-bar-item w3-button">Licenses</button>
+      <button id="tablink2" class="tablink w3-bar-item w3-button">Input</button>
+      <button id="tablink3" class="tablink w3-bar-item w3-button">Note</button>
+    </div>
+
+    <div id="tab1" class="w3-container tab">
+      <h3>Add Driver License</h3>
+      <form>
+        <div class="w3-section">
+        <!--
+          <label>Your Email Address</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Email" id="email" required>
+        -->
+          <label>Driver Name</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" id="name" required>
+
+          <label>Driver License</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" id="licnum" required>
+
+          <label>Expiry Date</label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="YYYY/MM/DD" id="expire" required>
+
+          <input class="w3-radio" type="radio" name="level" value="G2" checked>
+          <label>G2 License</label>
+
+          <input class="w3-radio" type="radio" name="level" value="G">
+          <label>G License</label><br>
+
+          <button class="w3-btn w3-blue w3-right">Save</button>
+        </div>
+      </form>
+      <p></p>
+    </div>
+
+    <div id="tab2" class="w3-container tab">
+      <br>
+      <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for licenses..." id="myinput">
+
+      <table class="w3-table w3-bordered w3-margin-top" id="mytable">
+        <!-- thead -->
+          <tr>
+            <th>Name</th>
+            <th>License#</th>
+            <th>G2/G</th>
+            <th>Expiry</th>
+            <th>Action</th>
+          </tr>
+        <!-- /thead -->
+        <!-- tbody -->
+        <tr>
+          <td>He yannan</td>
+          <td>H2001-78909-46223</td>
+          <td>G2</td>
+          <td>2022/01/06</td>
+          <td><span class="w3-btn w3-tiny w3-blue">Copy</span></td>
+        </tr>
+        <tr>
+          <td>Yu linghao</td>
+          <td>Y9001-47409-31206</td>
+          <td>G2</td>
+          <td>2022/01/06</td>
+          <td><span class="w3-btn w3-tiny w3-blue">Copy</span></td>
+        </tr>
+        <tr>
+          <td>Meng yaling</td>
+          <td>M2531-78907-35113</td>
+          <td>G</td>
+          <td>2018/05/29</td>
+          <td><span class="w3-btn w3-tiny w3-blue">Copy</span></td>
+        </tr>
+        <tr>
+          <td>Ren Da</td>
+          <td>R2492-14709-00720</td>
+          <td>G</td>
+          <td>2022/07/23</td>
+          <td><span class="w3-btn w3-tiny w3-blue">Copy</span></td>
+        </tr>
+        <!-- /tbody -->
+      </table>
+    </div>
+
+    <div id="tab3" class="w3-container tab">
+      <br>
+      <textarea cols="68" rows="14" style="resize:none; width:100%;"></textarea>
+    </div>
+<!--
+    <div class="w3-container w3-light-grey w3-padding">
+      <button class="w3-button w3-right w3-white w3-border"
+       onclick="document.getElementById('md01').style.display='none'">Close</button>
+    </div>
+-->
+  </div>
+</div>
+<!-- End modal -->
 
 <script src="/assets/flatpickr/flatpickr.js"></script>
 <script src="abrt.js"></script>
