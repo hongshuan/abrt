@@ -8,7 +8,7 @@ document.getElementById("empty").addEventListener("click", empty);
 document.getElementById("openModal").addEventListener("click", showModal);
 document.getElementById("closeModal").addEventListener("click", closeModal);
 
-document.getElementById("myinput").addEventListener("keyup", licenseFilter);
+document.getElementById("search").addEventListener("keyup", licenseFilter);
 
 document.getElementById("tablink1").addEventListener("click", function(e) { openTab(e, "tab2") });
 document.getElementById("tablink2").addEventListener("click", function(e) { openTab(e, "tab1") });
