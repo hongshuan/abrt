@@ -8,7 +8,8 @@ function domReady() {
     getE("stop").addEventListener("click", stop);
     getE("empty").addEventListener("click", empty);
 
-    getE("openModal").addEventListener("click", showModal);
+//  getE("openModal").addEventListener("click", showModal);
+    getE("licensenum").addEventListener("click", showModal);
     getE("closeModal").addEventListener("click", closeModal);
 
     getE("search").addEventListener("keyup", licenseFilter);
@@ -21,6 +22,11 @@ function domReady() {
 
     flatpickr("#startdate", {});
     flatpickr("#enddate", {});
+
+    var btns = document.querySelectorAll("td span.w3-btn");
+    for (var btn of btns) {
+        btn.onclick = selectDriver;
+    }
 }
 
 var backgroundPage = browser.extension.getBackgroundPage();
@@ -81,6 +87,23 @@ function licenseFilter() {
             }
         }
     }
+}
+
+function selectDriver(e) {
+    var el = e.target;
+    while (el.nodeName != 'TR') {
+        el = el.parentNode;
+    }
+
+    var driverName  = el.cells[0].innerText;
+    var licenseNum  = el.cells[1].innerText;
+    var licenseType = el.cells[2].innerText;
+    var expiryDate  = el.cells[3].innerText;
+
+    getE("expiry").value = expiryDate;
+    getE("licensenum").value = licenseNum;
+
+    closeModal();
 }
 
 function fillCenterList() {
