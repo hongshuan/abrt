@@ -10,17 +10,9 @@ function domReady() {
     getE("start").addEventListener("click", start);
     getE("stop").addEventListener("click", stop);
     getE("empty").addEventListener("click", empty);
+    getE("test").addEventListener("click", test);
 
-//  getE("openModal").addEventListener("click", showModal);
     getE("licensenum").addEventListener("click", showModal);
-    getE("closeModal").addEventListener("click", closeModal);
-
-    getE("search").addEventListener("keyup", licenseFilter);
-    getE("save").addEventListener("click", saveLicense);
-
-    getE("tablink1").addEventListener("click", function(e) { openTab(e, "tab2") });
-    getE("tablink2").addEventListener("click", function(e) { openTab(e, "tab1") });
-    getE("tablink3").addEventListener("click", function(e) { openTab(e, "tab3") });
 
     fillCenterList();
 
@@ -49,7 +41,15 @@ function empty() {
 
 function showModal() {
     getE('md01').style.display = 'block';
+    getE("closeModal").addEventListener("click", closeModal);
+
+    getE("tablink1").addEventListener("click", function(e) { openTab(e, "tab2") });
+    getE("tablink2").addEventListener("click", function(e) { openTab(e, "tab1") });
+    getE("tablink3").addEventListener("click", function(e) { openTab(e, "tab3") });
     getE("tablink1").click();
+
+    getE("search").addEventListener("keyup", licenseFilter);
+    getE("save").addEventListener("click", saveLicense);
 
     loadLicenses();
 
@@ -183,4 +183,9 @@ function fillCenterList() {
 
         dropdown.add(option);
     }
+}
+
+function test() {
+    var backgroundPage = browser.extension.getBackgroundPage();
+    backgroundPage.test();
 }

@@ -212,3 +212,7 @@ function beep() {
 
 function sound() { playSound('NokiaEpic.mp3'); }
 function playSound(file) { var audio = new Audio('/assets/' + file); audio.play(); }
+
+function test() {
+    beep();
+}
