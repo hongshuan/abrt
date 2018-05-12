@@ -58,18 +58,17 @@ var abrtPage;
 var outputElement;
 var messageElement;
 var progressBar;
-var calendar;
 var counter = 0;
 
 function attach(page) {
     abrtPage = page;
-}
 
-function start() {
     outputElement  = abrtPage.getElementById("output");
     messageElement = abrtPage.getElementById("messages");
     progressBar    = abrtPage.getElementById("progressbar");
+}
 
+function start() {
     var info = {
         licenseNum: abrtPage.getElementById("licensenum").value,
         testCenter: abrtPage.getElementById("testcenter").value,
@@ -90,7 +89,7 @@ function start() {
         errorln('open drivetest.ca first');
     }
 
-    calendar = tableCalendar(info.startDate);
+    var calendar = tableCalendar(info.startDate);
     outputElement.innerHTML = calendar;
 }
 
