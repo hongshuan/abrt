@@ -132,6 +132,9 @@ function loadLicenses() {
             </tr>`;
 
     for (var lic of licenses) {
+        if (lic.licnum.length != 17 || lic.expiry.length != 10) {
+            continue; // skip bad input
+        }
         html += `<tr>
             <td>${lic.name}</td>
             <td>${lic.licnum}</td>
@@ -149,6 +152,10 @@ function saveLicense() {
     var licnum = document.getElementById("licnum").value;
     var expire = document.getElementById("expire").value;
     var level = document.querySelector('input[name="level"]:checked').value;
+
+    if (licnum.length != 17 || expire.length != 10) {
+        return; // refuse bad input
+    }
 
     var licenses = JSON.parse(localStorage.getItem("licenses"));
 
