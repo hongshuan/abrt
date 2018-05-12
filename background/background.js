@@ -103,7 +103,7 @@ function stop() {
         errorln('drivetest.ca is not open');
     }
 
-    counter = 0;
+    // counter = 0;
 }
 
 function dpr(arg) {
