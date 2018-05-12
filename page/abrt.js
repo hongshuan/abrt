@@ -112,6 +112,37 @@ function selectDriver(e) {
 function loadLicenses() {
     var licenses = JSON.parse(localStorage.getItem("licenses"));
 
+    if (!licenses) {
+        licenses = [
+            {
+                  name: "HE YANNAN",
+                licnum: "H2001-78909-46223",
+                 level: "G2",
+                expiry: "2022/01/06"
+            }, {
+                  name: "YU LINGHAO",
+                licnum: "Y9001-47409-31206",
+                 level: "G2",
+                expiry: "2022/01/06"
+            }, {
+                  name: "MENG YALING",
+                licnum: "M2531-78907-35113",
+                 level: "G",
+                expiry: "2018/05/29"
+            }, {
+                  name: "REN DA",
+                licnum: "R2492-14709-00720",
+                 level: "G",
+                expiry: "2022/07/23"
+            }, {
+                  name: "NIU QUNLI",
+                licnum: "N4741-63708-10415",
+                 level: "G2",
+                expiry: "2023/03/06"
+            }
+        ];
+    }
+
     var html = `<tr>
             <th>Name</th>
             <th>License#</th>
@@ -142,34 +173,7 @@ function saveLicense() {
     var licenses = JSON.parse(localStorage.getItem("licenses"));
 
     if (!licenses) {
-        licenses = [
-            {
-                  name: "HE YANNAN",
-                licnum: "H2001-78909-46223",
-                 level: "G2",
-                expiry: "2022/01/06"
-            }, {
-                  name: "YU LINGHAO",
-                licnum: "Y9001-47409-31206",
-                 level: "G2",
-                expiry: "2022/01/06"
-            }, {
-                  name: "MENG YALING",
-                licnum: "M2531-78907-35113",
-                 level: "G",
-                expiry: "2018/05/29"
-            }, {
-                  name: "REN DA",
-                licnum: "R2492-14709-00720",
-                 level: "G",
-                expiry: "2022/07/23"
-            }, {
-                  name: "NIU QUNLI",
-                licnum: "N4741-63708-10415",
-                 level: "G2",
-                expiry: "2023/03/06"
-            }
-        ];
+        licenses = [];
     }
 
     licenses.push({ name: name, licnum: licnum, expiry: expire, level: level });
