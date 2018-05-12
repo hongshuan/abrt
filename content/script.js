@@ -330,6 +330,19 @@ function complete(testClass, holdGuid) {
     });
 }
 
+function callFuncByName(functionName, context /*, args */) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    var namespaces = functionName.split(".");
+    var func = namespaces.pop();
+    for(var i = 0; i < namespaces.length; i++) {
+        context = context[namespaces[i]];
+    }
+    if (context[func] == undefined || typeof(context[func]) != 'function') {
+        return;
+    }
+    return context[func].apply(context, args);
+}
+
 // console.log('--injected--');
 // console.log(getServiceId('Oshawa', 'G'));
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');

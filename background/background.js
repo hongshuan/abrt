@@ -182,6 +182,19 @@ function tableCalendar(date) {
     return text;
 }
 
+function callFuncByName(functionName, context /*, args */) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    var namespaces = functionName.split(".");
+    var func = namespaces.pop();
+    for(var i = 0; i < namespaces.length; i++) {
+        context = context[namespaces[i]];
+    }
+    if (context[func] == undefined || typeof(context[func]) != 'function') {
+        return;
+    }
+    return context[func].apply(context, args);
+}
+
 function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
 function errorln(text) { println('<span style="color:red;">' + text + '</span>'); }
