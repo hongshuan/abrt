@@ -141,6 +141,7 @@ function loadLicenses() {
                 expiry: "2023/03/06"
             }
         ];
+        localStorage.setItem("licenses", JSON.stringify(licenses));
     }
 
     var html = `<tr>
