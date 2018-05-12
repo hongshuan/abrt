@@ -106,6 +106,13 @@ function selectDriver(e) {
     getE("expiry").value = expiryDate;
     getE("licensenum").value = licenseNum;
 
+    var radios = document.querySelectorAll('input[name="testclass"]');
+    if (licenseType == "G2") {
+        radios[0].checked = true;
+    } else if (licenseType == "G") {
+        radios[1].checked = true;
+    }
+
     closeModal();
 }
 
