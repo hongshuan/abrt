@@ -61,9 +61,11 @@ var progressBar;
 var calendar;
 var counter = 0;
 
-function start(page) {
+function attach(page) {
     abrtPage = page;
+}
 
+function start() {
     outputElement  = abrtPage.getElementById("output");
     messageElement = abrtPage.getElementById("messages");
     progressBar    = abrtPage.getElementById("progressbar");

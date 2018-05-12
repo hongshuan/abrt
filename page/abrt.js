@@ -4,6 +4,9 @@
 document.addEventListener('DOMContentLoaded', domReady);
 
 function domReady() {
+    var backgroundPage = browser.extension.getBackgroundPage();
+    backgroundPage.attach(document);
+
     getE("start").addEventListener("click", start);
     getE("stop").addEventListener("click", stop);
     getE("empty").addEventListener("click", empty);
@@ -25,18 +28,18 @@ function domReady() {
     flatpickr("#enddate", {});
 }
 
-var backgroundPage = browser.extension.getBackgroundPage();
-
 function getE(id) {
     return document.getElementById(id);
 }
 
 function start() {
+    var backgroundPage = browser.extension.getBackgroundPage();
     // console.log(backgroundPage);
-    backgroundPage.start(document);
+    backgroundPage.start();
 }
 
 function stop() {
+    var backgroundPage = browser.extension.getBackgroundPage();
     backgroundPage.stop();
 }
 
