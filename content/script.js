@@ -10,6 +10,7 @@ var myPort = browser.runtime.connect({name:"port-from-cs"});
  */
 myPort.onMessage.addListener(handleMessage);
 
+var email = "zhuyf2000@gmail.com";
 var interval = 500;
 var stopped = true;
 var licenseNum;
@@ -83,6 +84,13 @@ document.body.addEventListener("keyup", function(e) {
     // myPort.postMessage({output:'ping'});
     if (e.keyCode === 27) {
         fillForm();
+    }
+});
+
+document.getElementById("emailAddress").addEventListener("blur", function(e) {
+    // this doesn't work
+    if (e.target.value != email) {
+        e.target.value = email;
     }
 });
 
@@ -362,13 +370,11 @@ function callFuncByName(functionName, context /*, args */) {
 // getAvailBookingDates('2017-11-29', 'Oshawa', 'G');
 
 function fillForm() {
-    var email = "zhuyf2000@gmail.com*";
-
     var e = document.getElementById("emailAddress");
-    if (e) e.value = email;
+    if (e) e.value = email + '*';
 
     e = document.getElementById("confirmEmailAddress");
-    if (e) e.value = email;
+    if (e) e.value = email + '*';
 
     e = document.getElementById("licenceNumber");
     if (e) e.value = licenseNum + '*';
