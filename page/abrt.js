@@ -10,7 +10,7 @@ function domReady() {
     getE("start").addEventListener("click", start);
     getE("stop").addEventListener("click", stop);
     getE("empty").addEventListener("click", empty);
-    getE("test").addEventListener("click", test);
+//  getE("test").addEventListener("click", test);
 
     getE("licensenum").addEventListener("click", showModal);
 
