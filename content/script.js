@@ -13,6 +13,7 @@ myPort.onMessage.addListener(handleMessage);
 var interval = 500;
 var stopped = true;
 var licenseNum;
+var expiryDate;
 var testCenter;
 var startDate;
 var endDate;
@@ -22,8 +23,19 @@ var holdGuid;
 
 function handleMessage(m) {
     switch (m.type) {
+    case 'info':
+        licenseNum = m.info.licenseNum;
+        expiryDate = m.info.expiry;
+        testCenter = m.info.testCenter;
+        startDate  = m.info.startDate;
+        endDate    = m.info.endDate;
+        testClass  = m.info.testClass;
+        scanOnly   = m.info.scanOnly;
+        break;
+
     case 'start':
         licenseNum = m.info.licenseNum;
+        expiryDate = m.info.expiry;
         testCenter = m.info.testCenter;
         startDate  = m.info.startDate;
         endDate    = m.info.endDate;
@@ -107,10 +119,12 @@ function getServiceId(centerName, testClass) {
         Oshawa:    { G2: 18295, G: 18382 },
         Lindsay:   { G2: 18264, G: 18373 },
         Guelph:    { G2: 18280, G: 18364 },
+/*
         Barrie:    { G2: 18272, G: 18351 },
         Brampton:  { G2: 18273, G: 18353 },
         London:    { G2: 18287, G: 18374 },
         Newmarket: { G2: 18290, G: 18377 }
+*/
     };
 
     return centers[centerName][testClass];
@@ -357,8 +371,8 @@ function fillForm() {
     if (e) e.value = email;
 
     e = document.getElementById("licenceNumber");
-    if (e) e.value = "R2492-14709-00720*";
+    if (e) e.value = licenseNum + '*';
 
     e = document.getElementById("licenceExpiryDate");
-    if (e) e.value = "2022/07/23*";
+    if (e) e.value = expiryDate + '*';
 }

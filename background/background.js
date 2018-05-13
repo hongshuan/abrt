@@ -13,22 +13,33 @@ browser.browserAction.onClicked.addListener(() => {
 /**
  * listens for connection attempts from the content script
  */
-var portFromCS;
+var contentScript = null;
 
-/**
- * when it receives a connection attempt:
- *   - stores the port in a variable named portFromCS
- *   - sends the content script a message using the port
- *   - starts listening to messages received on the port, and logs them
- */
-function connected(p) {
-    portFromCS = p;
-    portFromCS.onMessage.addListener(handleMessage);
-    portFromCS.onDisconnect.addListener((p) => { portFromCS = null; });
-    dpr('content script connected');
+browser.runtime.onConnect.addListener(function(port) {
+    contentScript = new ContentScript(port);
+    contentScript.info(getInfo());
+
+    port.onMessage.addListener(handleMessage);
+    port.onDisconnect.addListener((port) => { contentScript = null; });
+});
+
+class ContentScript {
+    constructor(port) {
+        this.port = port;
+    }
+
+    info(info) {
+        this.port.postMessage({type: "info", info: info});
+    }
+
+    start(info) {
+        this.port.postMessage({type: "start", info: info});
+    }
+
+    stop() {
+        this.port.postMessage({type: "stop"});
+    }
 }
-
-browser.runtime.onConnect.addListener(connected);
 
 function handleMessage(m) {
     switch (m.type) {
@@ -69,21 +80,10 @@ function attach(page) {
 }
 
 function start() {
-    var info = {
-        licenseNum: abrtPage.getElementById("licensenum").value,
-        testCenter: abrtPage.getElementById("testcenter").value,
-        startDate:  abrtPage.getElementById("startdate").value,
-        endDate:    abrtPage.getElementById("enddate").value,
-        testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value,
-        scanOnly:   abrtPage.querySelector('input[name="scanonly"]').checked
-    };
-    dpr(info);
+    var info = getInfo();
 
-    /**
-     * sends messages to the content script
-     */
-    if (portFromCS) {
-        portFromCS.postMessage({type: "start", info: info});
+    if (contentScript) {
+        contentScript.start(info);
         println('start');
     } else {
         errorln('open drivetest.ca first');
@@ -94,17 +94,27 @@ function start() {
 }
 
 function stop() {
-    /**
-     * sends messages to the content script
-     */
-    if (portFromCS) {
-        portFromCS.postMessage({type: "stop"});
+    if (contentScript) {
+        contentScript.stop();
         println('stop');
     } else {
         errorln('drivetest.ca is not open');
     }
-
     // counter = 0;
+}
+
+function getInfo() {
+    var info = {
+        licenseNum: abrtPage.getElementById("licensenum").value,
+        expiry:     abrtPage.getElementById("expiry").value,
+        testCenter: abrtPage.getElementById("testcenter").value,
+        startDate:  abrtPage.getElementById("startdate").value,
+        endDate:    abrtPage.getElementById("enddate").value,
+        testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value,
+        scanOnly:   abrtPage.querySelector('input[name="scanonly"]').checked
+    };
+    dpr(info);
+    return info;
 }
 
 function dpr(arg) {
