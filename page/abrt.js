@@ -27,6 +27,11 @@ function getE(id) {
 function start() {
     var backgroundPage = browser.extension.getBackgroundPage();
     // console.log(backgroundPage);
+
+    if (getE('startdate').value.length == 0 || getE('enddate').value.length == 0) {
+        return;
+    }
+
     backgroundPage.start();
 }
 

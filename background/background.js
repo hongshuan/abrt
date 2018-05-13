@@ -89,8 +89,8 @@ function start() {
         errorln('open drivetest.ca first');
     }
 
-    var calendar = tableCalendar(info.startDate);
-    outputElement.innerHTML = calendar;
+    var calendar = new Calendar();
+    outputElement.innerHTML = calendar.renderHtml(info.startDate);
 }
 
 function stop() {
@@ -135,7 +135,7 @@ function showDates(dates) {
         var el = abrtPage.getElementById(id);
         el.classList.remove('some', 'most', 'open', 'unavailable');
         el.classList.add(d.description.toLowerCase());
-        el.innerText = d.description;
+      //el.innerText = d.description;
     }
 }
 
@@ -162,36 +162,90 @@ function now() {
     return s.substr(0, 10) + ' ' + s.substr(11, 8);
 }
 
-function tableCalendar(date) {
-    var year, month, day;
+var Calendar = function() {
+    this.DaysOfWeek = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+    this.Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
 
-    [ year, month, day ] = date.split('-');
+    var d = new Date();
 
-    var now = new Date(year, month-1, day);
+    this.CurrentMonth = d.getMonth();
+    this.CurrentYear = d.getFullYear();
+};
 
-    year = now.getFullYear();
-    month = now.getMonth();
-    day = now.getDate();
+Calendar.prototype.renderHtml = function(dateStr) {
+    var y, m, d;
 
-    var days = getDays(month, year);
+    [ y, m, d ] = dateStr.split('-');
 
-    var text = "";
-    text += '<table border="0" cellspacing="0" class="w3-table w3-border w3-bordered">';
-    for (var d = 1; d <= days; d++) {
-        if (d%3 == 1) {
-            text += '<tr>';
-        }
+    var date = new Date(y, m-1, d);
 
-        text += '<td>' + year + '-' + (month+1) + '-' + d + '</td>';
-        text += '<td id="day' + d + '" width="25%"></td>';
+    this.CurrentYear = y = date.getFullYear();
+    this.CurrentMonth = m = date.getMonth();
 
-        if (d%3 == 0) {
-            text += '</tr>';
-        }
+    // 1st day of the selected month
+    var firstDayOfCurrentMonth = new Date(y, m, 1).getDay();
+
+    // Last date of the selected month
+    var lastDateOfCurrentMonth = new Date(y, m+1, 0).getDate();
+
+    // Last day of the previous month
+    var lastDateOfLastMonth = m == 0 ? new Date(y-1, 11, 0).getDate() : new Date(y, m, 0).getDate();
+
+    // Write selected month and year. This HTML goes into <div id="month"></div>
+    var monthYear = this.Months[m] + ', ' + y;
+
+    var html = '<table class="w3-table w3-bordered" id="calendar">';
+
+    html += '<caption><h3>' + monthYear + '</h3></caption>';
+
+    // Write the header of the days of the week
+    html += '<tr>';
+    for(var i = 0; i < 7; i++) {
+        html += '<th class="daysheader">' + this.DaysOfWeek[i] + '</th>';
     }
-    text += '</table>'
-    return text;
-}
+    html += '</tr>';
+
+    var p = dm = 1;
+
+    var cellvalue;
+
+    for (var d, i=0, z0=0; z0<6; z0++) {
+        html += '<tr>';
+
+        for (var z0a = 0; z0a < 7; z0a++) {
+            d = i + dm - firstDayOfCurrentMonth;
+
+            if (d < 1){
+                // Dates from prev month
+                cellvalue = lastDateOfLastMonth - firstDayOfCurrentMonth + p++;
+                cellvalue = '';
+                html += '<td class="prevmonth">' + (cellvalue) + '</td>';
+            } else if (d > lastDateOfCurrentMonth){
+                // Dates from next month
+                cellvalue = p;
+                cellvalue = '';
+                html += '<td class="nextmonth">' + (cellvalue) + '</td>';
+                p++;
+            } else {
+                // Current month dates
+                html += '<td class="thismonth" id="day' + d + '">' + (d) + '</td>';
+                p = 1;
+            }
+
+            if (i % 7 == 6 && d >= lastDateOfCurrentMonth) {
+                z0 = 10; // no more rows
+            }
+
+            i++;
+        }
+
+        html += '</tr>';
+    }
+
+    html += '</table>';
+
+    return html;
+};
 
 function callFuncByName(functionName, context /*, args */) {
     var args = Array.prototype.slice.call(arguments, 2);
