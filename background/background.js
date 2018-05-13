@@ -196,7 +196,7 @@ Calendar.prototype.renderHtml = function(dateStr) {
 
     var html = '<table class="w3-table w3-bordered" id="calendar">';
 
-    html += '<caption><h3>' + monthYear + '</h3></caption>';
+    html += '<caption><h3 style="margin-top:0;">' + monthYear + '</h3></caption>';
 
     // Write the header of the days of the week
     html += '<tr>';
