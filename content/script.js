@@ -10,7 +10,7 @@ var myPort = browser.runtime.connect({name:"port-from-cs"});
  */
 myPort.onMessage.addListener(handleMessage);
 
-var email = "zhuyf2000@gmail.com";
+var email;
 var interval = 500;
 var stopped = true;
 var licenseNum;
@@ -25,6 +25,7 @@ var holdGuid;
 function handleMessage(m) {
     switch (m.type) {
     case 'info':
+        email      = m.info.email;
         licenseNum = m.info.licenseNum;
         expiryDate = m.info.expiry;
         testCenter = m.info.testCenter;
@@ -35,6 +36,7 @@ function handleMessage(m) {
         break;
 
     case 'start':
+        email      = m.info.email;
         licenseNum = m.info.licenseNum;
         expiryDate = m.info.expiry;
         testCenter = m.info.testCenter;
