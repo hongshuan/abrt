@@ -107,7 +107,7 @@ function getInfo() {
     var manifest = browser.runtime.getManifest();
 
     var info = {
-        email:      manifest.email,
+        email:      manifest.author,
         licenseNum: abrtPage.getElementById("licensenum").value,
         expiry:     abrtPage.getElementById("expiry").value,
         testCenter: abrtPage.getElementById("testcenter").value,

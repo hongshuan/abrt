@@ -17,7 +17,7 @@ function domReady() {
     }
 
     var manifest = browser.runtime.getManifest();
-    if (manifest.email.substr(0, 5) == "zhuyf") {
+    if (manifest.author.substr(0, 5) == "zhuyf") {
         getE("licensenum").addEventListener("click", showModal);
     }
 
@@ -189,7 +189,7 @@ function fillCenterList() {
 
     var centers = [ 'Oshawa', 'Lindsay' ];
     var manifest = browser.runtime.getManifest();
-    if (manifest.email.substr(0, 5) == "zhuyf") {
+    if (manifest.author.substr(0, 5) == "zhuyf") {
         centers = [ 'Oshawa', 'Lindsay', 'Guelph', 'Barrie', 'Brampton', 'London', 'Newmarket' ];
     }
 
