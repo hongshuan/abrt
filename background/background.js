@@ -90,7 +90,7 @@ function start() {
     }
 
     var calendar = new Calendar();
-    outputElement.innerHTML = calendar.renderHtml(info.startDate);
+    outputElement.innerHTML = calendar.getHtml(info.startDate);
 }
 
 function stop() {
@@ -163,88 +163,123 @@ function now() {
 }
 
 var Calendar = function() {
-    this.DaysOfWeek = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
-    this.Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-
-    var d = new Date();
-
-    this.CurrentMonth = d.getMonth();
-    this.CurrentYear = d.getFullYear();
+    this.namesOfWeek = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+    this.namesOfMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+    this.daysOfMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 };
 
-Calendar.prototype.renderHtml = function(dateStr) {
-    var y, m, d;
+Calendar.prototype.isLeap = function(y) {
+    return (y % 100 == 0) && (y % 400 == 0) ? true : (y % 4 == 0 ? true : false);
+};
 
-    [ y, m, d ] = dateStr.split('-');
+Calendar.prototype.getDates = function(date) {
+    var Y = date.getFullYear();
+    var M = date.getMonth();
 
-    var date = new Date(y, m-1, d);
-
-    this.CurrentYear = y = date.getFullYear();
-    this.CurrentMonth = m = date.getMonth();
-
-    // 1st day of the selected month
-    var firstDayOfCurrentMonth = new Date(y, m, 1).getDay();
-
-    // Last date of the selected month
-    var lastDateOfCurrentMonth = new Date(y, m+1, 0).getDate();
-
-    // Last day of the previous month
-    var lastDateOfLastMonth = m == 0 ? new Date(y-1, 11, 0).getDate() : new Date(y, m, 0).getDate();
-
-    // Write selected month and year. This HTML goes into <div id="month"></div>
-    var monthYear = this.Months[m] + ', ' + y;
-
-    var html = '<table class="w3-table w3-bordered" id="calendar">';
-
-    html += '<caption><h3 style="margin-top:0;">' + monthYear + '</h3></caption>';
-
-    // Write the header of the days of the week
-    html += '<tr>';
-    for(var i = 0; i < 7; i++) {
-        html += '<th class="daysheader">' + this.DaysOfWeek[i] + '</th>';
+    if (this.isLeap(Y)) {
+        this.daysOfMonths[1] = 29;
     }
-    html += '</tr>';
 
-    var p = dm = 1;
+    var totalDays = 7*6;
 
-    var cellvalue;
+    var firstDay = new Date(Y, M, 1);
+    var daysPrevMonth = firstDay.getDay() || 7;
+    var daysThisMonth = this.daysOfMonths[M];
+    var daysNextMonth = totalDays - daysThisMonth - daysPrevMonth;
 
-    for (var d, i=0, z0=0; z0<6; z0++) {
-        html += '<tr>';
+    // Prev month
+    var prevY, prevM;
 
-        for (var z0a = 0; z0a < 7; z0a++) {
-            d = i + dm - firstDayOfCurrentMonth;
+    if (M == 0) {
+        prevY = Y - 1;
+        prevM = 11;
+    } else {
+        prevY = Y;
+        prevM = M - 1;
+    }
+    var prevMax = this.daysOfMonths[prevM];
 
-            if (d < 1){
-                // Dates from prev month
-                cellvalue = lastDateOfLastMonth - firstDayOfCurrentMonth + p++;
-                cellvalue = '';
-                html += '<td class="prevmonth">' + (cellvalue) + '</td>';
-            } else if (d > lastDateOfCurrentMonth){
-                // Dates from next month
-                cellvalue = p;
-                cellvalue = '';
-                html += '<td class="nextmonth">' + (cellvalue) + '</td>';
-                p++;
-            } else {
-                // Current month dates
-                html += '<td class="thismonth" id="day' + d + '">' + (d) + '</td>';
-                p = 1;
-            }
+    // Next month
+    var nextY, nextM;
 
-            if (i % 7 == 6 && d >= lastDateOfCurrentMonth) {
-                z0 = 10; // no more rows
-            }
+    if (M == 11) {
+        nextY = Y + 1;
+        nextM = 0;
+    } else {
+        nextY = Y;
+        prevM = M + 1;
+    }
 
-            i++;
+    var dates = [];
+
+    // Add dates in prev month
+    for (var i=daysPrevMonth; i>0; i--){
+        dates.push({
+            year:  prevY,
+            month: prevM,
+            day:   (prevMax - i + 1),
+            id:    'prev' + (prevMax - i + 1),
+            attr:  'prevmonth'
+        });
+    }
+
+    // Add dates in this month
+    for(var i=1; i<=daysThisMonth; i++){
+        dates.push({
+            year:  Y,
+            month: M,
+            day:   i,
+            id:    'day' + i,
+            attr:  'thismonth'
+        });
+    }
+
+    // Add dates in next month
+    for (var i=1; i<=daysNextMonth; i++){
+        dates.push({
+            year:  nextY,
+            month: nextM,
+            day:   i,
+            id:    'next' + i,
+            attr:  'nextmonth'
+        });
+    }
+
+    return dates;
+};
+
+Calendar.prototype.getHtml = function(dateStr) {
+    var y, m, d;
+    [ y, m, d ] = dateStr.split('-');
+    var date = new Date(y, m-1, 1);
+    var days = this.getDates(date);
+
+    var str = `<table class="w3-table w3-bordered" id="calendar">`;
+
+    var monthYear = this.namesOfMonth[date.getMonth()] + ", " + date.getFullYear();
+    str += `<caption><h3 style="margin-top:0;">${monthYear}</h3></caption>`;
+
+    str += "<tr>";
+    for(var i=0; i<7; i++) {
+        str += `<th class="daysheader">${this.namesOfWeek[i]}</th>`;
+    }
+    str += "</tr>";
+
+    for (var i=0; i<days.length; i++) {
+        if ((i+1)%7 == 1) {
+            str += "<tr>";
         }
 
-        html += '</tr>';
+        var d = days[i];
+
+        str += `<td class="${d.attr}" id="${d.id}">${d.day}</td>`;
+        if ((i+1)%7 == 0) {
+            str += "</tr>";
+        }
     }
+    str += "</table>";
 
-    html += '</table>';
-
-    return html;
+    return str;
 };
 
 function callFuncByName(functionName, context /*, args */) {
