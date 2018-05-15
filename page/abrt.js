@@ -16,10 +16,7 @@ function domReady() {
         testBtn.addEventListener("click", test);
     }
 
-    var manifest = browser.runtime.getManifest();
-    if (manifest.author.substr(0, 5) == "zhuyf") {
-        getE("licensenum").addEventListener("click", showModal);
-    }
+    getE("licensenum").addEventListener("click", showModal);
 
     fillCenterList();
 
@@ -188,10 +185,7 @@ function fillCenterList() {
     var dropdown = getE("testcenter");
 
     var centers = [ 'Oshawa', 'Lindsay' ];
-    var manifest = browser.runtime.getManifest();
-    if (manifest.author.substr(0, 5) == "zhuyf") {
-        centers = [ 'Oshawa', 'Lindsay', 'Guelph', 'Barrie', 'Brampton', 'London', 'Newmarket' ];
-    }
+    //  centers = [ 'Oshawa', 'Lindsay', 'Guelph', 'Barrie', 'Brampton', 'London', 'Newmarket' ];
 
     for (var i = 0; i < centers.length; i++) {
         var option = document.createElement("option");
