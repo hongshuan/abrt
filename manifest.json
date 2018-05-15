@@ -3,7 +3,7 @@
     "description": "Auto Book Road Test",
     "manifest_version": 2,
     "version": "1.0",
-    "email": "zhuyf2000@gmail.com",
+    "author": "zhuyf2000@gmail.com",
 
     "applications": {
         "gecko": {
