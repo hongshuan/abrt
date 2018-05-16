@@ -25,6 +25,7 @@
   .most { background-color: lightyellow; }
   .some { background-color: lightcyan; }
   .open { background-color: lightgreen; }
+  [required] { box-shadow: none; }
 </style>
 </head>
 <body class="w3-content">
@@ -128,13 +129,13 @@
           <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Email" id="email" required>
         -->
           <label>Driver Name</label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" id="name" required>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" id="name" autocomplete="off" required>
 
           <label>Driver License</label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" id="licnum" required>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" id="licnum" autocomplete="off" required>
 
           <label>Expiry Date</label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="YYYY/MM/DD" id="expire" required>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="YYYY/MM/DD" id="expire" autocomplete="off" required>
 
           <label><input type="radio" name="level" value="G2" checked> G2 License</label><br>
           <label><input type="radio" name="level" value="G"> G License</label><br>

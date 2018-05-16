@@ -61,15 +61,14 @@ function showModal() {
     getE("save").addEventListener("click", saveLicense);
 
     loadLicenses();
-
-    var btns = document.querySelectorAll("td span.w3-btn");
-    for (var btn of btns) {
-        btn.onclick = selectDriver;
-    }
 }
 
 function closeModal() {
     getE('md01').style.display = 'none';
+
+    getE("name").value = '';
+    getE("licnum").value = '';
+    getE("expire").value = '';
 }
 
 function openTab(evt, cityName) {
@@ -129,34 +128,43 @@ function selectDriver(e) {
 }
 
 function loadLicenses() {
-    var licenses = JSON.parse(localStorage.getItem("licenses"));
+    browser.storage.local.get().then(
+        function(value) {
+            //console.log(value);
+            if (!value.licenses) {
+                value.licenses = [];
+            }
 
-    if (!licenses) {
-        licenses = [];
-    }
+            var html = `<tr>
+                    <th>Name</th>
+                    <th>License#</th>
+                    <th>G2/G</th>
+                    <th>Expiry</th>
+                    <th>Action</th>
+                    </tr>`;
 
-    var html = `<tr>
-            <th>Name</th>
-            <th>License#</th>
-            <th>G2/G</th>
-            <th>Expiry</th>
-            <th>Action</th>
-            </tr>`;
+            for (var lic of value.licenses) {
+                if (lic.licnum.length != 17 || lic.expiry.length != 10) {
+                    continue; // skip bad input
+                }
+                html += `<tr>
+                    <td>${lic.name}</td>
+                    <td>${lic.licnum}</td>
+                    <td>${lic.level}</td>
+                    <td>${lic.expiry}</td>
+                    <td><span class="w3-btn w3-tiny w3-blue">Copy</span></td>
+                    </tr>`;
+            }
 
-    for (var lic of licenses) {
-        if (lic.licnum.length != 17 || lic.expiry.length != 10) {
-            continue; // skip bad input
-        }
-        html += `<tr>
-            <td>${lic.name}</td>
-            <td>${lic.licnum}</td>
-            <td>${lic.level}</td>
-            <td>${lic.expiry}</td>
-            <td><span class="w3-btn w3-tiny w3-blue">Copy</span></td>
-            </tr>`;
-    }
+            document.getElementById("mytable").innerHTML = html;
 
-    document.getElementById("mytable").innerHTML = html;
+            var btns = document.querySelectorAll("td span.w3-btn");
+            for (var btn of btns) {
+                btn.onclick = selectDriver;
+            }
+        },
+        function() { }
+    );
 }
 
 function saveLicense() {
@@ -169,16 +177,19 @@ function saveLicense() {
         return; // refuse bad input
     }
 
-    var licenses = JSON.parse(localStorage.getItem("licenses"));
+    browser.storage.local.get().then(
+        function(value) {
+            if (!value.licenses) {
+                value.licenses = [];
+            }
 
-    if (!licenses) {
-        licenses = [];
-    }
+            value.licenses.push({ name: name, licnum: licnum, expiry: expire, level: level });
+            browser.storage.local.set(value);
 
-    licenses.push({ name: name, licnum: licnum, expiry: expire, level: level });
-    localStorage.setItem("licenses", JSON.stringify(licenses));
-
-    closeModal();
+            closeModal();
+        },
+        function() {}
+    );
 }
 
 function fillCenterList() {
@@ -197,6 +208,8 @@ function fillCenterList() {
 }
 
 function test() {
-    var backgroundPage = browser.extension.getBackgroundPage();
-    backgroundPage.test();
+    console.log("Testing");
+    //browser.storage.local.set({ licenses: [] });
+    //var backgroundPage = browser.extension.getBackgroundPage();
+    //backgroundPage.test();
 }
