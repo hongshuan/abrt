@@ -97,16 +97,6 @@
 <!-- End page content -->
 
 <!-- modal start -->
-<style>
-#md01 .tab { display:none }
-#md01 tbody{
-  display:block;
-  overflow:auto;
-  height:300px;
-  width:100%;
-}
-#md01 thead tr{ display:block; }
-</style>
 <div id="md01" class="w3-modal">
   <div id="id01header" class="w3-modal-content w3-card-4" style="width:600px; height:480px;">
     <header class="w3-container w3-blue">
@@ -149,7 +139,9 @@
     <div id="tab2" class="w3-container tab">
       <br>
       <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for licenses..." id="search">
-      <table class="w3-table w3-bordered w3-margin-top" id="mytable"></table>
+      <div class="w3-margin-top w3-border" style="height: 300px;overflow-y: scroll">
+        <table class="w3-table w3-bordered" id="mytable"></table>
+      </div>
     </div>
 
     <div id="tab3" class="w3-container tab">
