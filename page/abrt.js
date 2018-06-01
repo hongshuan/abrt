@@ -195,7 +195,7 @@ function saveLicense() {
 function fillCenterList() {
     var dropdown = getE("testcenter");
 
-    var centers = [ 'Oshawa', 'Lindsay' ];
+    var centers = [ 'Oshawa', 'Lindsay', 'PortUnion' ];
     //  centers = [ 'Oshawa', 'Lindsay', 'Guelph', 'Barrie', 'Brampton', 'London', 'Newmarket' ];
 
     for (var i = 0; i < centers.length; i++) {

@@ -84,6 +84,7 @@ document.body.addEventListener("keyup", function(e) {
     // myPort.postMessage({output:'ping'});
     if (e.keyCode === 27) {
         fillForm();
+        cleanPage();
     }
 });
 
@@ -127,6 +128,7 @@ function getServiceId(centerName, testClass) {
         Oshawa:    { G2: 18295, G: 18382 },
         Lindsay:   { G2: 18264, G: 18373 },
         Guelph:    { G2: 18280, G: 18364 },
+        PortUnion: { G2: 18297, G: 18384 },
 /*
         Barrie:    { G2: 18272, G: 18351 },
         Brampton:  { G2: 18273, G: 18353 },
@@ -210,8 +212,8 @@ function getAvailBookingTimes(date, testCenter, testClass) {
     })
     .then(function(json) {
       //dpr(url);
-        dpr('getAvailTimes');
-        dpr(json);
+      //dpr('getAvailTimes');
+      //dpr(json);
 
         if (json.availableBookingTimes.length > 0) {
             beep();
@@ -371,14 +373,66 @@ function callFuncByName(functionName, context /*, args */) {
 
 function fillForm() {
     var e = document.getElementById("emailAddress");
-    if (e) e.value = email + '*';
+    if (e) {
+        e.value = email + '*';
 
-    e = document.getElementById("confirmEmailAddress");
-    if (e) e.value = email + '*';
+        e = document.getElementById("confirmEmailAddress");
+        if (e) e.value = email + '*';
 
-    e = document.getElementById("licenceNumber");
-    if (e) e.value = licenseNum + '*';
+        e = document.getElementById("licenceNumber");
+        if (e) e.value = licenseNum + '*';
 
-    e = document.getElementById("licenceExpiryDate");
-    if (e) e.value = expiryDate + '*';
+        e = document.getElementById("licenceExpiryDate");
+        if (e) e.value = expiryDate + '*';
+    }
+}
+
+function cleanPage() {
+    var e = document.getElementById('dtc-map');
+    if (e) {
+        e.remove(); // delete the map
+
+        var lis = document.querySelectorAll("#dtc-list-details ul li");
+        for (var li of lis) {
+            var id = li.firstElementChild.id;
+
+            // Oshawa/Lindsay/PortUnion
+            if (id == 9583 || id == 9575 || id == 9592) continue;
+
+            li.remove();
+        }
+
+        e = document.getElementById('dtc-list-details');
+        if (e) {
+            e.style.height = "300px";
+            e.style.width = "300px";
+        }
+
+        e = document.querySelector('#dtc-list-details .dtc_listings');
+        if (e) {
+            e.style.height = "300px";
+            e.style.width = "300px";
+        }
+
+        e = document.querySelector('.transaction-number-container');
+        if (e) { e.remove(); }
+
+        e = document.querySelector('.location_header');
+        if (e) { e.remove(); }
+
+        e = document.getElementById('booking-location');
+        if (e) {
+            e.style.position = "fixed";
+            e.style.right = "0";
+        }
+
+        e = document.querySelector('.dtc-filter-options');
+        if (e) { e.remove(); }
+
+        e = document.querySelector('.pageFooter');
+        if (e) { e.remove(); }
+
+        e = document.querySelector('.booking_separator');
+        if (e) { e.remove(); }
+    }
 }
