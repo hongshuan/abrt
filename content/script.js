@@ -1,14 +1,14 @@
 const DEBUG = 1;
 
 /**
- * connects to the background script, and stores the Port in a variable myPort
+ * connect to the background script
  */
-var myPort = browser.runtime.connect({name:"port-from-cs"});
+var backgrnd = browser.runtime.connect({name:"port-from-cs"});
 
 /**
- * listens for messages on myPort
+ * listen for messages from background
  */
-myPort.onMessage.addListener(handleMessage);
+backgrnd.onMessage.addListener(handleMessage);
 
 var email = "zhuyf2000@gmail.com";
 var interval = 500;
@@ -55,24 +55,27 @@ function handleMessage(m) {
     }
 }
 
+/**
+ * sends messages to the background script
+ */
 function sendMessage(m) {
-    myPort.postMessage({type: 'message', message: m});
+    backgrnd.postMessage({type: 'message', message: m});
 }
 
 function sendDates(d) {
-    myPort.postMessage({type: 'dates', dates: d});
+    backgrnd.postMessage({type: 'dates', dates: d});
 }
 
 function sendTimes(t) {
-    myPort.postMessage({type: 'times', times: t});
+    backgrnd.postMessage({type: 'times', times: t});
 }
 
 function beep() {
-    myPort.postMessage({type: 'beep' });
+    backgrnd.postMessage({type: 'beep' });
 }
 
 function sound() {
-    myPort.postMessage({type: 'sound' });
+    backgrnd.postMessage({type: 'sound' });
 }
 
 function dpr(arg) {
@@ -81,11 +84,7 @@ function dpr(arg) {
     }
 }
 
-/**
- * sends messages to the background script, using myPort
- */
 document.body.addEventListener("keyup", function(e) {
-    // myPort.postMessage({output:'ping'});
     if (e.keyCode === 27) {
         fillForm();
         cleanPage();
