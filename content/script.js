@@ -66,7 +66,7 @@ function showDates(d) {
     backgrnd.postMessage({type: 'dates', dates: d});
 }
 
-function sendTimes(t) {
+function showTimes(t) {
     backgrnd.postMessage({type: 'times', times: t});
 }
 
@@ -220,7 +220,7 @@ function getAvailBookingTimes(date, testCenter, testClass) {
 
         if (json.availableBookingTimes.length > 0) {
             beep();
-            sendTimes(json.availableBookingTimes);
+            showTimes(json.availableBookingTimes);
             if (scanOnly) {
                 return;
             }
