@@ -62,7 +62,7 @@ function showMessage(m) {
     backgrnd.postMessage({type: 'message', message: m});
 }
 
-function sendDates(d) {
+function showDates(d) {
     backgrnd.postMessage({type: 'dates', dates: d});
 }
 
@@ -172,7 +172,7 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
       //dpr('getAvailDates');
       //dpr(json);
 
-        sendDates(json.availableBookingDates);
+        showDates(json.availableBookingDates);
 
         for (var i = 0; i < json.availableBookingDates.length; i++) {
             var abd = json.availableBookingDates[i];
