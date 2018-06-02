@@ -39,6 +39,10 @@ class ContentScript {
     stop() {
         this.port.postMessage({type: "stop"});
     }
+
+    speed(secs) {
+        this.port.postMessage({type: "speed", interval: secs});
+    }
 }
 
 function handleMessage(m) {
@@ -117,6 +121,13 @@ function getInfo() {
     return info;
 }
 
+function setSpeed(secs) {
+    if (contentScript) {
+        contentScript.speed(secs);
+        println('speed: ' + secs + secs > 1 ? ' seconds' : ' second');
+    }
+}
+
 function dpr(arg) {
     if (DEBUG) {
         console.log(arg);
@@ -124,7 +135,7 @@ function dpr(arg) {
 }
 
 function showDates(dates) {
-    dpr(dates);
+    //dpr(dates);
 
     progressBar.style.width = ++counter%100 + '%';
     progressBar.innerText = counter.toString();
@@ -140,7 +151,7 @@ function showDates(dates) {
 }
 
 function showTimes(times) {
-    dpr(times);
+    //dpr(times);
 
     //progressBar.style.width = ++counter%100 + '%';
     //progressBar.innerText = counter.toString();

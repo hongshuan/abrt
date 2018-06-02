@@ -48,6 +48,10 @@ function handleMessage(m) {
     case 'stop':
         stop();
         break;
+
+    case 'speed':
+        interval = m.interval*1000;
+        break;
     }
 }
 

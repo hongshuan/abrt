@@ -18,6 +18,11 @@ function domReady() {
 
     getE("licensenum").addEventListener("click", showModal);
 
+    var btns = document.querySelectorAll('.speed');
+    for (var btn of btns) {
+        btn.addEventListener("click", setSpeed);
+    }
+
     fillCenterList();
 
     flatpickr("#startdate", {});
@@ -42,6 +47,13 @@ function start() {
 function stop() {
     var backgroundPage = browser.extension.getBackgroundPage();
     backgroundPage.stop();
+}
+
+function setSpeed(e) {
+    var secs = Number.parseInt(e.target.innerText);
+    var backgroundPage = browser.extension.getBackgroundPage();
+    backgroundPage.setSpeed(secs);
+    //e.target.parentNode.style.display = 'none';
 }
 
 function empty() {
