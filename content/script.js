@@ -164,14 +164,9 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
-        //console.log(response);
         return response.json();
     })
     .then(function(json) {
-      //dpr(url);
-      //dpr('getAvailDates');
-      //dpr(json);
-
         showDates(json.availableBookingDates);
 
         for (var i = 0; i < json.availableBookingDates.length; i++) {
@@ -183,7 +178,7 @@ function getAvailBookingDates(startDate, endDate, testCenter, testClass) {
             var dt = new Date(year, month-1, abd.day);
             var ymd = dt.toISOString().substring(0, 10);
 
-            dpr(ymd + ' ' + abd.description);
+            //dpr(ymd + ' ' + abd.description);
 
             if (ymd >= startDate && ymd <= endDate) {
                 getAvailBookingTimes(ymd, testCenter, testClass);
@@ -210,14 +205,9 @@ function getAvailBookingTimes(date, testCenter, testClass) {
         credentials: "same-origin"
     })
     .then(function(response) {
-        //console.log(response);
         return response.json();
     })
     .then(function(json) {
-      //dpr(url);
-      //dpr('getAvailTimes');
-      //dpr(json);
-
         if (json.availableBookingTimes.length > 0) {
             beep();
             showTimes(json.availableBookingTimes);
@@ -226,11 +216,6 @@ function getAvailBookingTimes(date, testCenter, testClass) {
             }
             hold(json.availableBookingTimes[0]);
         }
-
-        //for (var i = 0; i < json.availableBookingTimes.length; i++) {
-        //    var abt = json.availableBookingTimes[i];
-        //    console.log(date + ' ' + abt.timeslot);
-        //}
     })
     .catch(function(error) {
         // TODO: show error messaage in message window
