@@ -124,7 +124,7 @@ function getInfo() {
 function setSpeed(secs) {
     if (contentScript) {
         contentScript.speed(secs);
-        println('speed: ' + secs + secs > 1 ? ' seconds' : ' second');
+        println('speed: ' + secs);
     }
 }
 
