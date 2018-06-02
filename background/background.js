@@ -158,12 +158,12 @@ function showTimes(times) {
 
     var list = '<ul style="margin:0;">'
     for (var i = 0; i < times.length; i++) {
-        var t = times[i];
-        list += '<li>' + t.timeslot + '</li>';
+        var t = times[i].timeslot;
+        list += '<li>' + t.substr(0, 10) + ' ' + t.substr(11, 5) + '</li>';
     }
     list += '</ul>';
 
-    println(now() + list);
+    println('Found following times on ' + now() + list);
 }
 
 function now() {
