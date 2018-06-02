@@ -58,7 +58,7 @@ function handleMessage(m) {
 /**
  * sends messages to the background script
  */
-function sendMessage(m) {
+function showMessage(m) {
     backgrnd.postMessage({type: 'message', message: m});
 }
 
@@ -119,7 +119,7 @@ function query() {
 }
 
 function hold(time) {
-    sendMessage('<b>HOLD ' + time.timeslot + '</b>');
+    showMessage('<b>HOLD ' + time.timeslot + '</b>');
     holdAppointment(testCenter, testClass, time.timeslot);
 }
 
@@ -346,8 +346,8 @@ function complete(testClass, holdGuid) {
     .then(function(json) {
         dpr('<img src="data:image/png;base64,' + json.barcode + '" />');
 
-        sendMessage(json.displayId);
-        sendMessage('<img width="220" height="32" src="data:image/png;base64,' + json.barcode + '" />');
+        showMessage(json.displayId);
+        showMessage('<img width="220" height="32" src="data:image/png;base64,' + json.barcode + '" />');
         stop();
         sound();
     })
