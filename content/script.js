@@ -131,12 +131,12 @@ function getServiceId(centerName, testClass) {
         Oshawa:    { G2: 18295, G: 18382 },
         Lindsay:   { G2: 18264, G: 18373 },
         Guelph:    { G2: 18280, G: 18364 },
+        Newmarket: { G2: 18290, G: 18377 },
         PortUnion: { G2: 18297, G: 18384 },
 /*
         Barrie:    { G2: 18272, G: 18351 },
         Brampton:  { G2: 18273, G: 18353 },
         London:    { G2: 18287, G: 18374 },
-        Newmarket: { G2: 18290, G: 18377 }
 */
     };
 
@@ -384,8 +384,8 @@ function cleanPage() {
         for (var li of lis) {
             var id = li.firstElementChild.id;
 
-            // Oshawa/Lindsay/PortUnion
-            if (id == 9583 || id == 9575 || id == 9592) continue;
+            // Oshawa/Lindsay/PortUnion/Newmarket
+            if (id == 9583 || id == 9575 || id == 9592 || id == 9552) continue;
 
             li.remove();
         }
