@@ -4,7 +4,6 @@ const DEBUG = 1;
  * open ABRT page when user click browser toolbar icon
  */
 browser.browserAction.onClicked.addListener(() => {
-  //browser.tabs.create({ url: "abrt.html" });
     browser.tabs.create({
         url: browser.runtime.getURL("page/abrt.html")
     });
@@ -57,14 +56,6 @@ function handleMessage(m) {
 
     case 'times':
         showTimes(m.times);
-        break;
-
-    case 'beep':
-        beep();
-        break;
-
-    case 'sound':
-        sound();
         break;
     }
 }
@@ -173,35 +164,6 @@ function now() {
     return s.substr(0, 10) + ' ' + s.substr(11, 8);
 }
 
-function callFuncByName(functionName, context /*, args */) {
-    var args = Array.prototype.slice.call(arguments, 2);
-    var namespaces = functionName.split(".");
-    var func = namespaces.pop();
-    for(var i = 0; i < namespaces.length; i++) {
-        context = context[namespaces[i]];
-    }
-    if (context[func] == undefined || typeof(context[func]) != 'function') {
-        return;
-    }
-    return context[func].apply(context, args);
-}
-
 function print(text) { messageElement.innerHTML += text; }
 function println(text) { print(text + '<br>'); }
 function errorln(text) { println('<span style="color:red;">' + text + '</span>'); }
-
-function beep() {
-    var testClass = abrtPage.querySelector('input[name="testclass"]:checked').value;
-    if (testClass == 'G') {
-        playSound('BikeHorn.mp3');
-    } else if (testClass == 'G2') {
-        playSound('TwoTone.mp3');
-    }
-}
-
-function sound() { playSound('NokiaEpic.mp3'); }
-function playSound(file) { var audio = new Audio('/assets/' + file); audio.play(); }
-
-function test() {
-    beep();
-}
