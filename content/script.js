@@ -97,7 +97,7 @@ function getAvailDates() {
     var cells = $all('.date-cell-contents a.date-link');
 
     var dateStart = Date.parse(startDate + ' 00:00:00');
-    var dateEnd   = Date.parse(dateEnd   + ' 00:00:00');
+    var dateEnd   = Date.parse(endDate   + ' 00:00:00');
 
     var avail = false;
     var dates = [];
