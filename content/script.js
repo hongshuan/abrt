@@ -17,7 +17,7 @@ var backgrnd = browser.runtime.connect({name:"abrt-content-script"});
 backgrnd.onMessage.addListener(handleMessage);
 
 var email = "zhuyf2000@gmail.com";
-var interval = 5;
+var interval = 5000;
 var working = false;
 var licenseNum;
 var expiryDate;
@@ -83,7 +83,6 @@ function autoClick() {
 
     getAvailDates();
 
-    //var oshawa = $("a[id='9583']")
     var selectedTestCenter = $('#dtc-list-details li a.selected')
     if (selectedTestCenter) {
         clickIt(selectedTestCenter);
@@ -93,12 +92,42 @@ function autoClick() {
 }
 
 function getAvailDates() {
-/*
-    month, year: $('.calendar-header h3').textContent
-    all cells:   $all('.date-cell-contents a.date-link')
-    12th day:    cells[11].classList.contains('disabled')
-    title:       c[11].attributes["title"].value
-*/
+    //var oshawa = $("a[id='9583']")
+    var monthYear = $('.calendar-header h3').textContent;
+    var cells = $all('.date-cell-contents a.date-link');
+
+    var dateStart = Date.parse(startDate + ' 00:00:00');
+    var dateEnd   = Date.parse(dateEnd   + ' 00:00:00');
+
+    var avail = false;
+    var dates = [];
+
+    for (var i=0; i<cells.length; i++) {
+        var info = {
+            day: 0,
+            description: ""
+        };
+
+        info.day = cells[i].attributes["title"].value;
+
+        if (cells[i].classList.contains('disabled')) {
+            info.description = "FULL";
+        } else {
+            info.description = "OPEN";
+            var theDate = Date.parse(info.day + ' ' + monthYear + ' 00:00:00');
+            if (theDate >= dateStart && theDate <= dateEnd) {
+                avail = true;
+            }
+        }
+
+        dates.push(info);
+    }
+
+    showDates(dates);
+
+    if (avail) {
+        beep();
+    }
 }
 
 /**
