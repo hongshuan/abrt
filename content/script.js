@@ -64,9 +64,6 @@ function showTimes(t)   { backgrnd.postMessage({type: 'times',   times: t}); }
 /**
  * autoClick()
  */
-var working = false;
-var interval = 5000;
-
 function start() {
     if (working) {
         return;
@@ -79,22 +76,29 @@ function stop() {
     working = false;
 }
 
-/*
-month, year: document.querySelector('.calendar-header h3').textContent
-all cells:   document.querySelectorAll('.date-cell-contents a.date-link')
-12th day:    cells[11].classList.contains('disabled')
-title:       c[11].attributes["title"].value
-*/
 function autoClick() {
     if (!working) {
         return;
     }
 
-    //var oshawa = document.querySelector("a[id='9583']")
-    var testCenter = document.querySelector('#dtc-list-details li a.selected')
-    clickIt(testCenter);
+    getAvailDates();
+
+    //var oshawa = $("a[id='9583']")
+    var selectedTestCenter = $('#dtc-list-details li a.selected')
+    if (selectedTestCenter) {
+        clickIt(selectedTestCenter);
+    }
 
     setTimeout(autoClick, interval);
+}
+
+function getAvailDates() {
+/*
+    month, year: $('.calendar-header h3').textContent
+    all cells:   $all('.date-cell-contents a.date-link')
+    12th day:    cells[11].classList.contains('disabled')
+    title:       c[11].attributes["title"].value
+*/
 }
 
 /**
@@ -132,6 +136,11 @@ function beep(freq, duration, vol) {
 /**
  * helpers
  */
+function $id(id) { return document.getElementById(id) }
+function $(s)    { return document.querySelector(s) }
+function $$(s)   { return document.querySelectorAll(s) }
+function $all(s) { return document.querySelectorAll(s) }
+
 document.body.addEventListener("keyup", function(e) {
     if (e.keyCode === 27) {
         fillForm();
@@ -140,67 +149,68 @@ document.body.addEventListener("keyup", function(e) {
 });
 
 function fillForm() {
-    var e = document.getElementById("emailAddress");
+    var e = $id("emailAddress");
     if (e) {
         e.value = email + '*';
 
-        e = document.getElementById("confirmEmailAddress");
+        e = $id("confirmEmailAddress");
         if (e) e.value = email + '*';
 
-        e = document.getElementById("licenceNumber");
+        e = $id("licenceNumber");
         if (e) e.value = licenseNum + '*';
 
-        e = document.getElementById("licenceExpiryDate");
+        e = $id("licenceExpiryDate");
         if (e) e.value = expiryDate + '*';
     }
 }
 
 function cleanPage() {
-    var e = document.getElementById('dtc-map');
+    var e = $id('dtc-map');
     if (e) {
         e.remove(); // delete the map
 
-        var lis = document.querySelectorAll("#dtc-list-details ul li");
+        // Oshawa/Lindsay/PortUnion/Newmarket
+        var testCenters = [ 9583, 9575, 9592, 9552 ];
+
+        var lis = $all("#dtc-list-details ul li");
         for (var li of lis) {
             var id = li.firstElementChild.id;
-
-            // Oshawa/Lindsay/PortUnion/Newmarket
-            if (id == 9583 || id == 9575 || id == 9592 || id == 9552) continue;
-
-            li.remove();
+            if (!testCenters.includes(id)) {
+                li.remove();
+            }
         }
 
-        e = document.getElementById('dtc-list-details');
+        e = $id('dtc-list-details');
         if (e) {
             e.style.height = "300px";
             e.style.width = "300px";
         }
 
-        e = document.querySelector('#dtc-list-details .dtc_listings');
+        e = $('#dtc-list-details .dtc_listings');
         if (e) {
             e.style.height = "300px";
             e.style.width = "300px";
         }
 
-        e = document.querySelector('.transaction-number-container');
+        e = $('.transaction-number-container');
         if (e) { e.remove(); }
 
-        e = document.querySelector('.location_header');
+        e = $('.location_header');
         if (e) { e.remove(); }
 
-        e = document.getElementById('booking-location');
+        e = $id('booking-location');
         if (e) {
             e.style.position = "fixed";
             e.style.right = "0";
         }
 
-        e = document.querySelector('.dtc-filter-options');
+        e = $('.dtc-filter-options');
         if (e) { e.remove(); }
 
-        e = document.querySelector('.pageFooter');
+        e = $('.pageFooter');
         if (e) { e.remove(); }
 
-        e = document.querySelector('.booking_separator');
+        e = $('.booking_separator');
         if (e) { e.remove(); }
     }
 }
