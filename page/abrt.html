@@ -39,9 +39,10 @@
       <input class="w3-input w3-border" type="text" id="licensenum" value="">
       <input type="hidden" id="expiry" value="">
 
-      <p><label>Test Center</label></p>
-      <select class="w3-select w3-border" id="testcenter">
-      </select>
+      <p>
+        <label><input type="radio" name="testclass" value="G2" checked> G2 License</label><br>
+        <label><input type="radio" name="testclass" value="G"> G License</label>
+      </p>
 
       <p><label>Start Date</label></p>
       <input class="w3-input w3-border" type="text" id="startdate">
@@ -49,15 +50,11 @@
       <p><label>End Date</label></p>
       <input class="w3-input w3-border" type="text" id="enddate">
 
-      <p>
-        <label><input type="radio" name="testclass" value="G2" checked> G2 License</label><br>
-        <label><input type="radio" name="testclass" value="G"> G License</label>
-      </p>
-
       <p><button class="w3-button w3-block w3-blue" type="button" id="start">&#10148; Start Auto Booking</button></p>
       <p><button class="w3-button w3-block w3-blue" type="button" id="stop">&#9646; Stop Auto Booking</button></p>
-
+<!--
       <p><label><input type="checkbox" name="scanonly" value="1" checked> Alarm Only</label></p>
+-->
     </form>
   </div>
   <div class="w3-container w3-padding-16 w3-center">
@@ -89,10 +86,9 @@
       <div class="w3-dropdown-hover">
         <button class="w3-bar-item w3-button w3-blue w3-tiny">Speed</button>
         <div class="w3-dropdown-content w3-bar-block w3-border">
-          <a href="#" class="w3-bar-item w3-button speed">1 Second</a>
-          <a href="#" class="w3-bar-item w3-button speed">2 Seconds</a>
           <a href="#" class="w3-bar-item w3-button speed">5 Seconds</a>
           <a href="#" class="w3-bar-item w3-button speed">10 Seconds</a>
+          <a href="#" class="w3-bar-item w3-button speed">20 Seconds</a>
           <a href="#" class="w3-bar-item w3-button speed">30 Seconds</a>
         </div>
       </div>
@@ -169,6 +165,7 @@
 <!-- End modal -->
 
 <script src="/assets/flatpickr/flatpickr.js"></script>
+<script src="/assets/vue.min.js"></script>
 <script src="abrt.js"></script>
 
 </body>
