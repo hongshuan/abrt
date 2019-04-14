@@ -102,11 +102,9 @@ function getInfo() {
     var info = {
         licenseNum: abrtPage.getElementById("licensenum").value,
         expiry:     abrtPage.getElementById("expiry").value,
-        testCenter: abrtPage.getElementById("testcenter").value,
         startDate:  abrtPage.getElementById("startdate").value,
         endDate:    abrtPage.getElementById("enddate").value,
         testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value,
-        scanOnly:   abrtPage.querySelector('input[name="scanonly"]').checked
     };
     dpr(info);
     return info;
