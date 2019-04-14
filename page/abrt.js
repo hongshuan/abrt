@@ -158,7 +158,8 @@ function loadLicenses() {
                     <th>Action</th>
                     </tr>`;
 
-            for (var lic of value.licenses) {
+            var licenses = value.licenses.reverse();
+            for (var lic of licenses) {
                 if (lic.licnum.length != 17 || lic.expiry.length != 10) {
                     continue; // skip bad input
                 }

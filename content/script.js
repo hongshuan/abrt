@@ -199,7 +199,7 @@ function cleanPage() {
         e.remove(); // delete the map
 
         // Oshawa/Lindsay/PortUnion/Newmarket
-        var testCenters = [ 9583, 9575, 9592, 9552 ];
+        var testCenters = [ '9583', '9575', '9592', '9552' ];
 
         var lis = $all("#dtc-list-details ul li");
         for (var li of lis) {
