@@ -1,9 +1,15 @@
 const DEBUG = 1;
 
+function dpr(arg) {
+    if (DEBUG) {
+        console.log(arg);
+    }
+}
+
 /**
  * connect to the background script
  */
-var backgrnd = browser.runtime.connect({name:"port-from-cs"});
+var backgrnd = browser.runtime.connect({name:"abrt-content-script"});
 
 /**
  * listen for messages from background
@@ -18,7 +24,6 @@ var expiryDate;
 var startDate;
 var endDate;
 var testClass;
-var holdGuid;
 
 function handleMessage(m) {
     switch (m.type) {
@@ -56,12 +61,77 @@ function showMessage(m) { backgrnd.postMessage({type: 'message', message: m}); }
 function showDates(d)   { backgrnd.postMessage({type: 'dates',   dates: d}); }
 function showTimes(t)   { backgrnd.postMessage({type: 'times',   times: t}); }
 
-function dpr(arg) {
-    if (DEBUG) {
-        console.log(arg);
+/**
+ * autoClick()
+ */
+var working = false;
+var interval = 5000;
+
+function start() {
+    if (working) {
+        return;
     }
+    working = true;
+    setTimeout(autoClick, interval);
 }
 
+function stop() {
+    working = false;
+}
+
+/*
+month, year: document.querySelector('.calendar-header h3').textContent
+all cells:   document.querySelectorAll('.date-cell-contents a.date-link')
+12th day:    cells[11].classList.contains('disabled')
+title:       c[11].attributes["title"].value
+*/
+function autoClick() {
+    if (!working) {
+        return;
+    }
+
+    //var oshawa = document.querySelector("a[id='9583']")
+    var testCenter = document.querySelector('#dtc-list-details li a.selected')
+    clickIt(testCenter);
+
+    setTimeout(autoClick, interval);
+}
+
+/**
+ * simulate mouse click
+ */
+function clickIt(element) {
+    var evt = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+    });
+    element.dispatchEvent(evt);
+}
+
+/**
+ * beep()
+ */
+var audioCtx = new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
+
+function beep(freq, duration, vol) {
+    freq = freq || 400
+    duration = duration || 200
+    vol = vol || 100
+    v = audioCtx.createOscillator()
+    u = audioCtx.createGain()
+    v.connect(u)
+    v.frequency.value = freq
+    v.type = "square"
+    u.connect(audioCtx.destination)
+    u.gain.value = vol*0.01
+    v.start(audioCtx.currentTime)
+    v.stop(audioCtx.currentTime + duration*0.001)
+}
+
+/**
+ * helpers
+ */
 document.body.addEventListener("keyup", function(e) {
     if (e.keyCode === 27) {
         fillForm();
