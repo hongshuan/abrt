@@ -83,7 +83,7 @@ function autoClick() {
 
     getAvailDates();
 
-    var selectedTestCenter = $('#dtc-list-details li a.selected')
+    var selectedTestCenter = $e('#dtc-list-details li a.selected')
     if (selectedTestCenter) {
         clickIt(selectedTestCenter);
     }
@@ -92,8 +92,8 @@ function autoClick() {
 }
 
 function getAvailDates() {
-    //var oshawa = $("a[id='9583']")
-    var monthYear = $('.calendar-header h3').textContent;
+    //var oshawa = $e("a[id='9583']")
+    var monthYear = $e('.calendar-header h3').textContent;
     var cells = $all('.date-cell-contents a.date-link');
 
     var dateStart = Date.parse(startDate + ' 00:00:00');
@@ -166,7 +166,7 @@ function beep(freq, duration, vol) {
  * helpers
  */
 function $id(id) { return document.getElementById(id) }
-//function $(s)  { return document.querySelector(s) }
+function $e(s)   { return document.querySelector(s) }
 function $$(s)   { return document.querySelectorAll(s) }
 function $all(s) { return document.querySelectorAll(s) }
 
@@ -177,22 +177,6 @@ document.body.addEventListener("keyup", function(e) {
     }
 });
 
-function fillForm0() {
-    var e = $id("emailAddress");
-    if (e) {
-        e.value = email + '*';
-
-        e = $id("confirmEmailAddress");
-        if (e) e.value = email + '*';
-
-        e = $id("licenceNumber");
-        if (e) e.value = licenseNum + '*';
-
-        e = $id("licenceExpiryDate");
-        if (e) e.value = expiryDate + '*';
-    }
-}
-
 function fillForm() {
     $("#emailAddress").sendkeys(email)
     $("#confirmEmailAddress").sendkeys(email);
@@ -201,8 +185,8 @@ function fillForm() {
 }
 
 function cleanPage() {
-    var e = $id('dtc-map');
-    if (e) {
+    var e = $('#dtc-map');
+    if (e.length) {
         e.remove(); // delete the map
 
         // Oshawa/Lindsay/PortUnion/Newmarket
@@ -216,37 +200,16 @@ function cleanPage() {
             }
         }
 
-        e = $id('dtc-list-details');
-        if (e) {
-            e.style.height = "300px";
-            e.style.width = "300px";
-        }
+        $('#dtc-list-details').css({ "height": "300px", "width": "300px" });
+        $('#dtc-list-details .dtc_listings').css({ "height": "300px", "width": "300px" });
 
-        e = $('#dtc-list-details .dtc_listings');
-        if (e) {
-            e.style.height = "300px";
-            e.style.width = "300px";
-        }
+        $('.transaction-number-container').remove();
+        $('.location_header').remove();
 
-        e = $('.transaction-number-container');
-        if (e) { e.remove(); }
+        $('#booking-location').css({ "position": "fixed", "right": "0" });
 
-        e = $('.location_header');
-        if (e) { e.remove(); }
-
-        e = $id('booking-location');
-        if (e) {
-            e.style.position = "fixed";
-            e.style.right = "0";
-        }
-
-        e = $('.dtc-filter-options');
-        if (e) { e.remove(); }
-
-        e = $('.pageFooter');
-        if (e) { e.remove(); }
-
-        e = $('.booking_separator');
-        if (e) { e.remove(); }
+        $('.dtc-filter-options').remove();
+        $('.pageFooter').remove();
+        $('.booking_separator').remove();
     }
 }
