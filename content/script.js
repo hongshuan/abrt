@@ -86,6 +86,8 @@ function autoClick() {
     var selectedTestCenter = $e('#dtc-list-details li a.selected')
     if (selectedTestCenter) {
         clickIt(selectedTestCenter);
+    } else {
+        beep(440, 200, 80, "square")
     }
 
     setTimeout(autoClick, interval);
@@ -147,15 +149,21 @@ function clickIt(element) {
  */
 var audioCtx = new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
 
-function beep(freq, duration, vol) {
+
+// play(440, 200, 80, "sine")
+// play(440, 200, 80, "square")
+// play(500, 550, 50, "sine")
+
+function beep(freq, duration, vol, type) {
     freq = freq || 400
     duration = duration || 200
     vol = vol || 100
+    type = type || "square"
     v = audioCtx.createOscillator()
     u = audioCtx.createGain()
     v.connect(u)
     v.frequency.value = freq
-    v.type = "square"
+    v.type = type
     u.connect(audioCtx.destination)
     u.gain.value = vol*0.01
     v.start(audioCtx.currentTime)
