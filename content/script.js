@@ -166,7 +166,7 @@ function beep(freq, duration, vol) {
  * helpers
  */
 function $id(id) { return document.getElementById(id) }
-function $(s)    { return document.querySelector(s) }
+//function $(s)  { return document.querySelector(s) }
 function $$(s)   { return document.querySelectorAll(s) }
 function $all(s) { return document.querySelectorAll(s) }
 
@@ -177,7 +177,7 @@ document.body.addEventListener("keyup", function(e) {
     }
 });
 
-function fillForm() {
+function fillForm0() {
     var e = $id("emailAddress");
     if (e) {
         e.value = email + '*';
@@ -191,6 +191,13 @@ function fillForm() {
         e = $id("licenceExpiryDate");
         if (e) e.value = expiryDate + '*';
     }
+}
+
+function fillForm() {
+    $("#emailAddress").sendkeys(email)
+    $("#confirmEmailAddress").sendkeys(email);
+    $("#licenceNumber").sendkeys(licenseNum);
+    $("#licenceExpiryDate").sendkeys(expiryDate);
 }
 
 function cleanPage() {
