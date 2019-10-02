@@ -28,7 +28,10 @@
             "*://drivetest.ca/book-a-road-test/booking.html"
         ],
         "js": [
-            "content/script.js"
+            "content/script.js",
+            "assets/jquery.min.js",
+            "assets/jquery.sendkeys.js",
+            "assets/bililiteRange.js"
         ],
         "run_at": "document_end"
     }],
