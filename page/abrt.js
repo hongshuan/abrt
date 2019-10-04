@@ -70,6 +70,10 @@ Vue.component('mainpanel', {
         text() {
             return this.$root.messages.join("<br>")
         }
+    },
+    attached() {
+        this.$root.progressbar = document.getElementById('progressbar');
+        this.$root.calendarbox = document.getElementById('calendarbox');
     }
 })
 
@@ -165,6 +169,8 @@ var vm = new Vue({
     data: {
         email: "",
         speed: "",
+        progressbar: '',
+        calendarbox: '',
         messages: [],
         driver: { name: "", licnum: "", expiry: "", level: "" },
         licenses: [
