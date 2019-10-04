@@ -45,6 +45,14 @@ Vue.component('sidebar', {
         flatpickr("#date1", {});
         flatpickr("#date2", {});
     },
+    watch: {
+        startdate: function(val) {
+            this.$root.startdate = val;
+        },
+        enddate: function(val) {
+            this.$root.enddate = val;
+        }
+    },
     computed: { }
 })
 
@@ -169,6 +177,8 @@ var vm = new Vue({
     data: {
         email: "",
         speed: "",
+        startdate: "",
+        enddate: "",
         progressbar: '',
         calendarbox: '',
         messages: [],
@@ -221,7 +231,7 @@ var vm = new Vue({
         this.loadData();
         if (typeof(browser) != "undefined") {
             var backgroundPage = browser.extension.getBackgroundPage();
-            backgroundPage.attach(document);
+            backgroundPage.attach(document, this.$root.$data);
         }
     },
     watch: {

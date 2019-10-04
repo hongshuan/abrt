@@ -16,7 +16,7 @@ var contentScript = null;
 
 browser.runtime.onConnect.addListener(function(port) {
     contentScript = new ContentScript(port);
-    contentScript.info(getInfo());
+    contentScript.init();
 
     port.onMessage.addListener(handleMessage);
     port.onDisconnect.addListener((port) => { contentScript = null; });
@@ -27,12 +27,14 @@ class ContentScript {
         this.port = port;
     }
 
-    info(info) {
-        this.port.postMessage({type: "info", info: info});
+    init() {
+        var info = getInfo();
+        this.port.postMessage({type: "init", info });
     }
 
-    start(info) {
-        this.port.postMessage({type: "start", info: info});
+    start() {
+        var info = getInfo();
+        this.port.postMessage({type: "start", info });
     }
 
     stop() {
@@ -62,27 +64,37 @@ function handleMessage(m) {
 
 var abrtPage;
 var vuedata;
-var calendarBox;
-var progressBar;
 var counter = 0;
 
-function attach(page) {
+function attach(page, data) {
     abrtPage = page;
-    calendarBox = abrtPage.getElementById("calendarbox");
-    progressBar = abrtPage.getElementById("progressbar");
+    vuedata = data;
+}
+
+function getInfo() {
+    var info = {
+        email:      vuedata.email,
+        licenseNum: vuedata.driver.licnum,
+        expiry:     vuedata.driver.expiry,
+        startDate:  vuedata.startdate,
+        endDate:    vuedata.enddate,
+        testLevel:  vuedata.level,
+    };
+    return info;
 }
 
 function start(data) {
     vuedata = data;
 
     if (contentScript) {
-        contentScript.start(data);
+        contentScript.start();
         println('start');
     } else {
         errorln('open drivetest.ca first');
     }
 
     var calendar = new Calendar();
+    var calendarBox = abrtPage.getElementById("calendarbox");
     calendarBox.innerHTML = calendar.getHtml(data.startdate);
 }
 
@@ -112,13 +124,14 @@ function dpr(arg) {
 function showDates(dates) {
     //dpr(dates);
 
+    var progressBar = abrtPage.getElementById("progressbar");
     progressBar.style.width = ++counter%100 + '%';
     progressBar.innerText = counter.toString();
 
     for (var i = 0; i < dates.length; i++) {
         var d = dates[i];
         var id = 'day' + d.day;
-        var el = calendarBox.getElementById(id);
+        var el = abrtPage.getElementById(id);
         el.classList.remove('some', 'most', 'open', 'unavailable');
         el.classList.add(d.description.toLowerCase());
       //el.innerText = d.description;
@@ -128,6 +141,7 @@ function showDates(dates) {
 function showTimes(times) {
     //dpr(times);
 
+    //var progressBar = abrtPage.getElementById("progressbar");
     //progressBar.style.width = ++counter%100 + '%';
     //progressBar.innerText = counter.toString();
 

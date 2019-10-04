@@ -23,24 +23,26 @@ var licenseNum;
 var expiryDate;
 var startDate;
 var endDate;
-var testClass;
+var testLevel;
 
 function handleMessage(m) {
     switch (m.type) {
-    case 'info':
+    case 'init':
+      //email      = m.info.email;
         licenseNum = m.info.licenseNum;
         expiryDate = m.info.expiry;
         startDate  = m.info.startDate;
         endDate    = m.info.endDate;
-        testClass  = m.info.testClass;
+        testLevel  = m.info.testLevel;
         break;
 
     case 'start':
+      //email      = m.info.email;
         licenseNum = m.info.licenseNum;
         expiryDate = m.info.expiry;
         startDate  = m.info.startDate;
         endDate    = m.info.endDate;
-        testClass  = m.info.testClass;
+        testLevel  = m.info.testLevel;
         start();
         break;
 
@@ -83,7 +85,7 @@ function autoClick() {
 
     getAvailDates();
 
-    var selectedTestCenter = $e('#dtc-list-details li a.selected')
+    var selectedTestCenter = $e('#dtc-list-details li a.selected');
     if (selectedTestCenter) {
         clickIt(selectedTestCenter);
     } else {
@@ -148,7 +150,6 @@ function clickIt(element) {
  * beep()
  */
 var audioCtx = new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
-
 
 // play(440, 200, 80, "sine")
 // play(440, 200, 80, "square")
