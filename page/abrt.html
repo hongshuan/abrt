@@ -4,13 +4,13 @@
 <meta charset=utf-8>
 <title>ABRT</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src *; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+<meta http-equiv="Content-Security-Policy" content="default-src *; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
 <link rel="icon" href="/assets/icon-48.png" sizes="32x32" >
 <link rel="stylesheet" type="text/css" href="/assets/w3.css">
 <link rel="stylesheet" type="text/css" href="/assets/flatpickr/flatpickr.css">
 <link rel="stylesheet" type="text/css" href="/assets/flatpickr/themes/material_blue.css">
 <script src="/assets/flatpickr/flatpickr.js"></script>
-<script src="/assets/vue.min.js"></script>
+<script src="/assets/vue-1.0.28-csp.min.js"></script>
 <style>
   html, body, #app { height:100%; }
   p { margin-bottom: 0; }
@@ -41,9 +41,7 @@
   </div>
 </body>
 
-<!-- ---------------------------------------------------------{
-    Sidebar
------------------------------------------------------------- -->
+<!-- Sidebar { -->
 <template id="sidebar-template">
   <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="width:260px">
     <div class="w3-container _w3-padding-16">
@@ -59,10 +57,10 @@
         </p>
 
         <p><label>Start Date</label></p>
-        <input class="w3-input w3-border" type="text" readonly v-model="startdate" ref="date1">
+        <input class="w3-input w3-border" type="text" readonly v-model="startdate" id="date1">
 
         <p><label>End Date</label></p>
-        <input class="w3-input w3-border" type="text" readonly v-model="enddate" ref="date2">
+        <input class="w3-input w3-border" type="text" readonly v-model="enddate" id="date2">
 
         <p class="w3-center">
           <button class="w3-button w3-blue w3-margin-right" type="button" @click="start()">&#10148; Start</button>
@@ -83,57 +81,9 @@
     <EditorModal v-if="showEditorModal" @close="showEditorModal=false"></DataModal>
   </nav>
 </template>
-
-<script>
-Vue.component('sidebar', {
-    template: '#sidebar-template',
-    data() {
-        return {
-            showInputModal: false,
-            showSelectModal: false,
-            showEditorModal: false,
-            selected: { name: "", licnum: "", expiry: "", level:  "", },
-            startdate: "",
-            enddate: ""
-        }
-    },
-    methods: {
-        start: function() {
-            //console.log(this.startdate, this.enddate);
-            console.log(this.$root.$data);
-            if (this.startdate.length == 0 || this.enddate.length == 0) {
-                return;
-            }
-            if (typeof(browser) != "undefined") {
-                var backgroundPage = browser.extension.getBackgroundPage();
-                // console.log(backgroundPage);
-                backgroundPage.start(this.$root.$data);
-            }
-        },
-        stop: function() {
-            if (typeof(browser) != "undefined") {
-                var backgroundPage = browser.extension.getBackgroundPage();
-                backgroundPage.stop();
-            }
-        },
-        onSelect: function (driver) {
-            this.selected = Object.assign({}, driver);
-            this.$root.driver = Object.assign({}, driver);
-            this.showSelectModal = false;
-        }
-    },
-    mounted() {
-        flatpickr(this.$refs["date1"], {});
-        flatpickr(this.$refs["date2"], {});
-    },
-    computed: { }
-})
-</script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Main Pannel
------------------------------------------------------------- -->
+<!-- Main Pannel { -->
 <template id="main-panel-template">
 <div class="w3-main w3-white" style="margin-left:260px;height:100%">
   <div class="w3-container">
@@ -170,38 +120,9 @@ Vue.component('sidebar', {
   </div>
 </div>
 </template>
-
-<script>
-Vue.component('mainpanel', {
-    template: '#main-panel-template',
-    data() {
-        return {
-        }
-    },
-    methods: {
-        speed: function(s) {
-            this.$root.speed = s;
-            this.$root.messages.push("Speed: " + s);
-
-            var backgroundPage = browser.extension.getBackgroundPage();
-            backgroundPage.setSpeed(s);
-        },
-        clear: function() {
-            this.$root.messages = [];
-        }
-    },
-    computed: {
-        text() {
-            return this.$root.messages.join("<br>")
-        }
-    }
-})
-</script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Input Modal
------------------------------------------------------------- -->
+<!-- Input Modal { -->
 <template id="input-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:400px; height:420px;">
@@ -234,37 +155,9 @@ Vue.component('mainpanel', {
     </div>
   </div>
 </template>
-
-<script>
-Vue.component('inputmodal', {
-    template: '#input-modal-template',
-    data() {
-        return {
-            name: "",
-            licnum: "",
-            expiry: "",
-            level: "G2"
-        }
-    },
-    methods: {
-        save: function() {
-            var name = this.name,
-            licnum = this.licnum,
-            expiry = this.expiry,
-            level = this.level;
-            if (name.length > 4 && licnum.length == 17 && expiry.length == 10) {
-                this.$root.licenses.unshift({name, licnum, expiry, level});
-                this.$emit('close')
-            }
-        }
-    },
-})
-</script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Select Modal
------------------------------------------------------------- -->
+<!-- Select Modal { -->
 <template id="select-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:640px; height:480px;">
@@ -302,31 +195,9 @@ Vue.component('inputmodal', {
     </div>
   </div>
 </template>
-
-<script>
-Vue.component('selectmodal', {
-    template: '#select-modal-template',
-    data() {
-        return {
-            search: "",
-            licenses: this.$root.licenses
-        }
-    },
-    methods: { },
-    computed: {
-        filteredList() {
-            return this.licenses.filter(lic => {
-                return lic.name.toLowerCase().includes(this.search.toLowerCase())
-            })
-        }
-    }
-})
-</script>
 <!-- } -->
 
-<!-- ---------------------------------------------------------{
-    Editor Modal
------------------------------------------------------------- -->
+<!-- Editor Modal { -->
 <template id="editor-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:640px; height:500px; font-family:consolas;">
@@ -346,125 +217,7 @@ Vue.component('selectmodal', {
     </div>
   </div>
 </template>
-
-<script>
-Vue.component('editormodal', {
-    template: '#editor-modal-template',
-    data() {
-        return {
-            text: this.csvtext()
-        }
-    },
-    methods: {
-        csvtext() {
-            var arr = this.$root.licenses.map((lic) => {
-                return lic.licnum + ",  " + lic.expiry + ",  " + (lic.level+ ",").padEnd(5, ' ') + lic.name;
-            })
-            if (this.$root.email) arr.unshift(this.$root.email);
-            return arr.join("\n");
-        },
-        save() {
-            var lines = this.text.split("\n");
-            if (this.text.trim().length == 0) return;
-
-            if (lines[0].includes('@')) {
-                this.$root.email = lines[0];
-                lines = lines.slice(1);
-            }
-
-            var licenses = [];
-            for (var line of lines) {
-                var parts = line.split(",");
-                if (parts.length != 4) continue;
-
-                var licnum = parts[0].trim().toUpperCase();
-                var expiry = parts[1].trim().toUpperCase();
-                var level = parts[2].trim().toUpperCase();
-                var name = camelize(parts[3].trim().toLowerCase());
-
-                licenses.push({name, licnum, expiry, level});
-            }
-
-            if (licenses.length > 0) this.$root.licenses = licenses;
-
-            this.$emit('close')
-        }
-    },
-    computed: { }
-})
-</script>
 <!-- } -->
 
-<script>
-function camelize(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-        return word.toUpperCase();
-    });
-}
-
-var vm = new Vue({
-    el: '#app',
-    data: {
-        email: "",
-        speed: "",
-        messages: [],
-        driver: { name: "", licnum: "", expiry: "", level: "" },
-        licenses: [
-            //*
-            { name: "Dai Yibing",   licnum: "D0175-79008-25604", expiry: "2021/11/05", level: "G2" },
-            { name: "Li Yi",        licnum: "L4001-79009-35107", expiry: "2018/08/15", level: "G" },
-            { name: "Wong Bryan",   licnum: "W6401-10299-60512", expiry: "2018/08/27", level: "G" },
-            { name: "Zheng Huihui", licnum: "Z3351-34709-15805", expiry: "2020/11/17", level: "G" },
-            //*/
-        ]
-    },
-    methods: {
-        loadData: function () {
-            if (typeof(browser) != "undefined") {
-                browser.storage.local.get().then(
-                    function(data) {
-                        if (!data.licenses) {
-                            data.email = "";
-                            data.licenses = [];
-                        }
-                        this.licenses = data.licenses;
-                        this.email = data.email;
-                    },
-                    function() { }
-                );
-            } else {
-                var data = JSON.parse(localStorage.getItem("abrt"));
-                this.licenses = data.licenses;
-                this.email = data.email;
-            }
-        },
-        saveData: function() {
-            if (typeof(browser) != "undefined") {
-                var data = {};
-                data.licenses = this.licenses;
-                data.email = this.email;
-                browser.storage.local.set(data);
-            } else {
-                localStorage.setItem("abrt", JSON.stringify({ email: this.email, licenses: this.licenses }));
-            }
-        }
-    },
-    mounted() {
-        this.loadData();
-        if (typeof(browser) != "undefined") {
-            var backgroundPage = browser.extension.getBackgroundPage();
-            backgroundPage.attach(document);
-        }
-    },
-    watch: {
-        licenses: function (val) {
-            this.saveData();
-        },
-        email: function (val) {
-            this.saveData();
-        }
-    }
-})
-</script>
-
+<script src="abrt.js"></script>
 </html>
