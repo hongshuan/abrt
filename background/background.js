@@ -61,31 +61,29 @@ function handleMessage(m) {
 }
 
 var abrtPage;
-var outputElement;
-var messageElement;
+var vuedata;
+var calendarBox;
 var progressBar;
 var counter = 0;
 
 function attach(page) {
     abrtPage = page;
-
-    outputElement  = abrtPage.getElementById("output");
-    messageElement = abrtPage.getElementById("messages");
-    progressBar    = abrtPage.getElementById("progressbar");
+    calendarBox = abrtPage.getElementById("calendarbox");
+    progressBar = abrtPage.getElementById("progressbar");
 }
 
-function start() {
-    var info = getInfo();
+function start(data) {
+    vuedata = data;
 
     if (contentScript) {
-        contentScript.start(info);
+        contentScript.start(data);
         println('start');
     } else {
         errorln('open drivetest.ca first');
     }
 
     var calendar = new Calendar();
-    outputElement.innerHTML = calendar.getHtml(info.startDate);
+    calendarBox.innerHTML = calendar.getHtml(data.startdate);
 }
 
 function stop() {
@@ -96,18 +94,6 @@ function stop() {
         errorln('drivetest.ca is not open');
     }
     // counter = 0;
-}
-
-function getInfo() {
-    var info = {
-        licenseNum: abrtPage.getElementById("licensenum").value,
-        expiry:     abrtPage.getElementById("expiry").value,
-        startDate:  abrtPage.getElementById("startdate").value,
-        endDate:    abrtPage.getElementById("enddate").value,
-        testClass:  abrtPage.querySelector('input[name="testclass"]:checked').value,
-    };
-    dpr(info);
-    return info;
 }
 
 function setSpeed(secs) {
@@ -132,7 +118,7 @@ function showDates(dates) {
     for (var i = 0; i < dates.length; i++) {
         var d = dates[i];
         var id = 'day' + d.day;
-        var el = abrtPage.getElementById(id);
+        var el = calendarBox.getElementById(id);
         el.classList.remove('some', 'most', 'open', 'unavailable');
         el.classList.add(d.description.toLowerCase());
       //el.innerText = d.description;
@@ -162,6 +148,5 @@ function now() {
     return s.substr(0, 10) + ' ' + s.substr(11, 8);
 }
 
-function print(text) { messageElement.innerHTML += text; }
-function println(text) { print(text + '<br>'); }
+function println(text) { vuedata.messages.push(text); }
 function errorln(text) { println('<span style="color:red;">' + text + '</span>'); }
