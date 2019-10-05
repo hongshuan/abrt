@@ -82,9 +82,9 @@ function autoClick() {
 
     getAvailDates();
 
-    var selectedTestCenter = $e('#dtc-list-details li a.selected');
-    if (selectedTestCenter) {
-        clickIt(selectedTestCenter);
+    var selectedTestCenter = $('#dtc-list-details li a.selected');
+    if (selectedTestCenter.length > 0) {
+        clickIt(selectedTestCenter[0]);
     } else {
         beep(440, 200, 80, "square")
     }
@@ -93,9 +93,8 @@ function autoClick() {
 }
 
 function getAvailDates() {
-    //var oshawa = $e("a[id='9583']")
-    var monthYear = $e('.calendar-header h3').textContent;
-    var cells = $all('.date-cell-contents a.date-link');
+    //var oshawa = $("a[id='9583']")
+    var monthYear = $('.calendar-header h3').text();
 
     var dateStart = Date.parse(startDate + ' 00:00:00');
     var dateEnd   = Date.parse(endDate   + ' 00:00:00');
@@ -103,15 +102,12 @@ function getAvailDates() {
     var avail = false;
     var dates = [];
 
-    for (var i=0; i<cells.length; i++) {
-        var info = {
-            day: 0,
-            description: ""
-        };
+    $(".date-cell-contents a.date-link").each(function (index, value) {
+        var info = { day: 0, description: "" };
 
-        info.day = cells[i].attributes["title"].value;
+        info.day = $(this).attr('title');
 
-        if (cells[i].classList.contains('disabled')) {
+        if ($(this).hasClass('disabled')) {
             info.description = "FULL";
         } else {
             info.description = "OPEN";
@@ -122,7 +118,7 @@ function getAvailDates() {
         }
 
         dates.push(info);
-    }
+    })
 
     showDates(dates);
 
@@ -169,11 +165,8 @@ function beep(freq, duration, vol, type) {
 }
 
 /**
- * helpers
+ * Magic ESC key
  */
-function $e(s)   { return document.querySelector(s) }
-function $all(s) { return document.querySelectorAll(s) }
-
 document.body.addEventListener("keyup", function(e) {
     if (e.keyCode === 27) {
         fillForm();
