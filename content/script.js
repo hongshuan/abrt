@@ -196,16 +196,15 @@ function cleanPage() {
         // Oshawa/Lindsay/PortUnion/Newmarket
         var testCenters = [ '9583', '9575', '9592', '9552' ];
 
-        var lis = $all("#dtc-list-details ul li");
-        for (var li of lis) {
-            var id = li.firstElementChild.id;
+        $("#dtc-list-details ul li").each(function (index, value) {
+            var id = $(this).attr('id');
             if (!testCenters.includes(id)) {
-                li.remove();
+                $(this).remove();
             }
-        }
+        })
 
-        $('#dtc-list-details').css({ "height": "300px", "width": "300px" });
-        $('#dtc-list-details .dtc_listings').css({ "height": "300px", "width": "300px" });
+        $('#dtc-list-details').css({ "height": "400px", "width": "300px" });
+        $('#dtc-list-details .dtc_listings').css({ "height": "400px", "width": "300px" });
 
         $('.transaction-number-container').remove();
         $('.location_header').remove();
