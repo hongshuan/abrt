@@ -10,35 +10,36 @@ var backgrnd = browser.runtime.connect({name:"abrt-content-script"});
 /**
  * listen for messages from background
  */
-backgrnd.onMessage.addListener(handleMessage);
+backgrnd.onMessage.addListener(handleBackgroundMessage);
 
-var email = "zhuyf2000@gmail.com";
-var interval = 5000;
 var working = false;
+var email = "zhuyf2000@gmail.com";
 var licenseNum;
 var expiryDate;
+var testLevel;
 var startDate;
 var endDate;
-var testLevel;
+var interval = 5000;
 
-function handleMessage(m) {
+function getInfo(m) {
+    if (m.info.email) {
+        email = m.info.email;
+    }
+    licenseNum = m.info.licenseNum;
+    expiryDate = m.info.expiry;
+    startDate  = m.info.startDate;
+    endDate    = m.info.endDate;
+    testLevel  = m.info.testLevel;
+}
+
+function handleBackgroundMessage(m) {
     switch (m.type) {
     case 'init':
-      //email      = m.info.email;
-        licenseNum = m.info.licenseNum;
-        expiryDate = m.info.expiry;
-        startDate  = m.info.startDate;
-        endDate    = m.info.endDate;
-        testLevel  = m.info.testLevel;
+        getInfo(m);
         break;
 
     case 'start':
-      //email      = m.info.email;
-        licenseNum = m.info.licenseNum;
-        expiryDate = m.info.expiry;
-        startDate  = m.info.startDate;
-        endDate    = m.info.endDate;
-        testLevel  = m.info.testLevel;
+        getInfo(m);
         start();
         break;
 
@@ -170,9 +171,7 @@ function beep(freq, duration, vol, type) {
 /**
  * helpers
  */
-function $id(id) { return document.getElementById(id) }
 function $e(s)   { return document.querySelector(s) }
-function $$(s)   { return document.querySelectorAll(s) }
 function $all(s) { return document.querySelectorAll(s) }
 
 document.body.addEventListener("keyup", function(e) {
