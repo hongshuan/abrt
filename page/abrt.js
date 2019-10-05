@@ -60,7 +60,7 @@ Vue.component('mainpanel', {
     methods: {
         speed: function(s) {
             this.$root.speed = s;
-            this.$root.messages.push("Speed: " + s);
+          //this.$root.messages.push("Speed: " + s);
 
             if (typeof(browser) != "undefined") {
                 var backgroundPage = browser.extension.getBackgroundPage();

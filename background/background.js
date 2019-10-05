@@ -1,5 +1,7 @@
 const DEBUG = 1;
 
+var dpr = DEBUG ? console.log : ()=>{};
+
 /**
  * open ABRT page when user click browser toolbar icon
  */
@@ -113,12 +115,8 @@ function setSpeed(secs) {
     if (contentScript) {
         contentScript.speed(secs);
         println('speed: ' + secs);
-    }
-}
-
-function dpr(arg) {
-    if (DEBUG) {
-        console.log(arg);
+    } else {
+        errorln('drivetest.ca is not open');
     }
 }
 

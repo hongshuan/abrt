@@ -1,10 +1,6 @@
 const DEBUG = 1;
 
-function dpr(arg) {
-    if (DEBUG) {
-        console.log(arg);
-    }
-}
+var dpr = DEBUG ? console.log : ()=>{};
 
 /**
  * connect to the background script
