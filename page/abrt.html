@@ -129,14 +129,14 @@
 <!-- Input Modal { -->
 <template id="input-modal-template">
   <div class="w3-modal">
-    <div class="w3-modal-content w3-card-4" style="width:400px; height:420px;">
-      <header class="w3-container w3-blue">
-        <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
-        <h3 style="margin:0">New Driver License</h3>
+    <div class="w3-modal-content w3-card-4" style="width:400px; height:410px;">
+      <header class="w3-padding w3-blue">
+        <span class="w3-button w3-blue w3-display-topright" @click="$emit('close')">&times;</span>
+        <span><b>New Driver License</b></span>
       </header>
 
       <div class="w3-container">
-        <h3>Input Driver License</h3>
+        <h4>Input Driver License</h4>
         <div class="w3-section">
           <label>Driver Name</label>
           <input class="w3-input w3-border w3-margin-bottom" type="text" v-model="name">
@@ -165,9 +165,9 @@
 <template id="select-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:640px; height:480px;">
-      <header class="w3-container w3-blue">
-        <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
-        <h3 style="margin:0">Select Driver</h3>
+      <header class="w3-padding w3-blue">
+        <span class="w3-button w3-blue w3-display-topright" @click="$emit('close')">&times;</span>
+        <span><b>Select Driver</b></span>
       </header>
 
       <div class="w3-container">
@@ -205,9 +205,9 @@
 <template id="editor-modal-template">
   <div class="w3-modal">
     <div class="w3-modal-content w3-card-4" style="width:640px; height:500px; font-family:consolas;">
-      <header class="w3-container w3-blue">
-        <span class="w3-button w3-blue w3-small w3-display-topright" @click="$emit('close')">&times;</span>
-        <h3 style="margin:0">Manage Licenses</h3>
+      <header class="w3-padding w3-blue">
+        <span class="w3-button w3-blue w3-display-topright" @click="$emit('close')">&times;</span>
+        <span><b>Manage Licenses</b></span>
       </header>
 
       <div class="w3-container">
