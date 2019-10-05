@@ -19,7 +19,7 @@ Vue.component('sidebar', {
     methods: {
         start: function() {
             //console.log(this.startdate, this.enddate);
-            console.log(this.$root.$data);
+            //console.log(this.$root.$data);
             if (this.startdate.length == 0 || this.enddate.length == 0) {
                 return;
             }
@@ -52,23 +52,20 @@ Vue.component('sidebar', {
         enddate: function(val) {
             this.$root.enddate = val;
         }
-    },
-    computed: { }
+    }
 })
 
 Vue.component('mainpanel', {
     template: '#main-panel-template',
-    data() {
-        return {
-        }
-    },
     methods: {
         speed: function(s) {
             this.$root.speed = s;
             this.$root.messages.push("Speed: " + s);
 
-            var backgroundPage = browser.extension.getBackgroundPage();
-            backgroundPage.setSpeed(s);
+            if (typeof(browser) != "undefined") {
+                var backgroundPage = browser.extension.getBackgroundPage();
+                backgroundPage.setSpeed(s);
+            }
         },
         clear: function() {
             this.$root.messages = [];
@@ -78,7 +75,7 @@ Vue.component('mainpanel', {
         text() {
             return this.$root.messages.join("<br>")
         }
-    },
+    }
 })
 
 Vue.component('inputmodal', {
@@ -93,10 +90,10 @@ Vue.component('inputmodal', {
     },
     methods: {
         save: function() {
-            var name = this.name,
-            licnum = this.licnum,
-            expiry = this.expiry,
-            level = this.level;
+            var name = camelize(this.name),
+                licnum = this.licnum.toUpperCase(),
+                expiry = this.expiry,
+                level = this.level;
             if (name.length > 4 && licnum.length == 17 && expiry.length == 10) {
                 this.$root.licenses.unshift({name, licnum, expiry, level});
                 this.$emit('close')
@@ -164,8 +161,7 @@ Vue.component('editormodal', {
 
             this.$emit('close')
         }
-    },
-    computed: { }
+    }
 })
 
 var vm = new Vue({
@@ -189,6 +185,7 @@ var vm = new Vue({
     methods: {
         loadData: function () {
             if (typeof(browser) != "undefined") {
+                console.log('Load data from browser.storage.local');
                 browser.storage.local.get().then(
                     function(data) {
                         if (!data.licenses) {
@@ -197,15 +194,15 @@ var vm = new Vue({
                         }
                         this.licenses = data.licenses;
                         this.email = data.email;
+                        console.log(this.licenses);
                     },
                     function() { }
                 );
-                console.log('Load data from browser.storage.local');
             } else {
                 var data = JSON.parse(localStorage.getItem("abrt"));
                 this.licenses = data.licenses;
                 this.email = data.email;
-                console.log('Load data from localStorage');
+                console.log('Load data from localStorage', this.licenses);
             }
         },
         saveData: function() {
