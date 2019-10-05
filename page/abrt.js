@@ -79,10 +79,6 @@ Vue.component('mainpanel', {
             return this.$root.messages.join("<br>")
         }
     },
-    attached() {
-        this.$root.progressbar = document.getElementById('progressbar');
-        this.$root.calendarbox = document.getElementById('calendarbox');
-    }
 })
 
 Vue.component('inputmodal', {
@@ -179,8 +175,6 @@ var vm = new Vue({
         speed: "",
         startdate: "",
         enddate: "",
-        progressbar: '',
-        calendarbox: '',
         messages: [],
         driver: { name: "", licnum: "", expiry: "", level: "" },
         licenses: [

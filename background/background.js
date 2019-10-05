@@ -91,6 +91,7 @@ function start(data) {
         println('start');
     } else {
         errorln('open drivetest.ca first');
+        return;
     }
 
     var calendar = new Calendar();
