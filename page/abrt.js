@@ -174,7 +174,7 @@ var vm = new Vue({
         messages: [],
         driver: { name: "", licnum: "", expiry: "", level: "" },
         licenses: [
-            //*
+            /*
             { name: "Dai Yibing",   licnum: "D0175-79008-25604", expiry: "2021/11/05", level: "G2" },
             { name: "Li Yi",        licnum: "L4001-79009-35107", expiry: "2018/08/15", level: "G" },
             { name: "Wong Bryan",   licnum: "W6401-10299-60512", expiry: "2018/08/27", level: "G" },
@@ -187,14 +187,19 @@ var vm = new Vue({
             if (typeof(browser) != "undefined") {
                 console.log('Load data from browser.storage.local');
                 browser.storage.local.get().then(
-                    function(data) {
-                        if (!data.licenses) {
+                    (data) => { // arrow function is right way
+                        console.log(data);
+                        if (data.licenses.length == 0) {
                             data.email = "";
                             data.licenses = [];
+                            return;
                         }
                         this.licenses = data.licenses;
                         this.email = data.email;
-                        console.log(this.licenses);
+
+                        // if arrow function not used, must do like this
+                        // vm.licenses = data.licenses;
+                        // vm.email = data.email;
                     },
                     function() { }
                 );
@@ -206,14 +211,16 @@ var vm = new Vue({
             }
         },
         saveData: function() {
+            var data = {};
+
+            data.licenses = JSON.parse(JSON.stringify(this.licenses));
+            data.email = this.email;
+
             if (typeof(browser) != "undefined") {
-                var data = {};
-                data.licenses = this.licenses;
-                data.email = this.email;
                 browser.storage.local.set(data);
                 console.log('Save data to browser.storage.local');
             } else {
-                localStorage.setItem("abrt", JSON.stringify({ email: this.email, licenses: this.licenses }));
+                localStorage.setItem("abrt", JSON.stringify(data));
                 console.log('Save data to localStorage');
             }
         }
